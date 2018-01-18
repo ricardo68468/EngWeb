@@ -15,7 +15,7 @@ app.use(passport.session());
 
 //Base de Dados
 var mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost:27017/digitalme', {useMongoClient: true})
+mongoose.connect('mongodb://geral:geral@ds015636.mlab.com:15636/digitalme', {useMongoClient: true})
 mongoose.Promise = global.Promise
 
 // view engine setup
