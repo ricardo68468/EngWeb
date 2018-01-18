@@ -17,58 +17,58 @@ html
 			div(class="w3-display-container" style="margin-left: 200px")
 				form(class="w3-display-topleft" action="/signup" method="POST") 
 					h3 Criar uma nova conta
-					//fieldset
-					//legend Informações Pessoais
-					//lable(for="name") Nome: 
-					//lable(style="color: red") *
-					//input(type="text", name="name", class="w3-input w3-border", required, autofocus)
-					//br
-					//lable(for="username") Email: 
-					//lable(style="color: red") *
-					//input(type="text", name="username", class="w3-input w3-border", required)
-					//br
-					//lable(for="curso") Password: 
-					//lable(style="color: red") *
-					//input(type="password", name="password", class="w3-input w3-border", required)
+					fieldset
+						legend Informações Pessoais
+						lable(for="name") Nome: 
+						lable(style="color: red") *
+						input(type="text", name="name", class="w3-input w3-border", required, autofocus)
+						br
+						lable(for="username") Email: 
+						lable(style="color: red") *
+						input(type="email", name="email", class="w3-input w3-border", required)
+						br
+						lable(for="password") Password: 
+						lable(style="color: red") *
+						input(type="password", name="password", class="w3-input w3-border", required)
 
-					input(type='text', name='name', class='form-control', placeholder='Name',required, autofocus)
-					input(type='password', name='password', class='form-control nomargin', placeholder='Password', required)
-					input(type='email', name='email', class='form-control', placeholder='Email',required)
-					//br
-					//lable(for="instituicao") Confirme a Password: 
-					//lable(style="color: red") *
-					//input(type="password" name="password2" id="password2" class="w3-input w3-border" required)
-					//br
-					//lable(for="data") Data de nascimento:
-					//input(type="date" name="data" id="data" class="w3-input w3-border")
-					//br
-					//lable Género:
-					//br
-					//lable(for="genero") Masculino
-					//input(type="radio" name="genero" id="masculino" class="w3-radio w3-border")
-					//br
-					//lable(for="genero") Feminino 
-					//input(type="radio" name="genero" id="feminino" class="w3-radio w3-border")
-					//br
-					//lable(for="genero") Outro 
-					//input(type="radio" name="genero" id="outro" class="w3-radio w3-border")
-					//br
-					//br
-					//lable(for="fich") Adicionar Foto de Perfil:
-					//input(type="file" name="fich" id="foto" class="w3-input w3-border")
-					//br
-					//p(style="color: red") * - Preenchimento Obrigatório
-					button(class='btn btn-lg btn-primary btn-block', type='submit') Register
-					span.clearfix
+						//input(type='text', name='name', class='form-control', placeholder='Name',required, autofocus)
+						//input(type='password', name='password', class='form-control nomargin', placeholder='Password', required)
+						//input(type='email', name='email', class='form-control', placeholder='Email',required)
+						br
+						lable(for="instituicao") Confirme a Password: 
+						lable(style="color: red") *
+						input(type="password" name="password2" id="password2" class="w3-input w3-border" required)
+						br
+						lable(for="data_nasc") Data de nascimento:
+						input(type="date" name="data_nasc" id="data_nasc" class="w3-input w3-border")
+						br
+						lable Género:
+						br
+						lable(for="masculino") Masculino
+						input(type="radio" name="genero" id="masculino" class="w3-radio w3-border")
+						br
+						lable(for="feminino") Feminino 
+						input(type="radio" name="genero" id="feminino" class="w3-radio w3-border")
+						br
+						lable(for="outro") Outro 
+						input(type="radio" name="genero" id="outro" class="w3-radio w3-border")
+						br
+						br
+						lable(for="foto") Adicionar Foto de Perfil:
+						input(type="file" name="fich" id="foto" class="w3-input w3-border")
+						br
+						p(style="color: red") * - Preenchimento Obrigatório
+						button(class='btn btn-lg btn-primary btn-block', type='submit') Registar
+						span.clearfix
 
-			//div(class="w3-display-container" width="150%" style="margin-right: 200px")
-			//	form(class="w3-display-topright" action="/login" method="POST" enctype="multipart/form-data")
-			//		h3 Login
-			//		fieldset
-			//			legend Introduza as suas credênciais
-			//			lable(for="nome") Email: 
-			//			input(type="email" name="email" id="email" class="w3-input w3-border" required)
-			//			br
-			//			lable(for="password") Password: 
-			//			input(type="password" name="password" id="password" class="w3-input w3-border" required)
-			//		input(type="submit" value="Login" class="w3-btn w3-blue")
+			div(class="w3-display-container" width="150%" style="margin-right: 200px")
+				form(class="w3-display-topright" action="/login" method="POST" enctype="multipart/form-data")
+					h3 Login
+					fieldset
+						legend Introduza as suas credênciais
+						lable(for="nome") Email: 
+						input(type="email" name="email" id="email" class="w3-input w3-border" required)
+						br
+						lable(for="password") Password: 
+						input(type="password" name="password" id="password" class="w3-input w3-border" required)
+					input(type="submit" value="Login" class="w3-btn w3-blue")
