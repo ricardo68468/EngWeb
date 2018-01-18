@@ -5,12 +5,14 @@ var bCrypt = require('bcrypt-nodejs');
 module.exports = function(passport){
 
 	passport.use('login', new LocalStrategy({
-            passReqToCallback : true
+            passReqToCallback : true,
+            usernameField: 'email'
         },
         function(req, email, password, done) { 
             // check in mongo if a user with name exists or not
             User.findOne({ 'email' :  email }, 
                 function(err, user) {
+                    console.log("entrou no teste de login")
                     // In case of any error, return using the done method
                     if (err)
                         return done(err);
