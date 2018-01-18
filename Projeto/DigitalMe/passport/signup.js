@@ -4,9 +4,10 @@ var bCrypt = require('bcrypt-nodejs');
 
 module.exports = function(passport){
     
-	passport.use('signup', new LocalStrategy({
+    passport.use('signup',new LocalStrategy(
+	/**passport.use('signup', new LocalStrategy({
             passReqToCallback : true // allows us to pass back the entire request to the callback
-        },
+        },**/
         function(req, email, password, done) {
             console.log("Entrou no signup")
             findOrCreateUser = function(){
