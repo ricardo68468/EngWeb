@@ -7,7 +7,7 @@ module.exports = function(passport){
 	passport.use('login', new LocalStrategy({
             passReqToCallback : true
         },
-        function(req, email, password, done) { 
+        function(req, email, password, done) {
             // check in mongo if a user with username exists or not
             User.findOne({ 'email' :  email }, 
                 function(err, email) {

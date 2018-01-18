@@ -3,8 +3,6 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 
-var index = require('./routes/index')(passport);
-
 var app = express();
 
 // Configuração Passport
