@@ -8,7 +8,8 @@ var UserSchema = new Schema(
         password: {type: String, required: true},
         genero: {type:String, required: true},
         data_nasc: {type:String}
-    }
+    },{collection:"testes"}
 )
 
-module.exports = mongoose.model('User',UserSchema)
+
+module.exports = mongoose.model('UserData',UserSchema)

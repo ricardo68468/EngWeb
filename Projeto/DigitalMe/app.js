@@ -1,15 +1,10 @@
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
-var passport = require('passport');
+
+
 
 var app = express();
-
-// Configuração Passport
-var expressSession = require('express-session');
-app.use(expressSession({secret: 'mySecretKey'}));
-app.use(passport.initialize());
-app.use(passport.session());
 
 //Base de Dados
 var mongoose = require('mongoose')
@@ -25,16 +20,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Using the flash middleware provided by connect-flash to store messages in session
-// and displaying in templates
-var flash = require('connect-flash');
-app.use(flash());
  
-// Initialize Passport
-var initPassport = require('./passport/init');
-initPassport(passport);
- 
-var routes = require('./routes/index')(passport);
+var routes = require('./routes/index');
 app.use('/', routes);
 
 // catch 404 and forward to error handler
