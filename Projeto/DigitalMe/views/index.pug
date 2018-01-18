@@ -1,5 +1,77 @@
-extends layout
+html
+	head
+		meta(charset="UTF-8")
+		link(rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css")
+		//link(rel="stylesheet" href="/css/style.css")
+	body
+		div(class="w3-container w3-blue w3-round")
+			h2 DigitalMe
+		//ul 
+			li
+				a(class="active" href="#") Home
+			li
+				a(href="#") News
+			li
+				a(href="#") About
+		div(class="w3-display-container")
+			div(class="w3-display-container" style="margin-left: 200px")
+				form(class="w3-display-topleft" action="/signup" method="POST" enctype="multipart/form-data")
+					h3 Criar uma nova conta
+					fieldset
+						legend Informações Pessoais
+						lable(for="nome") Nome: 
+						lable(style="color: red") *
+						input(type="text" name="nome" id="nome" class="w3-input w3-border" required)
+						br
+						lable(for="ident") Email: 
+						lable(style="color: red") *
+						input(type="email" name="email" id="email" class="w3-input w3-border" required)
+						br
+						lable(for="curso") Password: 
+						lable(style="color: red") *
+						input(type="password" name="password1" id="password1" class="w3-input w3-border" required)
+						br
+						lable(for="instituicao") Confirme a Password: 
+						lable(style="color: red") *
+						input(type="password" name="password2" id="password2" class="w3-input w3-border" required)
+						br
+						lable(for="data") Data de nascimento:
+						input(type="date" name="data" id="data" class="w3-input w3-border")
+						//div(class="w3-row-padding")
+							div(class="w3-third")
+								input(type="number" name="data" id="dia" class="w3-input w3-border" min="1" max="31" step="1" placeholder="Dia")
+							div(class="w3-third") 
+								input(type="number" name="data" id="mes" class="w3-input w3-border" min="1" max="12" step="1" placeholder="Mês")
+							div(class="w3-third")
+								input(type="number" name="data" id="ano" class="w3-input w3-border" min="1940" max="2017" step="1" placeholder="Ano")
+						br
+						lable Género:
+						br
+						lable(for="genero") Masculino
+						input(type="radio" name="genero" id="masculino" class="w3-radio w3-border")
+						br
+						lable(for="genero") Feminino 
+						input(type="radio" name="genero" id="feminino" class="w3-radio w3-border")
+						br
+						lable(for="genero") Outro 
+						input(type="radio" name="genero" id="outro" class="w3-radio w3-border")
+						br
+						br
+						lable(for="fich") Adicionar Foto de Perfil:
+						input(type="file" name="foto" id="foto" class="w3-input w3-border")
+						br
+						p(style="color: red") * - Preenchimento Obrigatório
+					input(type="submit" value="Criar conta" class="w3-btn w3-blue")
 
-block content
-  h1= title
-  p Welcome to #{title}
+			div(class="w3-display-container" width="150%" style="margin-right: 200px")
+				form(class="w3-display-topright" action="/login" method="POST" enctype="multipart/form-data")
+					h3 Login
+					fieldset
+						legend Introduza as suas credênciais
+						lable(for="nome") Email: 
+						input(type="email" name="email" id="email" class="w3-input w3-border" required)
+						br
+						lable(for="curso") Password: 
+						input(type="password" name="password1" id="password1" class="w3-input w3-border" required)
+					input(type="submit" value="Login" class="w3-btn w3-blue")
+			

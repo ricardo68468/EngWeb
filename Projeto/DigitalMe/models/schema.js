@@ -6,7 +6,7 @@ var UserSchema = new Schema(
         email: {type: String, required: true},
         nome: {type: String, required: true},
         password: {type: String, required: true},
-        género: {type:String, required: true},
+        genero: {type:String, required: true},
         data_nasc: {type:String}
     }
 )
