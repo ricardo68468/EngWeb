@@ -92,8 +92,7 @@ var UserSchema = new Schema(
     }
 )
 
-var UserModel = mongoose.model('UserModel',UserSchema);
-var PostModel = mongoose.model('PostModel',PostSchema);
+var UserModel = mongoose.model('UserModel',UserSchema) 
 var PhotoModel = PostModel.discriminator('PhotoModel', PhotoSchema);
 var VideoModel = PostModel.discriminator('VideoModel', VideoSchema); 
 var ThoughtModel = PostModel.discriminator('ThoughtModel', ThoughtSchema); 
