@@ -3,9 +3,15 @@ html
 		meta(charset="UTF-8")
 		link(rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css")
 		//link(rel="stylesheet" href="/css/style.css")
+		script(src='https://code.jquery.com/jquery-2.1.3.min.js')
+		script
+			include js/testpassword.js
+			
+		
 	body
 		div(class="w3-container w3-blue w3-round")
 			h2 DigitalMe
+		
 		//ul 
 			li
 				a(class="active" href="#") Home
@@ -15,28 +21,27 @@ html
 				a(href="#") About
 		div(class="w3-display-container")
 			div(class="w3-display-container" style="margin-left: 200px")
-				form(class="w3-display-topleft" action="/signup" method="POST" ) 
+				form(class="w3-display-topleft" id="regform" action="/signup" method="POST" ) 
 					h3 Criar uma nova conta
 					fieldset
 						legend Informações Pessoais
 						lable(for="name") Nome: 
 						lable(style="color: red") *
-						input(type="text", name="name", class="w3-input w3-border", required, autofocus)
+						input(type="text" name="name" class="w3-input w3-border" required, autofocus)
 						br
 						lable(for="username") Email: 
 						lable(style="color: red") *
-						input(type="email", name="email", class="w3-input w3-border", required)
+						input(type="email" name="email" class="w3-input w3-border" required)
 						br
 						lable(for="password") Password: 
 						lable(style="color: red") *
-						input(type="password", name="password", class="w3-input w3-border", required)
-						//input(type='text', name='name',class="w3-input w3-border", placeholder='Name',required, autofocus)
-						//input(type='password', name='password', class="w3-input w3-border", placeholder='Password', required)
-						//input(type='email', name='email', class="w3-input w3-border", placeholder='Email',required)
+						input(type="password" name="password" id="passwordreg1" class="w3-input w3-border", required)
 						br
 						lable(for="instituicao") Confirme a Password: 
 						lable(style="color: red") *
-						input(type="password" name="password2" id="password2" class="w3-input w3-border" required)
+						input(type="password" name="password2" id="passwordreg2" class="w3-input w3-border" required)
+						p(style="color: red" id="validate-status")
+						
 						br
 						lable(for="data_nasc") Data de nascimento:
 						input(type="date" name="data_nasc" id="data_nasc" class="w3-input w3-border")
@@ -52,12 +57,9 @@ html
 						lable(for="outro") Outro 
 						input(type="radio" name="genero" value="outro" id="outro" class="w3-radio w3-border")
 						br
-						br
-						lable(for="foto") Adicionar Foto de Perfil:
-						input(type="file" name="fich" id="foto" class="w3-input w3-border")
-						br
 						p(style="color: red") * - Preenchimento Obrigatório
-						button(class="w3-btn w3-blue", type='submit') Registar
+						p(style="color: red" id="pass-not-valid" )
+						button(class="w3-btn w3-blue" id="submit" type='submit') Registar
 						span.clearfix
 
 			div(class="w3-display-container" width="150%" style="margin-right: 200px")
@@ -69,6 +71,6 @@ html
 						input(type="email" name="email" id="email" class="w3-input w3-border" required)
 						br
 						lable(for="password") Password: 
-						input(type="password" name="password" id="password" class="w3-input w3-border" required)
+						input(type="password" name="password" id="passwordlog" class="w3-input w3-border" required)
 						br
 						button(type="submit" class="w3-btn w3-blue") Login
