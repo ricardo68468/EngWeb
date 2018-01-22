@@ -32,7 +32,7 @@ var PhotoSchema = new AbstractPostSchema(
     }
 )
 
-var Videos = new AbstractPostSchema(
+var VideoSchema = new AbstractPostSchema(
     {
         video: {type: Buffer, contentType: String},
         video_description: {type:String}
@@ -91,7 +91,7 @@ var UserSchema = new Schema(
         user_posts: [PostSchema]
     }
 )
-
+/*
 var UserModel = mongoose.model('UserModel',UserSchema) 
 var PhotoModel = PostModel.discriminator('PhotoModel', PhotoSchema);
 var VideoModel = PostModel.discriminator('VideoModel', VideoSchema); 
@@ -99,7 +99,7 @@ var ThoughtModel = PostModel.discriminator('ThoughtModel', ThoughtSchema);
 var SportModel = PostModel.discriminator('SportModel', SportSchema); 
 var CookingModel = PostModel.discriminator('CookingModel', CookingSchema); 
 var EventModel = PostModel.discriminator('EventModel', EventSchema); 
-
+*/
 module.exports = {
     UserModel: UserSchema,
     PhotoModel : PhotoSchema,
