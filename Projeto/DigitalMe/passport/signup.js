@@ -14,6 +14,7 @@ module.exports = function(passport){
                 // find a user in Mongo with provided name
                 User.findOne({ 'email' :  email }, function(err, user) {
                     // In case of any error, return using the done method
+                    
                     if (err){
                         console.log('Error in SignUp: '+err);
                         return done(err);
