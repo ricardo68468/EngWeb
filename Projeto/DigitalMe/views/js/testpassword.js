@@ -1,11 +1,9 @@
-//Svar $ = require('jQuery');
-
 
 console.log("script");
 
 
 $(document).ready(function() {
-    $("#password2").keyup(validate);
+    $("#passwordreg2").keyup(validate);
     $('#regform').on('submit', function(e) { //use on if jQuery 1.7+
         
         var data = $("#regform :input").serializeArray();
@@ -15,7 +13,7 @@ $(document).ready(function() {
         // if password don't match
         if(data[2].value != data[3].value){
             e.preventDefault();  //prevent form from submitting
-            $("#pass-not-valid").text("* - Password don't match");
+            alert("Password don't match!!!");
         }
     });
 });
@@ -30,6 +28,7 @@ function validate() {
         $("#validate-status").text("");        
     }
     else {
+        
         $("#validate-status").text("* - Password don't match");  
     }
 }
