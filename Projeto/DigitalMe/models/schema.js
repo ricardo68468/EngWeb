@@ -1,15 +1,111 @@
 var mongoose = require('mongoose')
+var util = require('util');
 var Schema = mongoose.Schema
+
+function AbstractPostSchema() {
+    Schema.apply(this, arguments);
+
+    this.add({
+        _id:{type: String, required:true},
+        post_privacy: {type: String, required:true},
+        post_date: {type: String, required: true},
+        post_type: {type: String, required: true},
+        posted_in: {type: String, required: true},
+        post_comments: [
+            {
+                comment_date: {type: String, required:true},
+                comment_body: {type: String, required:true},
+                comment_by: {type: Schema.Types.ObjectId, required:true} // user a = new User(); 
+                                                                         //comment_by = a._id;
+            }
+        ]
+    })
+}
+
+util.inherits(AbstractPostSchema,Schema);
+var PostSchema = new AbstractPostSchema();
+
+var PhotoSchema = new AbstractPostSchema(
+    {
+        img: {type: Buffer, contentType: String},
+        photo_description: {type:String}
+    }
+)
+
+var Videos = new AbstractPostSchema(
+    {
+        video: {type: Buffer, contentType: String},
+        video_description: {type:String}
+    }
+)
+
+var ThoughtSchema = new AbstractPostSchema(
+    {
+        thought_text: {type: String, required: true},
+        thought_photos: PhotoSchema,
+        thought_video: VideoSchema
+    }
+)
+
+var SportSchema = new AbstractPostSchema(
+    {
+        sport_local: {type: String},
+        sport_type: {type: String, required: true},
+        distance: {type: String},
+        calories_burnt: {type: String},
+        duration: {type: String, required: true},
+        sport_description: {type: String, required: true}
+    }
+) 
+
+var CookingSchema = new AbstractPostSchema(
+    {
+        ingredients: {type: String, required: true},
+        preparation: {type: String, required: true},
+        cook_calories: {type: String, required: true},
+        cook_photos: [PhotoSchema],
+        cook_video: VideoSchema
+    }
+)
+
+var EventSchema = new AbstractPostSchema(
+    {
+        event_name: {type: String, required: true},
+        event_type: {type: String, required: true},
+        event_description: {type: String, required: true},
+        event_date: {type: String, required: true},
+        event_duration: {type: String, required: true},
+        event_photos: [PhotoSchema],
+        event_video: VideoSchema
+    }
+)
 
 var UserSchema = new Schema(
     {
+        _id: {type: String, required: true},
         email: {type: String, required: true},
         name: {type: String, required: true},
         password: {type: String, required: true},
-        genero: {type:String},
-        data_nasc: {type:String}
-    }, {collection: 'testes'}
+        gender: {type:String, required: true},
+        birth_date: {type:String},
+        user_posts: [PostSchema]
+    }
 )
 
+var UserModel = mongoose.model('UserModel',UserSchema) 
+var PhotoModel = PostModel.discriminator('PhotoModel', PhotoSchema);
+var VideoModel = PostModel.discriminator('VideoModel', VideoSchema); 
+var ThoughtModel = PostModel.discriminator('ThoughtModel', ThoughtSchema); 
+var SportModel = PostModel.discriminator('SportModel', SportSchema); 
+var CookingModel = PostModel.discriminator('CookingModel', CookingSchema); 
+var EventModel = PostModel.discriminator('EventModel', EventSchema); 
 
-module.exports = mongoose.model('UserData',UserSchema)
+module.exports = {
+    UserModel: UserSchema,
+    PhotoModel : PhotoSchema,
+    VideoModel : VideoSchema,
+    ThougthModel : ThoughtSchema,
+    SportModel: SportSchema,
+    CookingModel: CookingSchema,
+    EventModel: EventSchema
+}
