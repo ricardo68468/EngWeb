@@ -41,13 +41,14 @@ module.exports = function(passport){
 
 	/* GET Home Page */
 	router.get('/homepage', isAuthenticated, function(req, res){
-		res.render('homepage', { user: req.user });
+		res.render('layout', { user: req.user });
 	});
 
 	/* Handle Logout */
 	router.get('/signout', function(req, res) {
-		req.logout();
-		res.redirect('/');
+		req.session.destroy(function (err) {
+			res.redirect('/'); //Inside a callback… bulletproof!
+		});
 	});
 
 	return router;
