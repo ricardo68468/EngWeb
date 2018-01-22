@@ -82,7 +82,6 @@ var EventSchema = new AbstractPostSchema(
 
 var UserSchema = new Schema(
     {
-        _id: {type: String, required: true},
         email: {type: String, required: true},
         name: {type: String, required: true},
         password: {type: String, required: true},
@@ -92,13 +91,15 @@ var UserSchema = new Schema(
     }
 )
 
-var UserModel = mongoose.model('UserModel',UserSchema) 
-var PhotoModel = PostModel.discriminator('PhotoModel', PhotoSchema);
-var VideoModel = PostModel.discriminator('VideoModel', VideoSchema); 
-var ThoughtModel = PostModel.discriminator('ThoughtModel', ThoughtSchema); 
-var SportModel = PostModel.discriminator('SportModel', SportSchema); 
-var CookingModel = PostModel.discriminator('CookingModel', CookingSchema); 
-var EventModel = PostModel.discriminator('EventModel', EventSchema); 
+module.exports = mongoose.model('User',UserSchema)
+/*var UserModel = mongoose.model('User',UserSchema) 
+var PostModel = mongoose.model('PostModel',PostSchema)
+var PhotoModel = PostModel.discriminator('Photo', PhotoSchema);
+var VideoModel = PostModel.discriminator('Video', VideoSchema); 
+var ThoughtModel = PostModel.discriminator('Thought', ThoughtSchema); 
+var SportModel = PostModel.discriminator('Sport', SportSchema); 
+var CookingModel = PostModel.discriminator('Cooking', CookingSchema); 
+var EventModel = PostModel.discriminator('Event', EventSchema); 
 
 module.exports = {
     UserModel: UserSchema,
@@ -108,4 +109,4 @@ module.exports = {
     SportModel: SportSchema,
     CookingModel: CookingSchema,
     EventModel: EventSchema
-}
+}*/
