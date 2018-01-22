@@ -91,22 +91,16 @@ var UserSchema = new Schema(
     }
 )
 
-module.exports = mongoose.model('User',UserSchema)
-/*var UserModel = mongoose.model('User',UserSchema) 
-var PostModel = mongoose.model('PostModel',PostSchema)
-var PhotoModel = PostModel.discriminator('Photo', PhotoSchema);
-var VideoModel = PostModel.discriminator('Video', VideoSchema); 
-var ThoughtModel = PostModel.discriminator('Thought', ThoughtSchema); 
-var SportModel = PostModel.discriminator('Sport', SportSchema); 
-var CookingModel = PostModel.discriminator('Cooking', CookingSchema); 
-var EventModel = PostModel.discriminator('Event', EventSchema); 
+var User = mongoose.model('User',UserSchema) 
+var Post = mongoose.model('Post',PostSchema)
+var Photo = Post.discriminator('Photo', PhotoSchema);
+var Video = Post.discriminator('Video', VideoSchema); 
+var Thought = Post.discriminator('Thought', ThoughtSchema); 
+var Sport = Post.discriminator('Sport', SportSchema); 
+var Cooking = Post.discriminator('Cooking', CookingSchema); 
+var Event = Post.discriminator('Event', EventSchema); 
 
 module.exports = {
-    UserModel: UserSchema,
-    PhotoModel : PhotoSchema,
-    VideoModel : VideoSchema,
-    ThougthModel : ThoughtSchema,
-    SportModel: SportSchema,
-    CookingModel: CookingSchema,
-    EventModel: EventSchema
-}*/
+    User:User,
+    Post:Post
+}
