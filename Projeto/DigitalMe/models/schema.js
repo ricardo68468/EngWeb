@@ -32,7 +32,7 @@ var PhotoSchema = new AbstractPostSchema(
     }
 )
 
-var Videos = new AbstractPostSchema(
+var VideoSchema = new AbstractPostSchema(
     {
         video: {type: Buffer, contentType: String},
         video_description: {type:String}
@@ -92,7 +92,8 @@ var UserSchema = new Schema(
     }
 )
 
-var UserModel = mongoose.model('UserModel',UserSchema) 
+var UserModel = mongoose.model('UserModel',UserSchema);
+var PostModel = mongoose.model('PostModel',PostSchema);
 var PhotoModel = PostModel.discriminator('PhotoModel', PhotoSchema);
 var VideoModel = PostModel.discriminator('VideoModel', VideoSchema); 
 var ThoughtModel = PostModel.discriminator('ThoughtModel', ThoughtSchema); 
