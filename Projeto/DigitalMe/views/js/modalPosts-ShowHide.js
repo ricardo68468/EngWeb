@@ -22,6 +22,7 @@
         $("#btn_desportivo").css("background-color", "white")
         $("#btn_pensamentos").css("background-color", "white")
         $("#btn_receita").css("background-color", "white")
+        
       });
     $("#btn_videos").click(function(){
         $("#videos").show()

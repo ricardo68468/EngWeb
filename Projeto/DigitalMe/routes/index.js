@@ -1,7 +1,10 @@
+import { model } from 'mongoose';
+
 var express = require('express');
 var router = express.Router();
 var models = require('../models/schema')
 var Post = models.Post
+var SportPost = models.Sport
 
 var isAuthenticated = function (req, res, next) {
 	// if user is authenticated in the session, call the next() to call the next request handler 
@@ -39,6 +42,21 @@ module.exports = function(passport){
 		failureRedirect: '/signup',
 		failureFlash : true  
 	}));
+
+	router.post('/post', (req, res, next)=>{
+		console("Form: "+req.body)
+		if("Desporto"){
+			var novoPost = new SportPost({_id: req.body._id,post_privacy: req.body.privacy, post_date: "",
+										 post_type: req.body.tipo,posted_in:"",posted_by:""})
+		}
+		
+		novoPost.save((err, result)=>{
+			if(!err) console.log("Adicionei o post: "+ req.body.tipo)
+			else console.log("Erro: "+err)
+		});
+		res.redirect('/homepage')
+	})
+	
 
 
 	/* GET Home Page */

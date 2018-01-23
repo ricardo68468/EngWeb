@@ -90,7 +90,7 @@ html
             button.w3-button.w3-white.w3-hide-small
               i.fa.fa-soccer-ball-o.w3-margin-right
               | Registos Desportivos
-            button.w3-button.w3-white.w3-hide-small
+            button.w3-button.w3-white.w3-hide-small 
               i.fa.fa-caret-square-o-right.w3-margin-right
               | Vídeos
             button.w3-button.w3-white.w3-hide-small
@@ -432,25 +432,25 @@ html
                 .form-group.col-md-6
                   label.col-form-label Desporto:
                   br
-                  input.form-control(type='text', placeholder='Desporto')
+                  input.form-control(type='text', placeholder='Desporto', name='sport_type')
                 .form-group.col-md-6
                   label.col-form-label Duração (hh:mm:ss):
-                  input.form-control(type='time', step='2')
+                  input.form-control(type='time', step='2', name='sport_duration')
                 .form-group.col-md-6
                   label.col-form-label Local:
                   br
-                  input.form-control(type='text', placeholder='Local')
+                  input.form-control(type='text', placeholder='Local', name='sport_local')
                 .form-group.col-md-6
                   label.col-form-label Calorias gastas (kcal):
-                  input.form-control(type='number', min='0')
+                  input.form-control(type='number', min='0', name='calories')
                 label.col-form-label Descrição:
                 br
-                textarea#example5(rows='2', cols='115')
+                textarea#example5(rows='2', cols='115', name='sport_desc')
                 .form-row
                   label.col-form-label(style='margin-top:10px') Escolher Foto:
-                  input#foto.form-group(type='file', name='foto')
+                  input#foto.form-group(type='file', name='sport_foto')
                   label.col-form-label Privacidade:
-                  select#priv.form-control(style='width: 150px; margin-bottom: 10px')
+                  select#priv.form-control(style='width: 150px; margin-bottom: 10px', name='privacy')
                     option(valeu='pub') Público
                     option(valeu='priv') Privado
               // RECEITA
