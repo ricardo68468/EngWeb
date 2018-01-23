@@ -21,6 +21,8 @@ html
         include js/script3.js
     script
         include js/script4.js
+    script
+        include js/homepage_ready.js
     style
         include css/emojionearea.min.css
     style
@@ -30,10 +32,10 @@ html
     // Navbar (sit on top)
     .w3-top
       .w3-bar.w3-white.w3-padding.w3-card(style='letter-spacing:4px;')
-        a.w3-bar-item.w3-button(href='#home') Digital Me
+        a.w3-bar-item.w3-button(href='#homepage') Digital Me
         // Right-sided navbar links. Hide them on small screens
         .w3-right.w3-hide-small
-          a.w3-bar-item.w3-button(href='/signout' id="") LogOut
+          a.w3-bar-item.w3-button(href="/signout" id="") LogOut
     // Sidebar/menu
     nav#mySidebar.w3-sidebar.w3-collapse.w3-white.w3-animate-left(style='z-index:3;width:300px; margin-top: 4px;')
       br

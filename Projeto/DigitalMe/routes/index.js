@@ -41,14 +41,24 @@ module.exports = function(passport){
 
 	/* GET Home Page */
 	router.get('/homepage', isAuthenticated, function(req, res){
-		res.render('layout', { user: req.user });
+		res.render('homepage', { user: req.user });
 	});
 
 	/* Handle Logout */
-	router.get('/signout', function(req, res) {
-		req.session.destroy(function (err) {
-			res.redirect('/'); //Inside a callback… bulletproof!
-		});
+	router.get('/signout', function(req, res, err) {
+		req.logOut()
+		res.redirect('/')
+
+		/*if(!err){
+			console.log("logout")
+			/*
+			req.session.destroy(function (err) {
+				console.log("redirect /")
+				res.redirect('/'); //Inside a callback… bulletproof!
+			});
+		}else{
+			console.log("erro "+err)
+		}*/
 	});
 
 	return router;
