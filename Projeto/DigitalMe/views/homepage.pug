@@ -43,11 +43,12 @@ html
       .w3-container
         a.w3-hide-large.w3-right.w3-jumbo.w3-padding.w3-hover-grey(href='#', onclick='w3_close()', title='close menu')
           i.fa.fa-remove
-        img.w3-round(src='imagens/fotoRicardo.jpg', style='width:45%;')
+        img.w3-round(id="fotoUser" src='imagens/fotoRicardo.jpg', style='width:45%;')
         br
         br
         h4
-          b Ricardo Rodrigues
+          b(id="nameId")
+            = user.name
         p.w3-text-grey Área Pessoal
       .w3-bar-block
         a.w3-bar-item.w3-button.w3-padding.w3-text-teal(href='#portfolio', onclick='w3_close()')
@@ -80,27 +81,35 @@ html
             b Perfil
           .w3-section.w3-bottombar.w3-padding-16
             span.w3-margin-right Filtro:
-            button.w3-button.w3-black Tudo
+            button.w3-button.w3-black(id="fiterAll") Tudo
             button.w3-button.w3-white.w3-hide-small
-              i.fa.fa-comment-o.w3-margin-right
+              i.fa.fa-comment-o.w3-margin-right(id="fiterThoughts")
               | Pensamentos
             button.w3-button.w3-white.w3-hide-small
-              i.fa.fa-photo.w3-margin-right
+              i.fa.fa-photo.w3-margin-right(id="fiterPics")
               | Fotos
             button.w3-button.w3-white.w3-hide-small
-              i.fa.fa-soccer-ball-o.w3-margin-right
+              i.fa.fa-soccer-ball-o.w3-margin-right(id="fiterSports")
               | Registos Desportivos
+<<<<<<< HEAD
             button.w3-button.w3-white.w3-hide-small 
               i.fa.fa-caret-square-o-right.w3-margin-right
+=======
+            button.w3-button.w3-white.w3-hide-small
+              i.fa.fa-caret-square-o-right.w3-margin-right(id="fiterVideos")
+>>>>>>> e11b36034626d4cf42972f6ee693fc43982b4f30
               | Vídeos
             button.w3-button.w3-white.w3-hide-small
-              i.fa.fa-cutlery.w3-margin-right
+              i.fa.fa-cutlery.w3-margin-right(id="fiterRecipes")
               | Receitas
             button.w3-button.w3-white.w3-hide-small
-              i.fa.fa-group.w3-margin-right
+              i.fa.fa-group.w3-margin-right(id="fiterEvents")
               | Eventos
-      ul(id="feed_id" class="list-unstyled")
-        li
+      - var post = {postPic: 'postPic',postVideos: 'postVideos', 
+              postThought: 'postThought', postRecipes: 'postRecipes',
+              postRecipes: 'postRecipes', postSports: 'postSports'}
+      each post in lposts
+        if post.postPic
           // Template Foto
           .w3-container.w3-white.w3-margin.w3-padding-large
             .w3-row.w3-margin-bottom
@@ -109,7 +118,7 @@ html
                 img(src='imagens/fotoRicardo.jpg', style='width:50px; border-radius: 50%;')
               .w3-col.l6.m9
                 h4
-                  | Ricardo 
+                  = post.posted_by
                   span.w3-opacity.w3-medium 18 de janeiro de 2017 às 13h24, em Universidade do Minho
             .w3-justify
               p
@@ -127,7 +136,7 @@ html
                     i.fa.fa-commenting-o
                     |  Comentar
               p.w3-right
-                button#myBtn.w3-button.w3-black(onclick="myFunction('demo1')")
+                button#myBtn.w3-button.w3-black(onclick="myFunction(demo1)")
                   b Comentários
                   span.w3-tag.w3-white 1
               p.w3-clear
@@ -141,6 +150,15 @@ html
                     span.w3-opacity.w3-medium May 3, 2015, 6:32 PM
                   p Great blog post! Following
           hr
+        else if post.postVideos
+        else if post.postThought
+        else if post.postRecipes
+        else if post.postRecipes
+        else if post.postSports
+      // listas de posts
+      //ul(id="feed_id" class="list-unstyled")
+        li
+          
         li
           // Template Video
           .w3-container.w3-white.w3-margin.w3-padding-large
@@ -372,24 +390,25 @@ html
             button.close(type='button', data-dismiss='modal') ×
             h4.modal-title Publicação:
           .modal-body
-            .modal-body(style='margin-bottom: 20px')
-              center
-                button#btn_pensamentos.w3-button(style='background-color: #cccccc')
-                  i.fa.fa-comment-o.w3-margin-right
-                  | Pensamentos
-                button#btn_fotos.w3-button
-                  i.fa.fa-photo.w3-margin-right
-                  | Fotos
-                button#btn_desportivo.w3-button
-                  i.fa.fa-soccer-ball-o.w3-margin-right
-                  | Registos Desportivos
-                button#btn_videos.w3-button
-                  i.fa.fa-caret-square-o-right.w3-margin-right
-                  | Vídeos
-                button#btn_receita.w3-button
-                  i.fa.fa-cutlery.w3-margin-right
-                  | Receitas
             form
+              .modal-body(style='margin-bottom: 20px')
+                center
+                  button#btn_pensamentos.w3-button(type="button", style='background-color: #cccccc', name="btn_pensamentos")
+                    i.fa.fa-comment-o.w3-margin-right
+                    | Pensamentos
+                  button#btn_fotos.w3-button(type="button", name="btn_fotos")
+                    i.fa.fa-photo.w3-margin-right
+                    | Fotos
+                  button#btn_desportivo.w3-button(type="button", name="btn_desportivos")
+                    i.fa.fa-soccer-ball-o.w3-margin-right
+                    | Registos Desportivos
+                  button#btn_videos.w3-button(type="button", name="btn_videos")
+                    i.fa.fa-caret-square-o-right.w3-margin-right
+                    | Vídeos
+                  button#btn_receita.w3-button(type="button", name="btn_receita")
+                    i.fa.fa-cutlery.w3-margin-right
+                    | Receitas
+            
               // PENSAMENTO
               #pensamentos.form-row
                 h3 Publicar Pensamento:
