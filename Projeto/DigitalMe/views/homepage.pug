@@ -407,9 +407,9 @@ html
                 form(action="/postPensamentos", method="POST")
                   label.col-form-label Pensamento:
                   br
-                  textarea#example2(rows='4', cols='115', placeholder='Em que está a pensar?')
+                  textarea#example2(rows='4', cols='115', placeholder='Em que está a pensar?', name="thoughtDescription")
                   label.col-form-label(style='margin-top:10px') Privacidade:
-                  select#priv.form-control(style='width: 150px; margin-bottom: 10px')
+                  select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
                     option(valeu='pub') Público
                     option(valeu='priv') Privado
                   .modal-footer
@@ -425,12 +425,12 @@ html
                 form(action="/postFoto", method="POST")
                   label.col-form-label Descrição:
                   br
-                  textarea#example3(rows='2', cols='115')
+                  textarea#example3(rows='2', cols='115', name="fotoDescription")
                   .form-row
                     label.col-form-label(style='margin-top:10px') Escolher Foto:
                     input#foto.form-group(type='file', name='foto')
                     label.col-form-label Privacidade:
-                    select#priv.form-control(style='width: 150px; margin-bottom: 10px')
+                    select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
                       option(valeu='pub') Público
                       option(valeu='priv') Privado
                     .modal-footer
@@ -446,12 +446,12 @@ html
                 form(action="/postVideo", method="POST")
                   label.col-form-label Descrição:
                   br
-                  textarea#example4(rows='2', cols='115')
+                  textarea#example4(rows='2', cols='115', name="videoDescription")
                   .form-row
                     label.col-form-label(style='margin-top:10px') Escolher Vídeo:
                     input#video.form-group(type='file', name='video')
                     label.col-form-label Privacidade:
-                    select#priv.form-control(style='width: 150px; margin-bottom: 10px')
+                    select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
                       option(valeu='pub') Público
                       option(valeu='priv') Privado
                     .modal-footer
@@ -471,7 +471,11 @@ html
                     input.form-control(type='text', placeholder='Desporto', name='sport_type')
                   .form-group.col-md-6
                     label.col-form-label Duração (hh:mm:ss):
+<<<<<<< HEAD
                     input.form-control(type='time', , name='sport_duration')
+=======
+                    input.form-control(type='time')
+>>>>>>> 109d94a8408b2de2df702d8b435a1f1f0c025179
                   .form-group.col-md-6
                     label.col-form-label Local:
                     br
@@ -481,10 +485,17 @@ html
                     input.form-control(type='number', min='0', name='sport_calories')
                   label.col-form-label Descrição:
                   br
+<<<<<<< HEAD
                   textarea#example5(rows='2', cols='115', name='sport_desc  ')
                   .form-row
                     label.col-form-label(style='margin-top:10px') Escolher Foto:
                     input#foto.form-group(type='file', name='sport_photo')
+=======
+                  textarea#example5(rows='2', cols='115')
+                  .form-row
+                    label.col-form-label(style='margin-top:10px') Escolher Foto:
+                    input#foto.form-group(type='file', name='Sportfoto')
+>>>>>>> 109d94a8408b2de2df702d8b435a1f1f0c025179
                     label.col-form-label Privacidade:
                     select#priv.form-control(style='width: 150px; margin-bottom: 10px', name='privacy')
                       option(valeu='pub') Público
@@ -502,12 +513,12 @@ html
                 form(action="/postReceita", method="POST")
                   label.col-form-label Preparação:
                   br
-                  textarea#prep(rows='4', cols='115', placeholder='Modo de Preparação')
+                  textarea#prep(rows='4', cols='115', placeholder='Modo de Preparação', name="recipeDescription")
                   .form-row
                     label.col-form-label(style='margin-top:10px') Escolher Foto:
-                    input#foto.form-group(type='file', name='foto')
+                    input#foto.form-group(type='file', name='Recipefoto')
                     label.col-form-label Privacidade:
-                    select#priv.form-control(style='width: 150px; margin-bottom: 10px')
+                    select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
                       option(valeu='pub') Público
                       option(valeu='priv') Privado
                     .modal-footer
