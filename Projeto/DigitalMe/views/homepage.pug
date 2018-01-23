@@ -383,6 +383,7 @@ html
             button.close(type='button', data-dismiss='modal') ×
             h4.modal-title Publicação:
           .modal-body
+<<<<<<< HEAD
             .modal-body(style='margin-bottom: 20px')
               center
                 button#btn_pensamentos.w3-button(type="button", style='background-color: #cccccc', name="btn_pensamentos")
@@ -400,6 +401,26 @@ html
                 button#btn_receita.w3-button(type="button", name="btn_receita")
                   i.fa.fa-cutlery.w3-margin-right
                   | Receitas
+=======
+            form(action="/post" method="POST")
+              .modal-body(style='margin-bottom: 20px')
+                center
+                  button#btn_pensamentos.w3-button(type="button", style='background-color: #cccccc', name="btn_pensamentos")
+                    i.fa.fa-comment-o.w3-margin-right
+                    | Pensamentos
+                  button#btn_fotos.w3-button(type="button", name="btn_fotos")
+                    i.fa.fa-photo.w3-margin-right
+                    | Fotos
+                  button#btn_desportivo.w3-button(type="button", name="btn_desportivos")
+                    i.fa.fa-soccer-ball-o.w3-margin-right
+                    | Registos Desportivos
+                  button#btn_videos.w3-button(type="button", name="btn_videos")
+                    i.fa.fa-caret-square-o-right.w3-margin-right
+                    | Vídeos  
+                  button#btn_receita.w3-button(type="button", name="btn_receita")
+                    i.fa.fa-cutlery.w3-margin-right
+                    | Receitas
+>>>>>>> 6e2b90b01bc0e49a5128e5a45e541de82da32fd7
             
               // PENSAMENTO
               #pensamentos.form-row
@@ -481,6 +502,7 @@ html
                     input.form-control(type='number', min='0')
                   label.col-form-label Descrição:
                   br
+<<<<<<< HEAD
                   textarea#example5(rows='2', cols='115')
                   .form-row
                     label.col-form-label(style='margin-top:10px') Escolher Foto:
@@ -496,6 +518,29 @@ html
                       button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
                         i.fa.fa-close.fa-fw
                         |  Cancelar
+=======
+                  input.form-control(type='text', placeholder='Desporto', name='sport_type')
+                .form-group.col-md-6
+                  label.col-form-label Duração (hh:mm:ss):
+                  input.form-control(type='time', step='2', name='sport_duration')
+                .form-group.col-md-6
+                  label.col-form-label Local:
+                  br
+                  input.form-control(type='text', placeholder='Local', name='sport_local')
+                .form-group.col-md-6
+                  label.col-form-label Calorias gastas (kcal):
+                  input.form-control(type='number', min='0', name='calories')
+                label.col-form-label Descrição:
+                br
+                textarea#example5(rows='2', cols='115', name='sport_desc')
+                .form-row
+                  label.col-form-label(style='margin-top:10px') Escolher Foto:
+                  input#foto.form-group(type='file', name='sport_foto')
+                  label.col-form-label Privacidade:
+                  select#priv.form-control(style='width: 150px; margin-bottom: 10px', name='privacy')
+                    option(valeu='pub') Público
+                    option(valeu='priv') Privado
+>>>>>>> 6e2b90b01bc0e49a5128e5a45e541de82da32fd7
               // RECEITA
               #receita.form-row(hidden='')
                 h3 Publicar Receita:

@@ -1,7 +1,9 @@
+
 var express = require('express');
 var router = express.Router();
 var models = require('../models/schema')
 var Post = models.Post
+var SportPost = models.Sport
 
 var isAuthenticated = function (req, res, next) {
 	// if user is authenticated in the session, call the next() to call the next request handler 
@@ -39,6 +41,11 @@ module.exports = function(passport){
 		failureRedirect: '/signup',
 		failureFlash : true  
 	}));
+
+	router.post('/post', (req, res, next)=>{
+		console("Form: "+req.body)
+	})
+	
 
 
 	/* GET Home Page */
