@@ -45,9 +45,20 @@ module.exports = function(passport){
 	});
 
 	/* Handle Logout */
-	router.get('/signout', function(req, res) {
-		req.logout();
-		res.redirect('/');
+	router.get('/signout', function(req, res, err) {
+		req.logOut()
+		res.redirect('/')
+
+		/*if(!err){
+			console.log("logout")
+			/*
+			req.session.destroy(function (err) {
+				console.log("redirect /")
+				res.redirect('/'); //Inside a callback… bulletproof!
+			});
+		}else{
+			console.log("erro "+err)
+		}*/
 	});
 
 	return router;

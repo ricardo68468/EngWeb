@@ -22,6 +22,8 @@ html
         include js/script3.js
     script
         include js/script4.js
+    script
+        include js/homepage_ready.js
     style
         include css/emojionearea.min.css
     style
@@ -31,10 +33,10 @@ html
     // Navbar (sit on top)
     .w3-top
       .w3-bar.w3-white.w3-padding.w3-card(style='letter-spacing:4px;')
-        a.w3-bar-item.w3-button(href='#home') Digital Me
+        a.w3-bar-item.w3-button(href='#homepage') Digital Me
         // Right-sided navbar links. Hide them on small screens
         .w3-right.w3-hide-small
-          a.w3-bar-item.w3-button(href='#menu') LogOut
+          a.w3-bar-item.w3-button(href="/signout" id="") LogOut
     // Sidebar/menu
     nav#mySidebar.w3-sidebar.w3-collapse.w3-white.w3-animate-left(style='z-index:3;width:300px; margin-top: 4px;')
       br
@@ -97,129 +99,197 @@ html
             button.w3-button.w3-white.w3-hide-small
               i.fa.fa-group.w3-margin-right
               | Eventos
-      // Template Foto
-      .w3-container.w3-white.w3-margin.w3-padding-large
-        .w3-row.w3-margin-bottom
+      ul(id="feed_id" class="list-unstyled")
+        li
+          // Template Foto
+          .w3-container.w3-white.w3-margin.w3-padding-large
+            .w3-row.w3-margin-bottom
+              hr
+              .w3-col.l1.m3
+                img(src='imagens/fotoRicardo.jpg', style='width:50px; border-radius: 50%;')
+              .w3-col.l6.m9
+                h4
+                  | Ricardo 
+                  span.w3-opacity.w3-medium 18 de janeiro de 2017 às 13h24, em Universidade do Minho
+            .w3-justify
+              p
+                | More Hats! I am crazy about hats these days. Some text about this blog entry. Fashion fashion and mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl.
+              .w3-container
+                center
+                  img.w3-padding-16(src='imagens/girl_hat.jpg', align='middle', style='width:900px;')
+              p.w3-left
+                button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
+                  b
+                    i.fa.fa-thumbs-up
+                    |  Like
+                button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal')
+                  b
+                    i.fa.fa-commenting-o
+                    |  Comentar
+              p.w3-right
+                button#myBtn.w3-button.w3-black(onclick="myFunction('demo1')")
+                  b Comentários
+                  span.w3-tag.w3-white 1
+              p.w3-clear
+              #demo1.w3-row.w3-margin-bottom(style='display:none')
+                hr
+                .w3-col.l2.m3
+                  img(src='imagens/fotoSantos.jpg', style='width:90px;')
+                .w3-col.l10.m9
+                  h4
+                    | George 
+                    span.w3-opacity.w3-medium May 3, 2015, 6:32 PM
+                  p Great blog post! Following
           hr
-          .w3-col.l1.m3
-            img(src='imagens/fotoRicardo.jpg', style='width:50px; border-radius: 50%;')
-          .w3-col.l6.m9
-            h4
-              | Ricardo 
-              span.w3-opacity.w3-medium 18 de janeiro de 2017 às 13h24, em Universidade do Minho
-        .w3-justify
-          p
-            | More Hats! I am crazy about hats these days. Some text about this blog entry. Fashion fashion and mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl.
-          .w3-container
-            center
-              img.w3-padding-16(src='imagens/girl_hat.jpg', align='middle', style='width:900px;')
-          p.w3-left
-            button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
-              b
-                i.fa.fa-thumbs-up
-                |  Like
-            button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal')
-              b
-                i.fa.fa-commenting-o
-                |  Comentar
-          p.w3-right
-            button#myBtn.w3-button.w3-black(onclick="myFunction('demo1')")
-              b Comentários
-              span.w3-tag.w3-white 1
-          p.w3-clear
-          #demo1.w3-row.w3-margin-bottom(style='display:none')
-            hr
-            .w3-col.l2.m3
-              img(src='imagens/fotoSantos.jpg', style='width:90px;')
-            .w3-col.l10.m9
-              h4
-                | George 
-                span.w3-opacity.w3-medium May 3, 2015, 6:32 PM
-              p Great blog post! Following
-      hr
-      // Template Video
-      .w3-container.w3-white.w3-margin.w3-padding-large
-        .w3-row.w3-margin-bottom
+        li
+          // Template Video
+          .w3-container.w3-white.w3-margin.w3-padding-large
+            .w3-row.w3-margin-bottom
+              hr
+              .w3-col.l1.m3
+                img(src='imagens/fotoRicardo.jpg', style='width:50px; border-radius: 50%;')
+              .w3-col.l6.m9
+                h4
+                  | Ricardo 
+                  span.w3-opacity.w3-medium 18 de janeiro de 2017 às 13h24, em Universidade do Minho
+            .w3-justify
+              p
+                | More Hats! I am crazy about hats these days. Some text about this blog entry. Fashion fashion and mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl.
+              .w3-container
+                center
+                  video(width='700', style='margin-top: 20px', controls='')
+                    source(src='videos/videoplayback.mp4', type='video/mp4')
+                    |                 Your browser does not support HTML5 video.
+              p.w3-left
+                button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
+                  b
+                    i.fa.fa-thumbs-up
+                    |  Like
+                button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal')
+                  b
+                    i.fa.fa-commenting-o
+                    |  Comentar
+              p.w3-right
+                button#myBtn.w3-button.w3-black(onclick="myFunction('demo2')")
+                  b Comentários
+                  span.w3-tag.w3-white 1
+              p.w3-clear
+              #demo2.w3-row.w3-margin-bottom(style='display:none')
+                hr
+                .w3-col.l2.m3
+                  img(src='imagens/fotoSantos.jpg', style='width:90px;')
+                .w3-col.l10.m9
+                  h4
+                    | George 
+                    span.w3-opacity.w3-medium May 3, 2015, 6:32 PM
+                  p Great blog post! Following
           hr
-          .w3-col.l1.m3
-            img(src='imagens/fotoRicardo.jpg', style='width:50px; border-radius: 50%;')
-          .w3-col.l6.m9
-            h4
-              | Ricardo 
-              span.w3-opacity.w3-medium 18 de janeiro de 2017 às 13h24, em Universidade do Minho
-        .w3-justify
-          p
-            | More Hats! I am crazy about hats these days. Some text about this blog entry. Fashion fashion and mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl.
-          .w3-container
-            center
-              video(width='700', style='margin-top: 20px', controls='')
-                source(src='videos/videoplayback.mp4', type='video/mp4')
-                |                 Your browser does not support HTML5 video.
-          p.w3-left
-            button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
-              b
-                i.fa.fa-thumbs-up
-                |  Like
-            button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal')
-              b
-                i.fa.fa-commenting-o
-                |  Comentar
-          p.w3-right
-            button#myBtn.w3-button.w3-black(onclick="myFunction('demo2')")
-              b Comentários
-              span.w3-tag.w3-white 1
-          p.w3-clear
-          #demo2.w3-row.w3-margin-bottom(style='display:none')
-            hr
-            .w3-col.l2.m3
-              img(src='imagens/fotoSantos.jpg', style='width:90px;')
-            .w3-col.l10.m9
-              h4
-                | George 
-                span.w3-opacity.w3-medium May 3, 2015, 6:32 PM
-              p Great blog post! Following
-      hr
-      // Template Pensamento
-      .w3-container.w3-white.w3-margin.w3-padding-large
-        .w3-row.w3-margin-bottom
+        li
+          // Template Pensamento
+          .w3-container.w3-white.w3-margin.w3-padding-large
+            .w3-row.w3-margin-bottom
+              hr
+              .w3-col.l1.m3
+                img(src='imagens/fotoRicardo.jpg', style='width:50px; border-radius: 50%;')
+              .w3-col.l6.m9
+                h4
+                  | Ricardo 
+                  span.w3-opacity.w3-medium 18 de janeiro de 2017 às 13h24, em Universidade do Minho
+            .w3-justify
+              p
+                | More Hats! I am crazy about hats these days. Some text about this blog entry. Fashion fashion and mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl.
+              p.w3-left
+                button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
+                  b
+                    i.fa.fa-thumbs-up
+                    |  Like
+                button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal')
+                  b
+                    i.fa.fa-commenting-o
+                    |  Comentar
+              p.w3-right
+                button#myBtn.w3-button.w3-black(onclick="myFunction('demo3')")
+                  b Comentários
+                  span.w3-tag.w3-white 1
+              p.w3-clear
+              #demo3.w3-row.w3-margin-bottom(style='display:none')
+                hr
+                .w3-col.l2.m3
+                  img(src='imagens/fotoSantos.jpg', style='width:90px;')
+                .w3-col.l10.m9
+                  h4
+                    | George 
+                    span.w3-opacity.w3-medium May 3, 2015, 6:32 PM
+                  p Great blog post! Following
           hr
-          .w3-col.l1.m3
-            img(src='imagens/fotoRicardo.jpg', style='width:50px; border-radius: 50%;')
-          .w3-col.l6.m9
-            h4
-              | Ricardo 
-              span.w3-opacity.w3-medium 18 de janeiro de 2017 às 13h24, em Universidade do Minho
-        .w3-justify
-          p
-            | More Hats! I am crazy about hats these days. Some text about this blog entry. Fashion fashion and mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl.
-          p.w3-left
-            button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
-              b
-                i.fa.fa-thumbs-up
-                |  Like
-            button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal')
-              b
-                i.fa.fa-commenting-o
-                |  Comentar
-          p.w3-right
-            button#myBtn.w3-button.w3-black(onclick="myFunction('demo3')")
-              b Comentários
-              span.w3-tag.w3-white 1
-          p.w3-clear
-          #demo3.w3-row.w3-margin-bottom(style='display:none')
-            hr
-            .w3-col.l2.m3
-              img(src='imagens/fotoSantos.jpg', style='width:90px;')
-            .w3-col.l10.m9
-              h4
-                | George 
-                span.w3-opacity.w3-medium May 3, 2015, 6:32 PM
-              p Great blog post! Following
-      hr
-      // Template Receita
-      .w3-container.w3-white.w3-margin.w3-padding-large
-        .w3-row.w3-margin-bottom
+        li
+          // Template Receita
+          .w3-container.w3-white.w3-margin.w3-padding-large
+            .w3-row.w3-margin-bottom
+              hr
+              .w3-col.l1.m3
+                img(src='imagens/fotoRicardo.jpg', style='width:50px; border-radius: 50%;')
+              .w3-col.l6.m9
+                h4
+                  | Ricardo 
+                  span.w3-opacity.w3-medium 18 de janeiro de 2017 às 13h24, em Universidade do Minho
+            .w3-justify
+              h3 Ingredientes:
+              ul
+                li 1 pitada de sal 
+                li 250 ml de leite
+                li Manteiga
+                li 12 colheres (sopa) de farinha de 
+                li Trigo
+                li 3 ovos
+              h3 Preparação:
+              p
+                | Bata os ovos em uma tigela com o sal; junte a farinha peneirada, misturando com um batedor manual. Adicione, aos poucos, o leite e continue a bater até obter uma massa lisa e homogênea. Cubra a tigela e deixe a massa descansar por 30 minutos.
+                | A seguir, bata a massa por mais alguns instantes. Aqueça uma frigideira antiaderente de 18 cm de diâmetro, pincele generosamente com manteiga derretida (assim, não corre o risco de a massa grudar na frigideira).
+                | Retire a frigideira do fogo e despeje rapidamente 1 concha da massa preparada. Gire rapidamente a frigideira, inclinando-a em todas as direções de modo que a massa seja distribuída de forma homogênea e forme uma camada bem fina.
+                | Volte a frigideira ao fogo e deixe cozinhar o crêpe, em fogo médio, até que o lado inferior esteja dourado e as bordas comecem a se desprender. Esse processo deve durar cerca de 1 minuto.
+              //
+                div class="w3-container">
+                <center>
+                <img src="imagens/crepes.jpg" align="middle" style="width:700px" class="w3-padding-16">
+                </center>
+                </div
+              .w3-content.w3-display-container(style='max-width:800px')
+                img.mySlides(src='imagens/crepes.jpg', style='width:800px; height: 500px')
+                img.mySlides(src='imagens/crepes2.jpg', style='width:800px; height: 500px')
+                img.mySlides(src='imagens/crepes3.jpg', style='width:800px; height: 500px')
+                .w3-center.w3-container.w3-section.w3-large.w3-text-white.w3-display-bottommiddle(style='width:100%')
+                  .w3-left.w3-hover-text-khaki(onclick='plusDivs(-1)') ❮
+                  .w3-right.w3-hover-text-khaki(onclick='plusDivs(1)') ❯
+                  span.w3-badge.demo.w3-border.w3-transparent.w3-hover-white(onclick='currentDiv(1)')
+                  span.w3-badge.demo.w3-border.w3-transparent.w3-hover-white(onclick='currentDiv(2)')
+                  span.w3-badge.demo.w3-border.w3-transparent.w3-hover-white(onclick='currentDiv(3)')
+              .w3-container(style='margin-top: 15px')
+                p.w3-left
+                  button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
+                    b
+                      i.fa.fa-thumbs-up
+                      |  Like
+                  button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal')
+                    b
+                      i.fa.fa-commenting-o
+                      |  Comentar
+                p.w3-right
+                  button#myBtn.w3-button.w3-black(onclick="myFunction('demo4')")
+                    b Comentários
+                    span.w3-tag.w3-white 1
+              p.w3-clear
+              #demo4.w3-row.w3-margin-bottom(style='display:none')
+                hr
+                .w3-col.l2.m3
+                  img(src='imagens/fotoSantos.jpg', style='width:90px;')
+                .w3-col.l10.m9
+                  h4
+                    | George 
+                    span.w3-opacity.w3-medium May 3, 2015, 6:32 PM
+                  p Great blog post! Following
           hr
+<<<<<<< HEAD
           .w3-col.l1.m3
             img(src='imagens/fotoRicardo.jpg', style='width:50px; border-radius: 50%;')
           .w3-col.l6.m9
@@ -287,55 +357,61 @@ html
       // Template Registo desportivo
       .w3-container.w3-white.w3-margin.w3-padding-large
         .w3-row.w3-margin-bottom
+=======
+        li
+          // Template Registo desportivo
+          .w3-container.w3-white.w3-margin.w3-padding-large
+            .w3-row.w3-margin-bottom
+              hr
+              .w3-col.l1.m3
+                img(src='imagens/fotoRicardo.jpg', style='width:50px; border-radius: 50%;')
+              .w3-col.l6.m9
+                h4
+                  | Ricardo 
+                  span.w3-opacity.w3-medium 18 de janeiro de 2017 às 13h24, em Universidade do Minho
+            .w3-justify
+              h3 Registo desportivo:
+              ul
+                li
+                  b Desporto:
+                  |  Corrida
+                li
+                  b Duração:
+                  |   00:57:35h
+                li
+                  b Local:
+                  |  Universidade do Minho
+                li
+                  b Calorias gastas:
+                  |  179kcal
+              h3 Descrição:
+              p No pain, no gain!
+              p
+              p.w3-left
+                button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
+                  b
+                    i.fa.fa-thumbs-up
+                    |  Like
+                button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal')
+                  b
+                    i.fa.fa-commenting-o
+                    |  Comentar
+              p.w3-right
+                button#myBtn.w3-button.w3-black(onclick="myFunction('demo5')")
+                  b Comentários
+                  span.w3-tag.w3-white 1
+              p.w3-clear
+              #demo5.w3-row.w3-margin-bottom(style='display:none')
+                hr
+                .w3-col.l2.m3
+                  img(src='imagens/fotoSantos.jpg', style='width:90px;')
+                .w3-col.l10.m9
+                  h4
+                    | George 
+                    span.w3-opacity.w3-medium May 3, 2015, 6:32 PM
+                  p Great blog post! Following
+>>>>>>> 3300166dc0c2e68e2d62a681ca2b441d3523fd46
           hr
-          .w3-col.l1.m3
-            img(src='imagens/fotoRicardo.jpg', style='width:50px; border-radius: 50%;')
-          .w3-col.l6.m9
-            h4
-              | Ricardo 
-              span.w3-opacity.w3-medium 18 de janeiro de 2017 às 13h24, em Universidade do Minho
-        .w3-justify
-          h3 Registo desportivo:
-          ul
-            li
-              b Desporto:
-              |  Corrida
-            li
-              b Duração:
-              |   00:57:35h
-            li
-              b Local:
-              |  Universidade do Minho
-            li
-              b Calorias gastas:
-              |  179kcal
-          h3 Descrição:
-          p No pain, no gain!
-          p
-          p.w3-left
-            button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
-              b
-                i.fa.fa-thumbs-up
-                |  Like
-            button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal')
-              b
-                i.fa.fa-commenting-o
-                |  Comentar
-          p.w3-right
-            button#myBtn.w3-button.w3-black(onclick="myFunction('demo5')")
-              b Comentários
-              span.w3-tag.w3-white 1
-          p.w3-clear
-          #demo5.w3-row.w3-margin-bottom(style='display:none')
-            hr
-            .w3-col.l2.m3
-              img(src='imagens/fotoSantos.jpg', style='width:90px;')
-            .w3-col.l10.m9
-              h4
-                | George 
-                span.w3-opacity.w3-medium May 3, 2015, 6:32 PM
-              p Great blog post! Following
-      hr
       .w3-black.w3-center.w3-padding-24 Powered by MIETI
       // End page content
     // Modal-Comentários

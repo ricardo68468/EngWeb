@@ -44,18 +44,19 @@ html
 						
 						br
 						lable(for="data_nasc") Data de nascimento:
-						input(type="date" name="data_nasc" id="data_nasc" class="w3-input w3-border")
+						input(type="date" name="birth_date" id="birth_date" class="w3-input w3-border")
 						br
 						lable Género:
+						lable(style="color: red") *
 						br
 						lable(for="masculino") Masculino
-						input(type="radio" name="genero" value="masculino" id="masculino" class="w3-radio w3-border")
+						input(type="radio" name="gender" value="Male" id="Male" class="w3-radio w3-border" checked required)
 						br
 						lable(for="feminino") Feminino 
-						input(type="radio" name="genero" value="feminino" id="feminino" class="w3-radio w3-border")
+						input(type="radio" name="gender" value="Female" id="Female" class="w3-radio w3-border" required)
 						br
 						lable(for="outro") Outro 
-						input(type="radio" name="genero" value="outro" id="outro" class="w3-radio w3-border")
+						input(type="radio" name="gender" value="Other" id="Other" class="w3-radio w3-border" required)
 						br
 						p(style="color: red") * - Preenchimento Obrigatório
 						p(style="color: red" id="pass-not-valid" )
