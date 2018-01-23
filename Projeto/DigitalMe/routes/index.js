@@ -49,16 +49,7 @@ module.exports = function(passport){
 		req.logOut()
 		res.redirect('/')
 
-		/*if(!err){
-			console.log("logout")
-			/*
-			req.session.destroy(function (err) {
-				console.log("redirect /")
-				res.redirect('/'); //Inside a callback… bulletproof!
-			});
-		}else{
-			console.log("erro "+err)
-		}*/
+		//falta apagar a cache
 	});
 
 	return router;

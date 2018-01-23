@@ -60,7 +60,8 @@ var SportSchema = new AbstractPostSchema(
 
 var CookingSchema = new AbstractPostSchema(
     {
-        ingredients: {type: String, required: true},
+        cook_name: {type: String, required: true},
+        ingredients: {type: [String], required: true},
         preparation: {type: String, required: true},
         cook_calories: {type: String, required: true},
         cook_photos: [PhotoSchema],
@@ -98,9 +99,15 @@ var Video = Post.discriminator('Video', VideoSchema);
 var Thought = Post.discriminator('Thought', ThoughtSchema); 
 var Sport = Post.discriminator('Sport', SportSchema); 
 var Cooking = Post.discriminator('Cooking', CookingSchema); 
-var Event = Post.discriminator('Event', EventSchema); 
+var Events = Post.discriminator('Event', EventSchema); 
 
 module.exports = {
     User:User,
-    Post:Post
+    Post:Post,
+    Photo:Photo,
+    Video:Video,
+    Thought:Thought,
+    Sport:Sport,
+    Cooking:Cooking,
+    Events:Events
 }
