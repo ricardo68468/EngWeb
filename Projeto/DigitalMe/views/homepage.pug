@@ -1,3 +1,4 @@
+doctype html
 html
   head
     title Digital Me
@@ -25,7 +26,7 @@ html
         include css/emojionearea.min.css
     style
        include css/style.css
-  
+
   body.w3-light-grey.w3-content(style='max-width:1600px')
     // Navbar (sit on top)
     .w3-top
@@ -226,6 +227,8 @@ html
               | Ricardo 
               span.w3-opacity.w3-medium 18 de janeiro de 2017 às 13h24, em Universidade do Minho
         .w3-justify
+          h3
+            b Crepes
           h3 Ingredientes:
           ul
             li 1 pitada de sal 
@@ -425,14 +428,14 @@ html
                   br
                   input.form-control(type='text', placeholder='Desporto')
                 .form-group.col-md-6
-                  label.col-form-label(for='passos') Duração (hh:mm:ss):
+                  label.col-form-label Duração (hh:mm:ss):
                   input.form-control(type='time', step='2')
                 .form-group.col-md-6
                   label.col-form-label Local:
                   br
                   input.form-control(type='text', placeholder='Local')
                 .form-group.col-md-6
-                  label.col-form-label(for='passos') Calorias gastas (kcal):
+                  label.col-form-label Calorias gastas (kcal):
                   input.form-control(type='number', min='0')
                 label.col-form-label Descrição:
                 br
@@ -471,9 +474,47 @@ html
         .modal-content
           .modal-header
             button.close(type='button', data-dismiss='modal') ×
-            h4.modal-title Dados pessoais:
+            h4.modal-title Consultar/Atualizar dados pessoais:
           .modal-body
-            form
+            #desportivo.form-row
+              .form-group.col-md-6
+                label.col-form-label Nome:
+                br
+                input.form-control(type='text')
+              .form-group.col-md-6
+                label.col-form-label Email:
+                input.form-control(type='email')
+              .form-group.col-md-6
+                label.col-form-label Data de Nascimento:
+                br
+                input.form-control(type='date')
+              .form-group.col-md-6(style='margin-top: 22px')
+                button#btn_password.w3-button.w3-white.w3-border(type='button')
+                  i.fa.fa-lock.fa-fw
+                  |  Alterar Password
+              #password.form-group(style=' margin-top: 10px', hidden='')
+                .form-group.col-md-6
+                  label.col-form-label Password Atual:
+                  br
+                  input.form-control(type='password')
+                .form-group.col-md-6
+                  label.col-form-label Nova Password:
+                  input.form-control(type='password')
+              .form-group(style='margin-left: 15px; margin-top: 10px')
+                label.col-form-label Género:
+                br
+                input#masculino.w3-radio.w3-border(type='radio', name='genero')
+                label Masculino
+                br
+                input#feminino.w3-radio.w3-border(type='radio', name='genero')
+                label Feminino
+                br
+                input#outro.w3-radio.w3-border(type='radio', name='genero')
+                label Outro
+                br
+            .form-row(style='margin-left: 15px; margin-top:10px')
+              label.col-form-label Adicionar/Alterar Foto de perfil:
+              input#foto.form-group(type='file', name='foto')
           .modal-footer
             button.w3-button.w3-white.w3-border(type='submit')
               i.fa.fa-check

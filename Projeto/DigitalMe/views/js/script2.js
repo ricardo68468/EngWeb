@@ -59,4 +59,7 @@
         $("#btn_pensamentos").css("background-color", "white")
         $("#btn_desportivo").css("background-color", "white")
       });
+      $("#btn_password").click(function(){
+        $("#password").show()
+      });
     });

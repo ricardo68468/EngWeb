@@ -8,7 +8,7 @@ var UserSchema = new Schema(
         password: {type: String, required: true},
         genero: {type:String},
         data_nasc: {type:String}
-    }, {collection: 'testes'}
+    }
 )
 
 
