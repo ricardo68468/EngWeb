@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models/schema')
 var Post = models.Post
+var User = models.User
 
 var isAuthenticated = function (req, res, next) {
 	// if user is authenticated in the session, call the next() to call the next request handler 
@@ -41,12 +42,70 @@ module.exports = function(passport){
 	}));
 
 
+	/* Handle ProfileChange POST */
+	router.post('/changeprofdata', function(req, res){
+		console.log("req.user"+req.user)
+		//console.log("req.body.newEmail: "+req.body.newBirth_date)
+		var newName = req.user.name
+		var newEmail = req.user.email
+		var newGender = req.user.gender
+		var newBirth_date = req.user.Birth_date
+		if(req.body.newName){
+			newName = req.body.newName
+			
+			console.log("req.body.newName"+req.body.newName)
+		}
+		if(req.body.newEmail){
+			newEmail = req.body.newEmail
+			console.log(" req.body.newEmail"+ req.body.newEmail)
+		}
+		if(req.body.newGender){
+			newGender = req.body.newGender
+			console.log(" req.body.newGender"+ req.body.newGender)
+		}
+		if(req.body.newBirth_date){
+			newBirth_date = req.body.newBirth_date
+			console.log(" req.body.newBirth_date"+ req.body.newBirth_date)
+		}
+		
+		var newUser = {
+			email: newEmail,
+			name: newName,
+			gender: newGender,
+			birth_date: newBirth_date
+		}
+		console.log("newUser: "+newUser.email)
+		console.log("newUser: "+newUser.name)
+		console.log("newUser: "+newUser.gender)
+		console.log("newUser: "+newUser.birth_date)
+		
+		User.update({email: req.user.email},{$set: {email: newEmail,name: newName,gender: newGender,birth_date: newBirth_date}},
+				(err, result)=>{
+					if(!err){
+						console.log('Alterou utilizador!')
+						req.user.name = newName
+						req.user.email = newEmail
+						req.user.gender = newGender
+						req.user.birth_date = newBirth_date
+					} 
+					else console.log("Erro: "+err)
+		})
+				
+		res.redirect('/homepage')
+		
+		
+	});
+
+
 	/* GET Home Page */
 	router.get('/homepage', isAuthenticated, function(req, res){
 		Post.find()
 		.exec((err,doc)=>{
-			if(!err) 
+			if(!err){
+				console.log("doc "+doc)
 				res.render('homepage', {lposts: doc, user:req.user})
+			}
+				
 			else 
 				res.render('error', {error: err})
 		})

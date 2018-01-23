@@ -1,13 +1,13 @@
 $(document).ready(function() {
-    // fazer o pedido a db
-    /*$.getJSON("http://localhost:3000/getfeed", function(data){
-        alert("Recebi a DB: "+JSON.stringify(data))
-        $.each(data, function(ind,elem){
-            $("#lista").append("<li id='"+elem.id+"'>"+elem.conteudo+"</li>")
-        })
-    })*/
-    //alert("homepage")
-    
+    alert("homepage")
+    $('#changeprofdata').on('submit', function(e) { //use on if jQuery 1.7+
+        alert("submit")
+        e.preventDefault();  //prevent form from submitting
+        var data = $("#changeProfData :input").serializeArray();
+        console.log(data); //use the console for debugging, F12 in Chrome, not alerts
+        console.log("print "+data[2].value)
+    });
+
     if(1==0){
         $('#feed_id').append(
             '<li>'+
