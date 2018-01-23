@@ -11,6 +11,7 @@ function AbstractPostSchema() {
         post_date: {type: String, required: true},
         post_type: {type: String, required: true},
         posted_in: {type: String, required: true},
+        posted_by: {type: String, required: true},
         post_comments: [
             {
                 comment_date: {type: String, required:true},
