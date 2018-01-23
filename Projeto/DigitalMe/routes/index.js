@@ -43,7 +43,18 @@ module.exports = function(passport){
 	}));
 
 	router.post('/postDesportivo', (req, res, next)=>{
-		console.log("Form: "+req.body.sport_type)
+		//console.log("id:::::"+req.body._id)
+		var sport = new SportPost({post_privacy: req.body.privacy, post_date: "28/10/2018",
+			post_type: "Desportivo", posted_in: req.body.sport_local, posted_by: "Joao", sport_type:req.body.sport_type, distance: "10 m",
+			calories_burnt: req.body.sport_calories, duration: req.body.sport_duration ,sport_description: req.body.sport_desc,
+			post_comments: []})
+		
+		sport.save((err, result)=>{
+			if(!err)
+				console.log("Acrescentei desporto: "+ req.body._id)
+			else
+				console.log("Erro: "+err)
+		});
 		res.redirect('/homepage')
 	})
 	

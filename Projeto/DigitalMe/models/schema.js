@@ -6,11 +6,11 @@ function AbstractPostSchema() {
     Schema.apply(this, arguments);
 
     this.add({
-        _id:{type: String, required:true},
+        //_id:{type: String, required:true},
         post_privacy: {type: String, required:true},
         post_date: {type: String, required: true},
         post_type: {type: String, required: true},
-        posted_in: {type: String, required: true},
+        posted_in: {type: String},
         posted_by: {type: String, required: true},
         post_comments: [
             {
@@ -50,7 +50,6 @@ var ThoughtSchema = new AbstractPostSchema(
 
 var SportSchema = new AbstractPostSchema(
     {
-        sport_local: {type: String},
         sport_type: {type: String, required: true},
         distance: {type: String},
         calories_burnt: {type: String},

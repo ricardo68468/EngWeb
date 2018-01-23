@@ -47,8 +47,7 @@ html
         br
         br
         h4
-          b(id="nameId")
-            = user.name
+          b(id="nameId") João Santos
         p.w3-text-grey Área Pessoal
       .w3-bar-block
         a.w3-bar-item.w3-button.w3-padding.w3-text-teal(href='#portfolio', onclick='w3_close()')
@@ -471,11 +470,7 @@ html
                     input.form-control(type='text', placeholder='Desporto', name='sport_type')
                   .form-group.col-md-6
                     label.col-form-label Duração (hh:mm:ss):
-<<<<<<< HEAD
-                    input.form-control(type='time', , name='sport_duration')
-=======
-                    input.form-control(type='time')
->>>>>>> 109d94a8408b2de2df702d8b435a1f1f0c025179
+                    input.form-control(type='time', step='1' , name='sport_duration')
                   .form-group.col-md-6
                     label.col-form-label Local:
                     br
@@ -485,17 +480,10 @@ html
                     input.form-control(type='number', min='0', name='sport_calories')
                   label.col-form-label Descrição:
                   br
-<<<<<<< HEAD
-                  textarea#example5(rows='2', cols='115', name='sport_desc  ')
+                  textarea#example5(rows='2', cols='115', name='sport_desc')
                   .form-row
                     label.col-form-label(style='margin-top:10px') Escolher Foto:
                     input#foto.form-group(type='file', name='sport_photo')
-=======
-                  textarea#example5(rows='2', cols='115')
-                  .form-row
-                    label.col-form-label(style='margin-top:10px') Escolher Foto:
-                    input#foto.form-group(type='file', name='Sportfoto')
->>>>>>> 109d94a8408b2de2df702d8b435a1f1f0c025179
                     label.col-form-label Privacidade:
                     select#priv.form-control(style='width: 150px; margin-bottom: 10px', name='privacy')
                       option(valeu='pub') Público
