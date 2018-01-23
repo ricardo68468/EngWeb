@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var models = require('../models/schema')
+var Post = models.Post
 
 var isAuthenticated = function (req, res, next) {
 	// if user is authenticated in the session, call the next() to call the next request handler 
@@ -41,7 +43,13 @@ module.exports = function(passport){
 
 	/* GET Home Page */
 	router.get('/homepage', isAuthenticated, function(req, res){
-		res.render('homepage', { user: req.user });
+		Post.find()
+		.exec((err,doc)=>{
+			if(!err) 
+				res.render('homepage', {lposts: doc, user:req.user})
+			else 
+				res.render('error', {error: err})
+		})
 	});
 
 	/* Handle Logout */
@@ -49,16 +57,7 @@ module.exports = function(passport){
 		req.logOut()
 		res.redirect('/')
 
-		/*if(!err){
-			console.log("logout")
-			/*
-			req.session.destroy(function (err) {
-				console.log("redirect /")
-				res.redirect('/'); //Inside a callback… bulletproof!
-			});
-		}else{
-			console.log("erro "+err)
-		}*/
+		//falta apagar a cache
 	});
 
 	return router;
