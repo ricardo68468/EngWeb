@@ -85,14 +85,9 @@ var UserSchema = new Schema(
         email: {type: String, required: true},
         name: {type: String, required: true},
         password: {type: String, required: true},
-<<<<<<< HEAD
-        genero: {type:String},
-        data_nasc: {type:String}
-=======
         gender: {type:String, required: true},
         birth_date: {type:String},
         user_posts: [PostSchema]
->>>>>>> 3300166dc0c2e68e2d62a681ca2b441d3523fd46
     }
 )
 
