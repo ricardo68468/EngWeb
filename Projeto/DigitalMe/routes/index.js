@@ -42,8 +42,9 @@ module.exports = function(passport){
 		failureFlash : true  
 	}));
 
-	router.post('/post', (req, res, next)=>{
-		console("Form: "+req.body)
+	router.post('/postDesportivo', (req, res, next)=>{
+		console.log("Form: "+req.body.sport_type)
+		res.redirect('/homepage')
 	})
 	
 
