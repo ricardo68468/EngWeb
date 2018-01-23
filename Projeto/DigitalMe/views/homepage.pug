@@ -91,13 +91,8 @@ html
             button.w3-button.w3-white.w3-hide-small
               i.fa.fa-soccer-ball-o.w3-margin-right(id="fiterSports")
               | Registos Desportivos
-<<<<<<< HEAD
-            button.w3-button.w3-white.w3-hide-small 
-              i.fa.fa-caret-square-o-right.w3-margin-right
-=======
             button.w3-button.w3-white.w3-hide-small
               i.fa.fa-caret-square-o-right.w3-margin-right(id="fiterVideos")
->>>>>>> e11b36034626d4cf42972f6ee693fc43982b4f30
               | Vídeos
             button.w3-button.w3-white.w3-hide-small
               i.fa.fa-cutlery.w3-margin-right(id="fiterRecipes")
@@ -105,9 +100,7 @@ html
             button.w3-button.w3-white.w3-hide-small
               i.fa.fa-group.w3-margin-right(id="fiterEvents")
               | Eventos
-      - var post = {postPic: 'postPic',postVideos: 'postVideos', 
-              postThought: 'postThought', postRecipes: 'postRecipes',
-              postRecipes: 'postRecipes', postSports: 'postSports'}
+      - var post = {postPic: 'postPic',postVideos: 'postVideos', postThought: 'postThought', postRecipes: 'postRecipes', postRecipes: 'postRecipes', postSports: 'postSports'}
       each post in lposts
         if post.postPic
           // Template Foto
@@ -390,7 +383,7 @@ html
             button.close(type='button', data-dismiss='modal') ×
             h4.modal-title Publicação:
           .modal-body
-            form
+            form(action="/post" method="POST")
               .modal-body(style='margin-bottom: 20px')
                 center
                   button#btn_pensamentos.w3-button(type="button", style='background-color: #cccccc', name="btn_pensamentos")
@@ -404,7 +397,7 @@ html
                     | Registos Desportivos
                   button#btn_videos.w3-button(type="button", name="btn_videos")
                     i.fa.fa-caret-square-o-right.w3-margin-right
-                    | Vídeos
+                    | Vídeos  
                   button#btn_receita.w3-button(type="button", name="btn_receita")
                     i.fa.fa-cutlery.w3-margin-right
                     | Receitas

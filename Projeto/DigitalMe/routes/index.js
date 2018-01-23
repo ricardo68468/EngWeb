@@ -1,4 +1,3 @@
-import { model } from 'mongoose';
 
 var express = require('express');
 var router = express.Router();
@@ -45,16 +44,6 @@ module.exports = function(passport){
 
 	router.post('/post', (req, res, next)=>{
 		console("Form: "+req.body)
-		if("Desporto"){
-			var novoPost = new SportPost({_id: req.body._id,post_privacy: req.body.privacy, post_date: "",
-										 post_type: req.body.tipo,posted_in:"",posted_by:""})
-		}
-		
-		novoPost.save((err, result)=>{
-			if(!err) console.log("Adicionei o post: "+ req.body.tipo)
-			else console.log("Erro: "+err)
-		});
-		res.redirect('/homepage')
 	})
 	
 
