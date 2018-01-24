@@ -6,7 +6,6 @@ function AbstractPostSchema() {
     Schema.apply(this, arguments);
 
     this.add({
-        //_id:{type: String, required:true},
         post_privacy: {type: String, required:true},
         post_date: {type: String, required: true},
         post_type: {type: String, required: true},
@@ -42,9 +41,7 @@ var VideoSchema = new AbstractPostSchema(
 
 var ThoughtSchema = new AbstractPostSchema(
     {
-        thought_text: {type: String, required: true},
-        thought_photos: PhotoSchema,
-        thought_video: VideoSchema
+        thought_text: {type: String, required: true}
     }
 )
 

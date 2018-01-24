@@ -476,9 +476,14 @@ html
               // REGISTO DESPORTIVO
               #desportivo.form-row(hidden='')
                 h3 Publicar Registo Desportivo:
-                form(action="/postDesportivo", method="POST")
+                form(action="/homepage/post", method="POST")
                   .form-group.col-md-6
                     label.col-form-label Desporto:
+<<<<<<< HEAD
+=======
+                    br
+                    input(type="text" name="desporto" id="desporto" value="desporto" hidden)
+>>>>>>> 3ebe747d084685e98524b07b6f8981f6069bc2dc
                     input.form-control(type='text', placeholder='Desporto', name='sport_type')
                   .form-group.col-md-6
                     label.col-form-label Duração (hh:mm:ss):
@@ -540,6 +545,7 @@ html
       .modal-dialog
         // Modal content
         .modal-content
+<<<<<<< HEAD
           .modal-header
             button.close(type='button', data-dismiss='modal') ×
             h4.modal-title Consultar/Atualizar dados pessoais:
@@ -590,3 +596,57 @@ html
             button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
               i.fa.fa-close.fa-fw
               |  Sair
+=======
+          form(id="changeProfData" action="/homepage/"+user._id+"/changeprofdata" method="POST")
+            .modal-header
+              button.close(type='button', data-dismiss='modal') ×
+              h4.modal-title Consultar/Atualizar dados pessoais:
+
+              .modal-body
+                .form-row
+                  .form-group.col-md-6
+                    label.col-form-label Nome:
+                    br
+                    input.form-control(type='text' name="newName" id='newName')
+                  .form-group.col-md-6
+                    label.col-form-label Email:
+                    input.form-control(type='email' name="newEmail" id='newEmail')
+                  .form-group.col-md-6
+                    label.col-form-label Data de Nascimento:
+                    br
+                    input.form-control(type='date' name="newDate" id='newDate')
+                  .form-group.col-md-6(style='margin-top: 22px')
+                    button#btn_password.w3-button.w3-white.w3-border(type='button')
+                      i.fa.fa-lock.fa-fw
+                      |  Alterar Password
+                  #password.form-group(style=' margin-top: 10px', hidden='')
+                    .form-group.col-md-6
+                      label.col-form-label Password Atual:
+                      br
+                      input.form-control(type='password')
+                    .form-group.col-md-6
+                      label.col-form-label Nova Password:
+                      input.form-control(type='password')
+                  .form-group(style='margin-left: 15px; margin-top: 10px')
+                    label.col-form-label Género:
+                    br
+                    input.w3-radio.w3-border(type='radio', name='newGender' id='male' value="Male")
+                    label Masculino
+                    br
+                    input.w3-radio.w3-border(type='radio', name='newGender' id='female' value="Female")
+                    label Feminino
+                    br
+                    input.w3-radio.w3-border(type='radio', name='newGender' id='other' value="Other")
+                    label Outro
+                    br
+                .form-row(style='margin-left: 15px; margin-top:10px')
+                  label.col-form-label Adicionar/Alterar Foto de perfil:
+                  input.form-group(type='file', name='profPic' id="profPic")
+            .modal-footer
+              button.w3-button.w3-white.w3-border(type='submit' id="submitchangeprof")
+                i.fa.fa-check
+                |  Alterar
+              button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
+                i.fa.fa-close.fa-fw
+                |  Sair
+>>>>>>> 3ebe747d084685e98524b07b6f8981f6069bc2dc

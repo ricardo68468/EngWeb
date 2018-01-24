@@ -3,6 +3,8 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models/schema')
 var Post = models.Post
+var SportPost = models.Sport
+var ToughtPost = models.Thought
 var User = models.User
 
 var isAuthenticated = function (req, res, next) {
@@ -42,7 +44,7 @@ module.exports = function(passport){
 		failureFlash : true  
 	}));
 
-	router.post('/postDesportivo', (req, res, next)=>{
+	router.post('/homepage/post', (req, res, next)=>{
 		//console.log("id:::::"+req.body._id)
 		var sport = new SportPost({post_privacy: req.body.privacy, post_date: "28/10/2018",
 			post_type: "Desportivo", posted_in: req.body.sport_local, posted_by: "Joao", sport_type:req.body.sport_type, distance: "10 m",
@@ -61,16 +63,14 @@ module.exports = function(passport){
 
 
 	/* Handle ProfileChange POST */
-	router.post('/changeprofdata', function(req, res){
-		console.log("req.user"+req.user)
-		//console.log("req.body.newEmail: "+req.body.newBirth_date)
+	router.post('/homepage/:id/changeprofdata', function(req, res){
+		/** @todo por a password e a foto **/
 		var newName = req.user.name
 		var newEmail = req.user.email
 		var newGender = req.user.gender
-		var newBirth_date = req.user.Birth_date
+		var newBirth_date = req.user.birth_date
 		if(req.body.newName){
 			newName = req.body.newName
-			
 			console.log("req.body.newName"+req.body.newName)
 		}
 		if(req.body.newEmail){
@@ -81,9 +81,9 @@ module.exports = function(passport){
 			newGender = req.body.newGender
 			console.log(" req.body.newGender"+ req.body.newGender)
 		}
-		if(req.body.newBirth_date){
-			newBirth_date = req.body.newBirth_date
-			console.log(" req.body.newBirth_date"+ req.body.newBirth_date)
+		if(req.body.newDate){
+			newBirth_date = req.body.newDate
+			console.log(" req.body.newBirth_date"+ req.body.newDate)
 		}
 		
 		var newUser = {
@@ -137,6 +137,8 @@ module.exports = function(passport){
 		//falta apagar a cache
 	});
 
+
+	
 	return router;
 }
 
