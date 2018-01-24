@@ -479,15 +479,12 @@ html
                 form(action="/homepage/post", method="POST")
                   .form-group.col-md-6
                     label.col-form-label Desporto:
-<<<<<<< HEAD
-=======
                     br
-                    input(type="text" name="desporto" id="desporto" value="desporto" hidden)
->>>>>>> 3ebe747d084685e98524b07b6f8981f6069bc2dc
+                    input(type="text", name="desporto", id="desporto", value="desporto", hidden)
                     input.form-control(type='text', placeholder='Desporto', name='sport_type')
                   .form-group.col-md-6
                     label.col-form-label Duração (hh:mm:ss):
-                    input.form-control(type='time', name='sport_duration')
+                    input.form-control(type='time', name='sport_duration', step="1")
                   .form-group.col-md-6
                     label.col-form-label Distância (Kms):
                     input.form-control(type='number', name='sport_distance', placeholder="0.00", step="0.01", min="0.00")
@@ -518,7 +515,16 @@ html
               #receita.form-row(hidden='')
                 h3 Publicar Receita:
                 form(action="/postReceita", method="POST")
+                  .form-group
+                    lable.col-form-lable Nome da Receita:
+                    input.form-control(type="text", name="recipe_name", placeholder="Receita", style="width:40%")
                   input(type="text", name="recipe", id="recipe", value="recipe", hidden)
+                  .form-group
+                    lable.col-form-lable Ingredientes:  
+                    input.w3-button.w3-green.w3-border(id="btnIngr", name="btnIngr", type="button", style="margin-top: 5px", value="Mais Ingredientes")
+                    ul.list-unstyled
+                      li
+                        input.form-control(type="text", placeholder="Ingrediente", name="ingredient", id="ingredient", style="width: 50%; margin-top: 5px")
                   label.col-form-label Preparação:
                   br
                   textarea#prep(rows='4', cols='115', placeholder='Modo de Preparação', name="recipeDescription")
@@ -545,58 +551,6 @@ html
       .modal-dialog
         // Modal content
         .modal-content
-<<<<<<< HEAD
-          .modal-header
-            button.close(type='button', data-dismiss='modal') ×
-            h4.modal-title Consultar/Atualizar dados pessoais:
-          .modal-body
-            #desportivo.form-row
-              .form-group.col-md-6
-                label.col-form-label Nome:
-                br
-                input.form-control(type='text')
-              .form-group.col-md-6
-                label.col-form-label Email:
-                input.form-control(type='email')
-              .form-group.col-md-6
-                label.col-form-label Data de Nascimento:
-                br
-                input.form-control(type='date')
-              .form-group.col-md-6(style='margin-top: 22px')
-                button#btn_password.w3-button.w3-white.w3-border(type='button')
-                  i.fa.fa-lock.fa-fw
-                  |  Alterar Password
-              #password.form-group(style=' margin-top: 10px', hidden='')
-                .form-group.col-md-6
-                  label.col-form-label Password Atual:
-                  br
-                  input.form-control(type='password')
-                .form-group.col-md-6
-                  label.col-form-label Nova Password:
-                  input.form-control(type='password')
-              .form-group(style='margin-left: 15px; margin-top: 10px')
-                label.col-form-label Género:
-                br
-                input#masculino.w3-radio.w3-border(type='radio', name='genero')
-                label Masculino
-                br
-                input#feminino.w3-radio.w3-border(type='radio', name='genero')
-                label Feminino
-                br
-                input#outro.w3-radio.w3-border(type='radio', name='genero')
-                label Outro
-                br
-            .form-row(style='margin-left: 15px; margin-top:10px')
-              label.col-form-label Adicionar/Alterar Foto de perfil:
-              input#foto.form-group(type='file', name='foto')
-          .modal-footer
-            button.w3-button.w3-white.w3-border(type='submit')
-              i.fa.fa-check
-              |  Alterar
-            button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
-              i.fa.fa-close.fa-fw
-              |  Sair
-=======
           form(id="changeProfData" action="/homepage/"+user._id+"/changeprofdata" method="POST")
             .modal-header
               button.close(type='button', data-dismiss='modal') ×
@@ -649,4 +603,3 @@ html
               button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
                 i.fa.fa-close.fa-fw
                 |  Sair
->>>>>>> 3ebe747d084685e98524b07b6f8981f6069bc2dc
