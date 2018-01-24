@@ -3,8 +3,12 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models/schema')
 var Post = models.Post
+<<<<<<< HEAD
 var SportPost = models.Sport
 var ToughtPost = models.Thought
+=======
+var User = models.User
+>>>>>>> 238dae74d3df5deac2e57df747ff3c412157ca2c
 
 var isAuthenticated = function (req, res, next) {
 	// if user is authenticated in the session, call the next() to call the next request handler 
@@ -43,12 +47,89 @@ module.exports = function(passport){
 		failureFlash : true  
 	}));
 
+<<<<<<< HEAD
+=======
+	router.post('/postDesportivo', (req, res, next)=>{
+		//console.log("id:::::"+req.body._id)
+		var sport = new SportPost({post_privacy: req.body.privacy, post_date: "28/10/2018",
+			post_type: "Desportivo", posted_in: req.body.sport_local, posted_by: "Joao", sport_type:req.body.sport_type, distance: "10 m",
+			calories_burnt: req.body.sport_calories, duration: req.body.sport_duration ,sport_description: req.body.sport_desc,
+			post_comments: []})
+		
+		sport.save((err, result)=>{
+			if(!err)
+				console.log("Acrescentei desporto: "+ req.body._id)
+			else
+				console.log("Erro: "+err)
+		});
+		res.redirect('/homepage')
+	})
+	
+
+
+	/* Handle ProfileChange POST */
+	router.post('/homepage/:id/changeprofdata', function(req, res){
+		/** @todo por a password e a foto **/
+		var newName = req.user.name
+		var newEmail = req.user.email
+		var newGender = req.user.gender
+		var newBirth_date = req.user.birth_date
+		if(req.body.newName){
+			newName = req.body.newName
+			console.log("req.body.newName"+req.body.newName)
+		}
+		if(req.body.newEmail){
+			newEmail = req.body.newEmail
+			console.log(" req.body.newEmail"+ req.body.newEmail)
+		}
+		if(req.body.newGender){
+			newGender = req.body.newGender
+			console.log(" req.body.newGender"+ req.body.newGender)
+		}
+		if(req.body.newDate){
+			newBirth_date = req.body.newDate
+			console.log(" req.body.newBirth_date"+ req.body.newDate)
+		}
+		
+		var newUser = {
+			email: newEmail,
+			name: newName,
+			gender: newGender,
+			birth_date: newBirth_date
+		}
+		console.log("newUser: "+newUser.email)
+		console.log("newUser: "+newUser.name)
+		console.log("newUser: "+newUser.gender)
+		console.log("newUser: "+newUser.birth_date)
+		
+		User.update({email: req.user.email},{$set: {email: newEmail,name: newName,gender: newGender,birth_date: newBirth_date}},
+				(err, result)=>{
+					if(!err){
+						console.log('Alterou utilizador!')
+						req.user.name = newName
+						req.user.email = newEmail
+						req.user.gender = newGender
+						req.user.birth_date = newBirth_date
+					} 
+					else console.log("Erro: "+err)
+		})
+				
+		res.redirect('/homepage')
+		
+		
+	});
+
+
+>>>>>>> 238dae74d3df5deac2e57df747ff3c412157ca2c
 	/* GET Home Page */
 	router.get('/homepage', isAuthenticated, function(req, res){
 		Post.find()
 		.exec((err,doc)=>{
-			if(!err) 
+			if(!err){
+				console.log("doc "+doc)
 				res.render('homepage', {lposts: doc, user:req.user})
+			}
+				
 			else 
 				res.render('error', {error: err})
 		})
