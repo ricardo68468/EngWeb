@@ -3,12 +3,8 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models/schema')
 var Post = models.Post
-<<<<<<< HEAD
-var SportPost = models.Sport
-var ToughtPost = models.Thought
-=======
 var User = models.User
->>>>>>> 238dae74d3df5deac2e57df747ff3c412157ca2c
+var SportPost = models.Sport
 
 var isAuthenticated = function (req, res, next) {
 	// if user is authenticated in the session, call the next() to call the next request handler 
@@ -47,9 +43,7 @@ module.exports = function(passport){
 		failureFlash : true  
 	}));
 
-<<<<<<< HEAD
-=======
-	router.post('/postDesportivo', (req, res, next)=>{
+	router.post('/homepage/post', (req, res, next)=>{
 		//console.log("id:::::"+req.body._id)
 		var sport = new SportPost({post_privacy: req.body.privacy, post_date: "28/10/2018",
 			post_type: "Desportivo", posted_in: req.body.sport_local, posted_by: "Joao", sport_type:req.body.sport_type, distance: "10 m",
@@ -120,7 +114,6 @@ module.exports = function(passport){
 	});
 
 
->>>>>>> 238dae74d3df5deac2e57df747ff3c412157ca2c
 	/* GET Home Page */
 	router.get('/homepage', isAuthenticated, function(req, res){
 		Post.find()
@@ -144,23 +137,7 @@ module.exports = function(passport){
 	});
 
 
-	router.post('/postDesportivo', (req, res, next)=>{
-		// resolver data, distancia, user.name e fazer update ao array de posts do user// resolver data, distancia e user.name
-		var date = new Date()
-		var sport = new SportPost({post_privacy: req.body.privacy, post_date: date,
-			post_type: "Desportivo", posted_in: req.body.sport_local, posted_by: "Joao", sport_type:req.body.sport_type, distance: "10 m",
-			calories_burnt: req.body.sport_calories, duration: req.body.sport_duration ,sport_description: req.body.sport_desc,
-			post_comments: []})
-		
-		sport.save((err, result)=>{
-			if(!err)
-				console.log("Acrescentei desporto: "+ req.body._id.sport_type)
-			else
-				console.log("Erro: "+err)
-		});
-		res.redirect('/homepage')
-	})
-
+	
 	return router;
 }
 
