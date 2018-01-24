@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var models = require('../models/schema')
+var fs = require('fs')
 var Post = models.Post
 var SportPost = models.Sport
 var ToughtPost = models.Thought
@@ -69,6 +70,15 @@ module.exports = function(passport){
 		var newEmail = req.user.email
 		var newGender = req.user.gender
 		var newBirth_date = req.user.birth_date
+		var newPassword = req.user.password
+		var newImg = req.user.img
+		if(req.body.newPassword){
+			if(req.body.newPasswordCheck){
+				
+				newName = req.body.newName
+				console.log("req.body.newName"+req.body.newName)
+			}
+		}
 		if(req.body.newName){
 			newName = req.body.newName
 			console.log("req.body.newName"+req.body.newName)
@@ -84,8 +94,15 @@ module.exports = function(passport){
 		if(req.body.newDate){
 			newBirth_date = req.body.newDate
 			console.log(" req.body.newBirth_date"+ req.body.newDate)
+			a.img.contentType = 'image/png';
 		}
-		
+		if(req.body.newProfPic){
+			console.log("------------------------- profPic = "+req.body.newProfPic)
+			newImg.type = fs.readFileSync(__dirname+"/"+req.body.newProfPic)
+			newImg.contentType = 'image/png'
+		}
+
+
 		var newUser = {
 			email: newEmail,
 			name: newName,
@@ -96,8 +113,9 @@ module.exports = function(passport){
 		console.log("newUser: "+newUser.name)
 		console.log("newUser: "+newUser.gender)
 		console.log("newUser: "+newUser.birth_date)
+		console.log("newUser: "+newUser.img)
 		
-		User.update({email: req.user.email},{$set: {email: newEmail,name: newName,gender: newGender,birth_date: newBirth_date}},
+		User.update({email: req.user.email},{$set: {email: newEmail,name: newName,gender: newGender,birth_date: newBirth_date,img:newImg}},
 				(err, result)=>{
 					if(!err){
 						console.log('Alterou utilizador!')
@@ -105,6 +123,7 @@ module.exports = function(passport){
 						req.user.email = newEmail
 						req.user.gender = newGender
 						req.user.birth_date = newBirth_date
+						req.user.img = newImg
 					} 
 					else console.log("Erro: "+err)
 		})

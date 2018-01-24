@@ -449,14 +449,14 @@ html
               // PENSAMENTO
               #pensamentos.form-row
                 h3 Publicar Pensamento:
-                form(action="/postPensamentos", method="POST")
+                form(action="/homepage/post", method="POST")
                   label.col-form-label Pensamento:
                   br
-                  textarea#example2(rows='4', cols='115', placeholder='Em que está a pensar?', name="thoughtDescription")
+                  textarea#example2(rows='4', cols='115', placeholder='Em que está a pensar?', name="thoughtDescription" )
                   label.col-form-label(style='margin-top:10px') Privacidade:
                   select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
-                    option(valeu='pub') Público
-                    option(valeu='priv') Privado
+                    option(value='pub') Público
+                    option(value='priv') Privado
                   .modal-footer
                       button.w3-button.w3-white.w3-border(type='submit')
                         i.fa.fa-check
@@ -569,7 +569,7 @@ html
         // Modal content
         
         .modal-content
-          form(id="changeProfData" action="/homepage/"+user._id+"/changeprofdata" method="POST")
+          form(id="changeProfData" action="/homepage/"+user._id+"/changeprofdata" method="POST" enctype='multipart/form-data')
             .modal-header
               button.close(type='button', data-dismiss='modal') ×
               h4.modal-title Consultar/Atualizar dados pessoais:
@@ -595,10 +595,11 @@ html
                     .form-group.col-md-6
                       label.col-form-label Password Atual:
                       br
-                      input.form-control(type='password')
+                      input.form-control(type='password' name="newPassword" id="newPassword")
                     .form-group.col-md-6
                       label.col-form-label Nova Password:
-                      input.form-control(type='password')
+                      input.form-control(type='password' name="newPasswordCheck" id="newPasswordCheck")
+                      p(style="color: red" id="validate-status")
                   .form-group(style='margin-left: 15px; margin-top: 10px')
                     label.col-form-label Género:
                     br
@@ -613,11 +614,11 @@ html
                     br
                 .form-row(style='margin-left: 15px; margin-top:10px')
                   label.col-form-label Adicionar/Alterar Foto de perfil:
-                  input.form-group(type='file', name='profPic' id="profPic")
+                  input.form-group(type='file', name='newProfPic' id="newProfPic")
             .modal-footer
               button.w3-button.w3-white.w3-border(type='submit' id="submitchangeprof")
                 i.fa.fa-check
                 |  Alterar
-              button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
+              button.w3-button.w3-white.w3-border(type='button' data-dismiss='modal')
                 i.fa.fa-close.fa-fw
                 |  Sair
