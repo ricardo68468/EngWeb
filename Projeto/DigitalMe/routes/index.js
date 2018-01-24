@@ -3,8 +3,9 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models/schema')
 var Post = models.Post
-var User = models.User
 var SportPost = models.Sport
+var ToughtPost = models.Thought
+var User = models.User
 
 var isAuthenticated = function (req, res, next) {
 	// if user is authenticated in the session, call the next() to call the next request handler 
