@@ -509,10 +509,11 @@ html
               // REGISTO DESPORTIVO
               #desportivo.form-row(hidden='')
                 h3 Publicar Registo Desportivo:
-                form(action="/postDesportivo", method="POST")
+                form(action="/homepage/post", method="POST")
                   .form-group.col-md-6
                     label.col-form-label Desporto:
                     br
+                    input(type="text" name="desporto" id="desporto" hidden)
                     input.form-control(type='text', placeholder='Desporto', name='sport_type')
                   .form-group.col-md-6
                     label.col-form-label Duração (hh:mm:ss):
