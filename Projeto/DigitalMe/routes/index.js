@@ -2,9 +2,14 @@
 var express = require('express');
 var router = express.Router();
 var models = require('../models/schema')
+var fs = require('fs')
 var Post = models.Post
 var SportPost = models.Sport
 var ToughtPost = models.Thought
+var PhotoPost = models.Photo
+var VideoPost = models.Video
+var CookingPost = models.Cooking
+var EventPost = models.Events
 var User = models.User
 
 var isAuthenticated = function (req, res, next) {
@@ -45,19 +50,89 @@ module.exports = function(passport){
 	}));
 
 	router.post('/homepage/post', (req, res, next)=>{
-		//console.log("id:::::"+req.body._id)
-		var sport = new SportPost({post_privacy: req.body.privacy, post_date: "28/10/2018",
-			post_type: "Desportivo", posted_in: req.body.sport_local, posted_by: "Joao", sport_type:req.body.sport_type, distance: "10 m",
+		console.log("DEBUG:::::::"+req.body.sport)
+		if(req.body.sport){
+			var date = new Date()
+			var sport = new SportPost({post_privacy: req.body.privacy, post_date: date,
+			post_type: req.body.sport, posted_in: req.body.sport_local, posted_by: req.user.name, sport_type:req.body.sport_type, distance: req.body.sport_distance,
 			calories_burnt: req.body.sport_calories, duration: req.body.sport_duration ,sport_description: req.body.sport_desc,
 			post_comments: []})
 		
-		sport.save((err, result)=>{
-			if(!err)
-				console.log("Acrescentei desporto: "+ req.body._id)
-			else
-				console.log("Erro: "+err)
-		});
-		res.redirect('/homepage')
+			sport.save((err, result)=>{
+				if(!err)
+					console.log("Acrescentei desporto: "+ req.body.sport_type)
+				else
+					console.log("Erro1: "+err)
+			});
+			var novo = {post_privacy: req.body.privacy, post_date: date,
+				post_type: req.body.sport, posted_in: req.body.sport_local, posted_by: req.user.name, sport_type:req.body.sport_type, distance: req.body.sport_distance,
+				calories_burnt: req.body.sport_calories, duration: req.body.sport_duration ,sport_description: req.body.sport_desc,
+				post_comments: []}
+
+			User.update({email: req.user.email},{$push: {user_posts:novo}},
+            	(err, result)=>{
+				   if(!err) 
+						console.log('Acrescentei o post: '+ " ao user: "+req.user.email)
+				   else 
+				   		console.log("Erro2: "+err)
+				   }
+			)
+		}
+		if(req.body.thought){
+			var date = new Date()
+			var tought = new ToughtPost({post_privacy: req.body.privacy, post_date: date,
+			post_type: req.body.thought, posted_in: req.body.thought_local, posted_by: req.user.name, thought_text:thoughtDescription,
+			post_comments: []})
+
+			tought.save((err, result)=>{
+				if(!err)
+					console.log("Acrescentei um pensamento")
+				else
+					console.log("Erro: "+err)
+			});	
+		}
+		if(req.body.foto){
+			var date = new Date()
+			var foto = new PhotoPost({post_privacy: req.body.privacy, post_date: date,
+			post_type: req.body.foto, posted_in: req.body.fotoLocal, posted_by: req.user.name, img: req.body.foto,
+			photo_description: req.body.fotoDescription, post_comments: []})
+		
+			foto.save((err, result)=>{
+				if(!err)
+					console.log("Acrescentei uma foto")
+				else
+					console.log("Erro: "+err)
+			});	
+		}
+		if(req.body.video){
+			var date = new Date()
+			var video = new VideoPost({post_privacy: req.body.privacy, post_date: date,
+			post_type: req.body.video, posted_in: req.body.videoLocal, posted_by: req.user.name, video: req.body.video,
+			video_description: req.body.videoDescription, post_comments: []})
+		
+			video.save((err, result)=>{
+				if(!err)
+					console.log("Acrescentei um video")
+				else
+					console.log("Erro: "+err)
+			});	
+		}
+		if(req.body.recipe){
+			var date = new Date()
+			var recipe = new CookingPost({post_privacy: req.body.privacy, post_date: date,
+			post_type: req.body.recipe, posted_in: req.body.cookLocal, posted_by: req.user.name,
+			post_comments: []})
+		
+			video.save((err, result)=>{
+				if(!err)
+					console.log("Acrescentei um video")
+				else
+					console.log("Erro: "+err)
+			});	
+		}
+
+
+		//res.redirect('/homepage')
 	})
 	
 
@@ -69,6 +144,15 @@ module.exports = function(passport){
 		var newEmail = req.user.email
 		var newGender = req.user.gender
 		var newBirth_date = req.user.birth_date
+		var newPassword = req.user.password
+		var newImg = req.user.img
+		if(req.body.newPassword){
+			if(req.body.newPasswordCheck){
+				
+				newName = req.body.newName
+				console.log("req.body.newName"+req.body.newName)
+			}
+		}
 		if(req.body.newName){
 			newName = req.body.newName
 			console.log("req.body.newName"+req.body.newName)
@@ -84,8 +168,15 @@ module.exports = function(passport){
 		if(req.body.newDate){
 			newBirth_date = req.body.newDate
 			console.log(" req.body.newBirth_date"+ req.body.newDate)
+			a.img.contentType = 'image/png';
 		}
-		
+		if(req.body.newProfPic){
+			console.log("------------------------- profPic = "+req.body.newProfPic)
+			newImg.type = fs.readFileSync(__dirname+"/"+req.body.newProfPic)
+			newImg.contentType = 'image/png'
+		}
+
+
 		var newUser = {
 			email: newEmail,
 			name: newName,
@@ -96,8 +187,9 @@ module.exports = function(passport){
 		console.log("newUser: "+newUser.name)
 		console.log("newUser: "+newUser.gender)
 		console.log("newUser: "+newUser.birth_date)
+		console.log("newUser: "+newUser.img)
 		
-		User.update({email: req.user.email},{$set: {email: newEmail,name: newName,gender: newGender,birth_date: newBirth_date}},
+		User.update({email: req.user.email},{$set: {email: newEmail,name: newName,gender: newGender,birth_date: newBirth_date,img:newImg}},
 				(err, result)=>{
 					if(!err){
 						console.log('Alterou utilizador!')
@@ -105,6 +197,7 @@ module.exports = function(passport){
 						req.user.email = newEmail
 						req.user.gender = newGender
 						req.user.birth_date = newBirth_date
+						req.user.img = newImg
 					} 
 					else console.log("Erro: "+err)
 		})

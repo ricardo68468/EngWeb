@@ -404,18 +404,18 @@ html
               // PENSAMENTO
               #pensamentos.form-row
                 h3 Publicar Pensamento:
-                form(action="/postPensamentos", method="POST")
+                form(action="/homepage/post", method="POST")
                   input(type="text", name="thought", id="thought", value="thought", hidden)
                   label.col-form-label Pensamento:
                   textarea#example2(rows='4', cols='115', placeholder='Em que está a pensar?', name="thoughtDescription")
                   .form-group.col-md-6(style="margin-top:10px")
                     label.col-form-label Localização:
-                    input#localThought.form-control(type="text")
+                    input#localThought.form-control(type="text", name="tought_local")
                   .form-group.col-md-6(style="margin-top:10px")
                     label.col-form-label Privacidade:
                     select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
-                      option(valeu='pub') Público
-                      option(valeu='priv') Privado
+                      option(value='pub') Público
+                      option(value='priv') Privado
                   .modal-footer
                       button.w3-button.w3-white.w3-border(type='submit')
                         i.fa.fa-check
@@ -435,7 +435,7 @@ html
                     input#foto.form-group(type='file', name='foto')
                   .form-group.col-md-6(style='margin-top:10px')
                     label.col-form-label Localização:
-                    input#localFoto.form-control(type="text")
+                    input#localFoto.form-control(type="text", name='fotoLocal')
                   .form-row(style="margin-top: 11%; margin-left: 1%")
                     label.col-form-label Privacidade:
                     select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
@@ -460,7 +460,7 @@ html
                     input#video.form-group(type='file', name='video')
                   .form-group.col-md-6(style="margin-top:10px")
                     label.col-form-label Localização:
-                    input#localVideo.form-control(type="text")
+                    input#localVideo.form-control(type="text", name="videoLocal")
                   .form-row(style="margin-top: 11%; margin-left: 1%")
                     label.col-form-label Privacidade:
                     select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
@@ -480,7 +480,11 @@ html
                   .form-group.col-md-6
                     label.col-form-label Desporto:
                     br
+<<<<<<< HEAD
                     input(type="text", name="desporto", id="desporto", value="desporto", hidden)
+=======
+                    input(type="text" name="sport" id="sport" value="sport" hidden)
+>>>>>>> eb54d2f63cd3249c975519eaa19c94689dd3bb6c
                     input.form-control(type='text', placeholder='Desporto', name='sport_type')
                   .form-group.col-md-6
                     label.col-form-label Duração (hh:mm:ss):
@@ -498,7 +502,7 @@ html
                     input#foto.form-group(type='file', name='foto')
                   .form-group.col-md-6(style='margin-top:10px')
                     label.col-form-label Localização:
-                    input#localFoto.form-control(type="text")
+                    input#localFoto.form-control(type="text", name='sport_local')
                   .form-row(style="margin-top: 11%; margin-left: 1%")
                     label.col-form-label Privacidade:
                     select#priv.form-control(style='width: 150px; margin-bottom: 10px', name='privacy')
@@ -533,7 +537,7 @@ html
                     input#foto.form-group(type='file', name='Recipefoto')
                   form-group.col-md-6(style="margin-top:10px")
                     label.col-form-label Localização:
-                    input#localRecipe.form-control(type="text")
+                    input#localRecipe.form-control(type="text", name='cookLocal')
                   .form-row(style="margin-top: 13%; margin-left: 1%")
                     label.col-form-label Privacidade:
                     select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
@@ -551,7 +555,11 @@ html
       .modal-dialog
         // Modal content
         .modal-content
+<<<<<<< HEAD
           form(id="changeProfData" action="/homepage/"+user._id+"/changeprofdata" method="POST")
+=======
+          form(id="changeProfData" action="/homepage/"+user._id+"/changeprofdata" method="POST" enctype='multipart/form-data')
+>>>>>>> eb54d2f63cd3249c975519eaa19c94689dd3bb6c
             .modal-header
               button.close(type='button', data-dismiss='modal') ×
               h4.modal-title Consultar/Atualizar dados pessoais:
@@ -577,10 +585,11 @@ html
                     .form-group.col-md-6
                       label.col-form-label Password Atual:
                       br
-                      input.form-control(type='password')
+                      input.form-control(type='password' name="newPassword" id="newPassword")
                     .form-group.col-md-6
                       label.col-form-label Nova Password:
-                      input.form-control(type='password')
+                      input.form-control(type='password' name="newPasswordCheck" id="newPasswordCheck")
+                      p(style="color: red" id="validate-status")
                   .form-group(style='margin-left: 15px; margin-top: 10px')
                     label.col-form-label Género:
                     br
@@ -595,11 +604,11 @@ html
                     br
                 .form-row(style='margin-left: 15px; margin-top:10px')
                   label.col-form-label Adicionar/Alterar Foto de perfil:
-                  input.form-group(type='file', name='profPic' id="profPic")
+                  input.form-group(type='file', name='newProfPic' id="newProfPic")
             .modal-footer
               button.w3-button.w3-white.w3-border(type='submit' id="submitchangeprof")
                 i.fa.fa-check
                 |  Alterar
-              button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
+              button.w3-button.w3-white.w3-border(type='button' data-dismiss='modal')
                 i.fa.fa-close.fa-fw
                 |  Sair
