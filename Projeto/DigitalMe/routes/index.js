@@ -6,6 +6,10 @@ var fs = require('fs')
 var Post = models.Post
 var SportPost = models.Sport
 var ToughtPost = models.Thought
+var PhotoPost = models.Photo
+var VideoPost = models.Video
+var CookingPost = models.Cooking
+var EventPost = models.Events
 var User = models.User
 
 var isAuthenticated = function (req, res, next) {
@@ -46,19 +50,89 @@ module.exports = function(passport){
 	}));
 
 	router.post('/homepage/post', (req, res, next)=>{
-		//console.log("id:::::"+req.body._id)
-		var sport = new SportPost({post_privacy: req.body.privacy, post_date: "28/10/2018",
-			post_type: "Desportivo", posted_in: req.body.sport_local, posted_by: "Joao", sport_type:req.body.sport_type, distance: "10 m",
+		console.log("DEBUG:::::::"+req.body.sport)
+		if(req.body.sport){
+			var date = new Date()
+			var sport = new SportPost({post_privacy: req.body.privacy, post_date: date,
+			post_type: req.body.sport, posted_in: req.body.sport_local, posted_by: req.user.name, sport_type:req.body.sport_type, distance: req.body.sport_distance,
 			calories_burnt: req.body.sport_calories, duration: req.body.sport_duration ,sport_description: req.body.sport_desc,
 			post_comments: []})
 		
-		sport.save((err, result)=>{
-			if(!err)
-				console.log("Acrescentei desporto: "+ req.body._id)
-			else
-				console.log("Erro: "+err)
-		});
-		res.redirect('/homepage')
+			sport.save((err, result)=>{
+				if(!err)
+					console.log("Acrescentei desporto: "+ req.body.sport_type)
+				else
+					console.log("Erro1: "+err)
+			});
+			var novo = {post_privacy: req.body.privacy, post_date: date,
+				post_type: req.body.sport, posted_in: req.body.sport_local, posted_by: req.user.name, sport_type:req.body.sport_type, distance: req.body.sport_distance,
+				calories_burnt: req.body.sport_calories, duration: req.body.sport_duration ,sport_description: req.body.sport_desc,
+				post_comments: []}
+
+			User.update({email: req.user.email},{$push: {user_posts:novo}},
+            	(err, result)=>{
+				   if(!err) 
+						console.log('Acrescentei o post: '+ " ao user: "+req.user.email)
+				   else 
+				   		console.log("Erro2: "+err)
+				   }
+			)
+		}
+		if(req.body.thought){
+			var date = new Date()
+			var tought = new ToughtPost({post_privacy: req.body.privacy, post_date: date,
+			post_type: req.body.thought, posted_in: req.body.thought_local, posted_by: req.user.name, thought_text:thoughtDescription,
+			post_comments: []})
+
+			tought.save((err, result)=>{
+				if(!err)
+					console.log("Acrescentei um pensamento")
+				else
+					console.log("Erro: "+err)
+			});	
+		}
+		if(req.body.foto){
+			var date = new Date()
+			var foto = new PhotoPost({post_privacy: req.body.privacy, post_date: date,
+			post_type: req.body.foto, posted_in: req.body.fotoLocal, posted_by: req.user.name, img: req.body.foto,
+			photo_description: req.body.fotoDescription, post_comments: []})
+		
+			foto.save((err, result)=>{
+				if(!err)
+					console.log("Acrescentei uma foto")
+				else
+					console.log("Erro: "+err)
+			});	
+		}
+		if(req.body.video){
+			var date = new Date()
+			var video = new VideoPost({post_privacy: req.body.privacy, post_date: date,
+			post_type: req.body.video, posted_in: req.body.videoLocal, posted_by: req.user.name, video: req.body.video,
+			video_description: req.body.videoDescription, post_comments: []})
+		
+			video.save((err, result)=>{
+				if(!err)
+					console.log("Acrescentei um video")
+				else
+					console.log("Erro: "+err)
+			});	
+		}
+		if(req.body.recipe){
+			var date = new Date()
+			var recipe = new CookingPost({post_privacy: req.body.privacy, post_date: date,
+			post_type: req.body.recipe, posted_in: req.body.cookLocal, posted_by: req.user.name,
+			post_comments: []})
+		
+			video.save((err, result)=>{
+				if(!err)
+					console.log("Acrescentei um video")
+				else
+					console.log("Erro: "+err)
+			});	
+		}
+
+
+		//res.redirect('/homepage')
 	})
 	
 
