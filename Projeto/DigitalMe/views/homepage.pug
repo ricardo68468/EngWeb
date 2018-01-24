@@ -20,12 +20,10 @@ html
         include js/btnCommentLike.js
     script
         include js/emojis.js
-    script 
+    script
         include js/modalPosts-ShowHide.js
     script
         include js/homepage_ready.js
-    script
-        include js/submitProfChange.js
     style
         include css/emojionearea.min.css
     style
@@ -49,8 +47,8 @@ html
         br
         br
         h4
-          b= user.name
-            
+          b(id="nameId")
+            = user.name
         p.w3-text-grey Área Pessoal
       .w3-bar-block
         a.w3-bar-item.w3-button.w3-padding.w3-text-teal(href='#portfolio', onclick='w3_close()')
@@ -102,97 +100,54 @@ html
             button.w3-button.w3-white.w3-hide-small
               i.fa.fa-group.w3-margin-right(id="fiterEvents")
               | Eventos
-      - var post = {postPic: 'postPic',postVideos: 'postVideos',postThought: 'postThought', postRecipes: 'postRecipes', postRecipes: 'postRecipes', postSports: 'postSports'}
-      each post in lposts.length
+      - var post = {postPic: 'postPic',postVideos: 'postVideos', postThought: 'postThought', postRecipes: 'postRecipes', postRecipes: 'postRecipes', postSports: 'postSports'}
+      each post in lposts
         if post.postPic
-            // Template Foto
-            - var span_data_local = '18 de Janeiro de 2017 às 13h24, em'+post.posted_in
-            .w3-container.w3-white.w3-margin.w3-padding-large
-              .w3-row.w3-margin-bottom
+          // Template Foto
+          .w3-container.w3-white.w3-margin.w3-padding-large
+            .w3-row.w3-margin-bottom
+              hr
+              .w3-col.l1.m3
+                img(src='imagens/fotoRicardo.jpg', style='width:50px; border-radius: 50%;')
+              .w3-col.l6.m9
+                h4
+                  = post.posted_by
+                  span.w3-opacity.w3-medium 18 de janeiro de 2017 às 13h24, em Universidade do Minho
+            .w3-justify
+              p
+                | More Hats! I am crazy about hats these days. Some text about this blog entry. Fashion fashion and mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl.
+              .w3-container
+                center
+                  img.w3-padding-16(src='imagens/girl_hat.jpg', align='middle', style='width:900px;')
+              p.w3-left
+                button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
+                  b
+                    i.fa.fa-thumbs-up
+                    |  Like
+                button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal')
+                  b
+                    i.fa.fa-commenting-o
+                    |  Comentar
+              p.w3-right
+                button#myBtn.w3-button.w3-black(onclick="myFunction(demo1)")
+                  b Comentários
+                  span.w3-tag.w3-white 1
+              p.w3-clear
+              #demo1.w3-row.w3-margin-bottom(style='display:none')
                 hr
-                .w3-col.l1.m3
-                  img(src='imagens/fotoRicardo.jpg', style='width:50px; border-radius: 50%;')
-                .w3-col.l6.m9
-
+                .w3-col.l2.m3
+                  img(src='imagens/fotoSantos.jpg', style='width:90px;')
+                .w3-col.l10.m9
                   h4
-                    = post.posted_by
-                    span.w3-opacity.w3-medium 
-                      = span_data_local
-              .w3-justify
-                p
-                  = post.PhotoSchema.photo_description
-                  //| More Hats! I am crazy about hats these days. Some text about this blog entry. Fashion fashion and mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl.
-                .w3-container
-                  center
-                    img.w3-padding-16(src='imagens/girl_hat.jpg', align='middle', style='width:900px;')
-                p.w3-left
-                  button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
-                    b
-                      i.fa.fa-thumbs-up
-                      |  Like
-                  button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal')
-                    b
-                      i.fa.fa-commenting-o
-                      |  Comentar
-                p.w3-right
-                  button#myBtn.w3-button.w3-black(onclick="myFunction('demo1')")
-                    b Comentários
-                    span.w3-tag.w3-white 1
-                p.w3-clear
-                #demo1.w3-row.w3-margin-bottom(style='display:none')
-                  hr
-                  .w3-col.l2.m3
-                    img(src='imagens/fotoSantos.jpg', style='width:90px;')
-                  .w3-col.l10.m9
-                    h4
-                      | George 
-                      span.w3-opacity.w3-medium May 3, 2015, 6:32 PM
-                    p Great blog post! Following
-            hr
-      // Template Foto
-      //- var span_data_local = '18 de Janeiro de 2017 às 13h24, em'+post.posted_in
-      .w3-container.w3-white.w3-margin.w3-padding-large
-        .w3-row.w3-margin-bottom
+                    | George 
+                    span.w3-opacity.w3-medium May 3, 2015, 6:32 PM
+                  p Great blog post! Following
           hr
-          .w3-col.l1.m3
-            img(src='imagens/fotoRicardo.jpg', style='width:50px; border-radius: 50%;')
-          .w3-col.l6.m9
-            
-            h4
-              //= post.posted_by
-              span.w3-opacity.w3-medium 
-                = span_data_local
-        .w3-justify
-          p
-            //= post.PhotoSchema.photo_description
-            //| More Hats! I am crazy about hats these days. Some text about this blog entry. Fashion fashion and mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl.
-          .w3-container
-            center
-              img.w3-padding-16(src='imagens/girl_hat.jpg', align='middle', style='width:900px;')
-          p.w3-left
-            button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
-              b
-                i.fa.fa-thumbs-up
-                |  Like
-            button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal')
-              b
-                i.fa.fa-commenting-o
-                |  Comentar
-          p.w3-right
-            button#myBtn.w3-button.w3-black(onclick="myFunction('demo1')")
-              b Comentários
-              span.w3-tag.w3-white 1
-          p.w3-clear
-          #demo1.w3-row.w3-margin-bottom(style='display:none')
-            hr
-            .w3-col.l2.m3
-              img(src='imagens/fotoSantos.jpg', style='width:90px;')
-            .w3-col.l10.m9
-              h4
-                | George 
-                span.w3-opacity.w3-medium May 3, 2015, 6:32 PM
-              p Great blog post! Following
-      hr
+        else if post.postVideos
+        else if post.postThought
+        else if post.postRecipes
+        else if post.postRecipes
+        else if post.postSports
       // listas de posts
       //ul(id="feed_id" class="list-unstyled")
         li
@@ -450,13 +405,17 @@ html
               #pensamentos.form-row
                 h3 Publicar Pensamento:
                 form(action="/postPensamentos", method="POST")
+                  input(type="text", name="thought", id="thought", value="thought", hidden)
                   label.col-form-label Pensamento:
-                  br
                   textarea#example2(rows='4', cols='115', placeholder='Em que está a pensar?', name="thoughtDescription")
-                  label.col-form-label(style='margin-top:10px') Privacidade:
-                  select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
-                    option(valeu='pub') Público
-                    option(valeu='priv') Privado
+                  .form-group.col-md-6(style="margin-top:10px")
+                    label.col-form-label Localização:
+                    input#localThought.form-control(type="text")
+                  .form-group.col-md-6(style="margin-top:10px")
+                    label.col-form-label Privacidade:
+                    select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
+                      option(valeu='pub') Público
+                      option(valeu='priv') Privado
                   .modal-footer
                       button.w3-button.w3-white.w3-border(type='submit')
                         i.fa.fa-check
@@ -468,12 +427,16 @@ html
               #fotos.form-row(hidden='')
                 h3 Publicar Foto:
                 form(action="/postFoto", method="POST")
+                  input(type="text", name="foto", id="foto", value="foto", hidden)
                   label.col-form-label Descrição:
-                  br
                   textarea#example3(rows='2', cols='115', name="fotoDescription")
-                  .form-row
-                    label.col-form-label(style='margin-top:10px') Escolher Foto:
+                  .form-group.col-md-6(style='margin-top:10px')
+                    label.col-form-label Escolher Foto:
                     input#foto.form-group(type='file', name='foto')
+                  .form-group.col-md-6(style='margin-top:10px')
+                    label.col-form-label Localização:
+                    input#localFoto.form-control(type="text")
+                  .form-row(style="margin-top: 11%; margin-left: 1%")
                     label.col-form-label Privacidade:
                     select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
                       option(valeu='pub') Público
@@ -489,12 +452,16 @@ html
               #videos.form-row(hidden='')
                 h3 Publicar Vídeo:
                 form(action="/postVideo", method="POST")
+                  input(type="text", name="video", id="video", value="video", hidden)
                   label.col-form-label Descrição:
-                  br
                   textarea#example4(rows='2', cols='115', name="videoDescription")
-                  .form-row
-                    label.col-form-label(style='margin-top:10px') Escolher Vídeo:
+                  .form-group.col-md-6(style="margin-top:10px")
+                    label.col-form-label Escolher Vídeo:
                     input#video.form-group(type='file', name='video')
+                  .form-group.col-md-6(style="margin-top:10px")
+                    label.col-form-label Localização:
+                    input#localVideo.form-control(type="text")
+                  .form-row(style="margin-top: 11%; margin-left: 1%")
                     label.col-form-label Privacidade:
                     select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
                       option(valeu='pub') Público
@@ -512,24 +479,25 @@ html
                 form(action="/postDesportivo", method="POST")
                   .form-group.col-md-6
                     label.col-form-label Desporto:
-                    br
                     input.form-control(type='text', placeholder='Desporto', name='sport_type')
                   .form-group.col-md-6
                     label.col-form-label Duração (hh:mm:ss):
-                    input.form-control(type='time', step='1' , name='sport_duration')
+                    input.form-control(type='time', name='sport_duration')
                   .form-group.col-md-6
-                    label.col-form-label Local:
-                    br
-                    input.form-control(type='text', placeholder='Local', name='sport_local')
+                    label.col-form-label Distância (Kms):
+                    input.form-control(type='number', name='sport_distance', placeholder="0.00", step="0.01", min="0.00")
                   .form-group.col-md-6
                     label.col-form-label Calorias gastas (kcal):
                     input.form-control(type='number', min='0', name='sport_calories')
                   label.col-form-label Descrição:
-                  br
                   textarea#example5(rows='2', cols='115', name='sport_desc')
-                  .form-row
-                    label.col-form-label(style='margin-top:10px') Escolher Foto:
-                    input#foto.form-group(type='file', name='sport_photo')
+                  .form-group.col-md-6(style='margin-top:10px')
+                    label.col-form-label Escolher Foto:
+                    input#foto.form-group(type='file', name='foto')
+                  .form-group.col-md-6(style='margin-top:10px')
+                    label.col-form-label Localização:
+                    input#localFoto.form-control(type="text")
+                  .form-row(style="margin-top: 11%; margin-left: 1%")
                     label.col-form-label Privacidade:
                     select#priv.form-control(style='width: 150px; margin-bottom: 10px', name='privacy')
                       option(valeu='pub') Público
@@ -545,12 +513,17 @@ html
               #receita.form-row(hidden='')
                 h3 Publicar Receita:
                 form(action="/postReceita", method="POST")
+                  input(type="text", name="recipe", id="recipe", value="recipe", hidden)
                   label.col-form-label Preparação:
                   br
                   textarea#prep(rows='4', cols='115', placeholder='Modo de Preparação', name="recipeDescription")
-                  .form-row
+                  .form-group.col-md-6(style="margin-top:10px")
                     label.col-form-label(style='margin-top:10px') Escolher Foto:
                     input#foto.form-group(type='file', name='Recipefoto')
+                  form-group.col-md-6(style="margin-top:10px")
+                    label.col-form-label Localização:
+                    input#localRecipe.form-control(type="text")
+                  .form-row(style="margin-top: 13%; margin-left: 1%")
                     label.col-form-label Privacidade:
                     select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
                       option(valeu='pub') Público
@@ -566,57 +539,54 @@ html
     #DPModal.modal.fade(role='dialog')
       .modal-dialog
         // Modal content
-        
         .modal-content
-          form(id="changeProfData" action="/changeprofdata" method="POST")
-            .modal-header
-              button.close(type='button', data-dismiss='modal') ×
-              h4.modal-title Consultar/Atualizar dados pessoais:
-
-              .modal-body
-                .form-row
-                  .form-group.col-md-6
-                    label.col-form-label Nome:
-                    br
-                    input.form-control(type='text' name="newName" id='newName')
-                  .form-group.col-md-6
-                    label.col-form-label Email:
-                    input.form-control(type='email' name="newEmail" id='newEmail')
-                  .form-group.col-md-6
-                    label.col-form-label Data de Nascimento:
-                    br
-                    input.form-control(type='date' name="newDate" id='newDate')
-                  .form-group.col-md-6(style='margin-top: 22px')
-                    button#btn_password.w3-button.w3-white.w3-border(type='button')
-                      i.fa.fa-lock.fa-fw
-                      |  Alterar Password
-                  #password.form-group(style=' margin-top: 10px', hidden='')
-                    .form-group.col-md-6
-                      label.col-form-label Password Atual:
-                      br
-                      input.form-control(type='password')
-                    .form-group.col-md-6
-                      label.col-form-label Nova Password:
-                      input.form-control(type='password')
-                  .form-group(style='margin-left: 15px; margin-top: 10px')
-                    label.col-form-label Género:
-                    br
-                    input.w3-radio.w3-border(type='radio', name='newGender' id='male' value="Male")
-                    label Masculino
-                    br
-                    input.w3-radio.w3-border(type='radio', name='newGender' id='female' value="Female")
-                    label Feminino
-                    br
-                    input.w3-radio.w3-border(type='radio', name='newGender' id='other' value="Other")
-                    label Outro
-                    br
-                .form-row(style='margin-left: 15px; margin-top:10px')
-                  label.col-form-label Adicionar/Alterar Foto de perfil:
-                  input.form-group(type='file', name='profPic' id="profPic")
-            .modal-footer
-              button.w3-button.w3-white.w3-border(type='submit' id="submitchangeprof")
-                i.fa.fa-check
-                |  Alterar
-              button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
-                i.fa.fa-close.fa-fw
-                |  Sair
+          .modal-header
+            button.close(type='button', data-dismiss='modal') ×
+            h4.modal-title Consultar/Atualizar dados pessoais:
+          .modal-body
+            #desportivo.form-row
+              .form-group.col-md-6
+                label.col-form-label Nome:
+                br
+                input.form-control(type='text')
+              .form-group.col-md-6
+                label.col-form-label Email:
+                input.form-control(type='email')
+              .form-group.col-md-6
+                label.col-form-label Data de Nascimento:
+                br
+                input.form-control(type='date')
+              .form-group.col-md-6(style='margin-top: 22px')
+                button#btn_password.w3-button.w3-white.w3-border(type='button')
+                  i.fa.fa-lock.fa-fw
+                  |  Alterar Password
+              #password.form-group(style=' margin-top: 10px', hidden='')
+                .form-group.col-md-6
+                  label.col-form-label Password Atual:
+                  br
+                  input.form-control(type='password')
+                .form-group.col-md-6
+                  label.col-form-label Nova Password:
+                  input.form-control(type='password')
+              .form-group(style='margin-left: 15px; margin-top: 10px')
+                label.col-form-label Género:
+                br
+                input#masculino.w3-radio.w3-border(type='radio', name='genero')
+                label Masculino
+                br
+                input#feminino.w3-radio.w3-border(type='radio', name='genero')
+                label Feminino
+                br
+                input#outro.w3-radio.w3-border(type='radio', name='genero')
+                label Outro
+                br
+            .form-row(style='margin-left: 15px; margin-top:10px')
+              label.col-form-label Adicionar/Alterar Foto de perfil:
+              input#foto.form-group(type='file', name='foto')
+          .modal-footer
+            button.w3-button.w3-white.w3-border(type='submit')
+              i.fa.fa-check
+              |  Alterar
+            button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
+              i.fa.fa-close.fa-fw
+              |  Sair
