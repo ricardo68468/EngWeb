@@ -568,7 +568,7 @@ html
         // Modal content
         
         .modal-content
-          form(id="changeProfData" action="/changeprofdata" method="POST")
+          form(id="changeProfData" action="/homepage/"+user._id+"/changeprofdata" method="POST")
             .modal-header
               button.close(type='button', data-dismiss='modal') ×
               h4.modal-title Consultar/Atualizar dados pessoais:
