@@ -89,7 +89,7 @@ module.exports = function(passport){
 			var date = new Date()
 			var sport = new SportPost({post_privacy: req.body.privacy, post_date: date,
 			post_type: req.body.sport, posted_in: req.body.sport_local,sport_photos: photoNames.img, posted_by: req.user.name, sport_type:req.body.sport_type, distance: req.body.sport_distance,
-			calories_burnt: req.body.sport_calories, duration: req.body.sport_duration ,sport_description: req.body.sport_desc,
+			calories_burnt: req.body.sport_calories, duration: req.body.sport_duration ,sport_description: req.body.sport_desc, posted_by_pic: req.user.img,
 			post_comments: []})
 			
 			sport.save((err, result)=>{
@@ -114,7 +114,7 @@ module.exports = function(passport){
 			var date = new Date()
 			var thought = new ToughtPost({post_privacy: req.body.privacy, post_date: date,
 			post_type: req.body.thought, posted_in: req.body.thought_local, posted_by: req.user.name,
-			thought_text: req.body.thoughtDescription,post_comments: []})
+			thought_text: req.body.thoughtDescription, posted_by_pic: req.user.img, post_comments: []})
 
 			thought.save((err, result)=>{
 				if(!err)
@@ -147,7 +147,7 @@ module.exports = function(passport){
 			var date = new Date()
 			var foto = new PhotoPost({post_privacy: req.body.privacy, post_date: date,
 			post_type: req.body.foto, posted_in: req.body.fotoLocal, posted_by: req.user.name, img: photoNames.img,
-			photo_description: req.body.fotoDescription, post_comments: []})
+			photo_description: req.body.fotoDescription, posted_by_pic: req.user.img, post_comments: []})
 		
 			foto.save((err, result)=>{
 				if(!err)
@@ -179,7 +179,7 @@ module.exports = function(passport){
 			var date = new Date()
 			var video = new VideoPost({post_privacy: req.body.privacy, post_date: date,
 			post_type: req.body.video, posted_in: req.body.videoLocal, posted_by: req.user.name, video: "uploads/"+req.files[0].originalname,
-			video_description: req.body.videoDescription, post_comments: []})
+			video_description: req.body.videoDescription, posted_by_pic: req.user.img, post_comments: []})
 		
 			video.save((err, result)=>{
 				if(!err)
@@ -212,7 +212,7 @@ module.exports = function(passport){
 			var date = new Date()
 			var recipe = new CookingPost({post_privacy: req.body.privacy, post_date: date,
 			post_type: req.body.recipe, posted_in: req.body.cookLocal, cook_name: req.body.recipe_name,cook_photos: photoNames.img,
-			ingredients: req.body.ingredients, preparation: req.body.recipeDescription, posted_by: req.user.name,
+			ingredients: req.body.ingredients, preparation: req.body.recipeDescription, posted_by: req.user.name, posted_by_pic: req.user.img,
 			post_comments: []})
 		
 			recipe.save((err, result)=>{
@@ -249,7 +249,7 @@ module.exports = function(passport){
 				post_type: req.body.event, posted_in: req.body.event_local,
 				posted_by: req.user.name, event_name: req.body.event_name,
 				event_type: req.body.event_type, event_description: req.body.event_desc,
-				event_date: req.body.event_date ,event_duration: req.body.event_duration,
+				event_date: req.body.event_date ,event_duration: req.body.event_duration, posted_by_pic: req.user.img,
 				event_hour: req.body.event_hour,post_comments: []})
 				
 			event.save((err, result)=>{
@@ -338,16 +338,14 @@ module.exports = function(passport){
 						req.user.gender = newGender
 						req.user.birth_date = newBirth_date
 						req.user.img = newImg
-						req.user.user_posts = newPosts
 						//inserir queries de update a posts
 						//todos os posts deste utilizador atualizer o posted_by com o novo nome e posted_by_pic com nova fota
-						Post.find({'_id': {$in: newPosts}}).exec((err,doc)=>{
+						Post.find({'_id': {$in: req.user.user_posts}}).update({$set: {posted_by: newName, posted_by_pic: newImg}},{multi: true}).exec((err,doc)=>{
 							if(!err){
-								console.log("Posts do user "+doc)
-								
+								console.log("Posts do user "+doc[0])
 							}	
 							else 
-								res.render('error', {error: err})
+								console.log("Erro fio da puta"+err)
 						})
 					} 
 					else console.log("Erro: "+err)
