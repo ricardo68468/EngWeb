@@ -26,7 +26,7 @@ var PostSchema = new AbstractPostSchema();
 
 var PhotoSchema = new AbstractPostSchema(
     {
-        img: {type: String, required: true},
+        img: [{type: String, required: true}],
         photo_description: {type:String}
     }
 )
