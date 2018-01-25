@@ -8,8 +8,9 @@ function AbstractPostSchema() {
     this.add({
         post_privacy: {type: String, required:true},
         post_date: {type: String, required: true},
-        post_type: {type: String, required: true},
+        post_type: {type: Number, required: true},
         posted_in: {type: String},
+        posted_by_pic: {type: String},
         posted_by: {type: String, required: true},
         post_comments: [
             {
@@ -26,14 +27,14 @@ var PostSchema = new AbstractPostSchema();
 
 var PhotoSchema = new AbstractPostSchema(
     {
-        img: {type: Buffer, contentType: String},
+        img: [{type: String, required: true}],
         photo_description: {type:String}
     }
 )
 
 var VideoSchema = new AbstractPostSchema(
     {
-        video: {type: Buffer, contentType: String},
+        video: {type: String, required: true},
         video_description: {type:String}
     }
 )
@@ -50,6 +51,7 @@ var SportSchema = new AbstractPostSchema(
         distance: {type: String},
         calories_burnt: {type: String},
         duration: {type: String, required: true},
+        sport_photos: [{type: String}],
         sport_description: {type: String, required: true}
     }
 ) 
@@ -59,8 +61,8 @@ var CookingSchema = new AbstractPostSchema(
         cook_name: {type: String, required: true},
         ingredients: {type: [String], required: true},
         preparation: {type: String, required: true},
-        cook_photos: [PhotoSchema],
-        cook_video: VideoSchema
+        cook_calories: {type: String, required: true},
+        cook_photos: [{type: String}]
     }
 )
 
@@ -72,8 +74,7 @@ var EventSchema = new AbstractPostSchema(
         event_date: {type: String, required: true},
         event_hour: {type:String, required: true},
         event_duration: {type: String, required: true},
-        event_photos: [PhotoSchema],
-        event_video: VideoSchema
+        event_photos: [{type: String}]
     }
 )
 
