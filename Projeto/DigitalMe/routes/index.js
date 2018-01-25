@@ -151,11 +151,24 @@ module.exports = function(passport){
 		
 			video.save((err, result)=>{
 				if(!err)
-					console.log("Acrescentei um video")
+					console.log("Acrescentei uma receita")
 				else
 					console.log("Erro: "+err)
 			});	
 		}
+	})
+
+	/* Handle Comment on some post */
+	router.post('/homepage/post/:idPost/comment', (req, res, next)=>{
+		var comment = {comment_date: req.body.comment_date, comment_body: req.body.comment_body, comment_by: req.user.name}
+		Post.update({_id: req.params.idPost},{$push: {post_comments:comment}},
+			(err,result)=>{
+				if(!err)
+					console.log("Adicionei um comment ao post: "+ req.params.idPost)
+				else
+					console.log('Erro a adicionar comentário: '+ err)
+			})
+		res.redirect('/homepage')
 	})
 	
 

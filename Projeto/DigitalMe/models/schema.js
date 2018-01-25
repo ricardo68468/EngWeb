@@ -15,8 +15,7 @@ function AbstractPostSchema() {
             {
                 comment_date: {type: String, required:true},
                 comment_body: {type: String, required:true},
-                comment_by: {type: Schema.Types.ObjectId, required:true} // user a = new User(); 
-                                                                         //comment_by = a._id;
+                comment_by: {type: String, required:true}
             }
         ]
     })
