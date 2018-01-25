@@ -59,7 +59,6 @@ var CookingSchema = new AbstractPostSchema(
         cook_name: {type: String, required: true},
         ingredients: {type: [String], required: true},
         preparation: {type: String, required: true},
-        cook_calories: {type: String, required: true},
         cook_photos: [PhotoSchema],
         cook_video: VideoSchema
     }
@@ -71,6 +70,7 @@ var EventSchema = new AbstractPostSchema(
         event_type: {type: String, required: true},
         event_description: {type: String, required: true},
         event_date: {type: String, required: true},
+        event_hour: {type:String, required: true},
         event_duration: {type: String, required: true},
         event_photos: [PhotoSchema],
         event_video: VideoSchema
