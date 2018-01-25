@@ -12,6 +12,20 @@ var CookingPost = models.Cooking
 var EventPost = models.Events
 var User = models.User
 
+//multer object creation
+var multer  = require('multer')
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+  }
+})
+
+var upload = multer({ storage: storage })
+
+
 var isAuthenticated = function (req, res, next) {
 	// if user is authenticated in the session, call the next() to call the next request handler 
 	// Passport adds this method to request object. A middleware is allowed to add properties to
@@ -21,6 +35,7 @@ var isAuthenticated = function (req, res, next) {
 	// if the user is not authenticated then redirect him to the login page
 	res.redirect('/');
 }
+
 
 module.exports = function(passport){
 
@@ -138,8 +153,11 @@ module.exports = function(passport){
 
 
 	/* Handle ProfileChange POST */
-	router.post('/homepage/:id/changeprofdata', function(req, res){
+	router.post('/homepage/:id/changeprofdata'/*, upload.single('newProfPic')*/, function(req, res){
 		/** @todo por a password e a foto **/
+
+		console.log("PROFILE CHANGE")
+
 		var newName = req.user.name
 		var newEmail = req.user.email
 		var newGender = req.user.gender
@@ -177,17 +195,6 @@ module.exports = function(passport){
 		}
 
 
-		var newUser = {
-			email: newEmail,
-			name: newName,
-			gender: newGender,
-			birth_date: newBirth_date
-		}
-		console.log("newUser: "+newUser.email)
-		console.log("newUser: "+newUser.name)
-		console.log("newUser: "+newUser.gender)
-		console.log("newUser: "+newUser.birth_date)
-		console.log("newUser: "+newUser.img)
 		
 		User.update({email: req.user.email},{$set: {email: newEmail,name: newName,gender: newGender,birth_date: newBirth_date,img:newImg}},
 				(err, result)=>{
@@ -213,7 +220,8 @@ module.exports = function(passport){
 		Post.find()
 		.exec((err,doc)=>{
 			if(!err){
-				console.log("doc "+doc)
+				//console.log("doc "+doc)
+				//console.log("req.file.filename: "+req.file.filename)
 				res.render('homepage', {lposts: doc, user:req.user})
 			}
 				

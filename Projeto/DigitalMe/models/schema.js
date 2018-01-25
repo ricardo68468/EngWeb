@@ -85,8 +85,8 @@ var UserSchema = new Schema(
         password: {type: String, required: true},
         gender: {type:String, required: true},
         birth_date: {type:String},
-        img: {type: Buffer, contentType: String},
-        user_posts: [PostSchema]
+        img: {type: String},
+        user_posts: [Schema.Types.ObjectId]
     }
 )
 
