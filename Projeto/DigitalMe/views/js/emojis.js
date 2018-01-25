@@ -9,4 +9,6 @@
        pickerPosition: "bottom"});
     $("#example5").emojioneArea({
        pickerPosition: "bottom"});
+    $("#example6").emojioneArea({
+       pickerPosition: "bottom"});
   });

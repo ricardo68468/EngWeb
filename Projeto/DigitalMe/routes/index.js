@@ -1,8 +1,8 @@
-
 var express = require('express');
 var router = express.Router();
 var models = require('../models/schema')
 var fs = require('fs')
+var User = models.User
 var Post = models.Post
 var SportPost = models.Sport
 var ToughtPost = models.Thought
@@ -10,7 +10,12 @@ var PhotoPost = models.Photo
 var VideoPost = models.Video
 var CookingPost = models.Cooking
 var EventPost = models.Events
-var User = models.User
+
+
+/** @todo 
+ * Adicionar imagem em desporto 
+ * Redirecionar os erros para uma página de erro
+*/
 
 //multer object creation
 var multer  = require('multer')
@@ -65,46 +70,52 @@ module.exports = function(passport){
 	}));
 
 	router.post('/homepage/post', (req, res, next)=>{
-		console.log("DEBUG:::::::"+req.body.sport)
 		if(req.body.sport){
 			var date = new Date()
 			var sport = new SportPost({post_privacy: req.body.privacy, post_date: date,
 			post_type: req.body.sport, posted_in: req.body.sport_local, posted_by: req.user.name, sport_type:req.body.sport_type, distance: req.body.sport_distance,
 			calories_burnt: req.body.sport_calories, duration: req.body.sport_duration ,sport_description: req.body.sport_desc,
 			post_comments: []})
-		
+			
 			sport.save((err, result)=>{
 				if(!err)
+				{
 					console.log("Acrescentei desporto: "+ req.body.sport_type)
+					console.log("Id do post: "+sport._id)
+					User.update({email: req.user.email},{$push: {user_posts: sport._id}},(err, result)=>{
+						if(!err) 
+							console.log('Acrescentei o post: '+ sport._id +" ao user: "+req.user.email)
+		  				else 
+		   					console.log("Erro ao atualizar: "+err)
+					})
+					res.redirect('/homepage')
+				}
 				else
-					console.log("Erro1: "+err)
+					console.log("Erro ao gravar: "+err)
 			});
-			var novo = {post_privacy: req.body.privacy, post_date: date,
-				post_type: req.body.sport, posted_in: req.body.sport_local, posted_by: req.user.name, sport_type:req.body.sport_type, distance: req.body.sport_distance,
-				calories_burnt: req.body.sport_calories, duration: req.body.sport_duration ,sport_description: req.body.sport_desc,
-				post_comments: []}
-
-			User.update({email: req.user.email},{$push: {user_posts:novo}},
-            	(err, result)=>{
-				   if(!err) 
-						console.log('Acrescentei o post: '+ " ao user: "+req.user.email)
-				   else 
-				   		console.log("Erro2: "+err)
-				   }
-			)
 		}
 		if(req.body.thought){
 			var date = new Date()
-			var tought = new ToughtPost({post_privacy: req.body.privacy, post_date: date,
-			post_type: req.body.thought, posted_in: req.body.thought_local, posted_by: req.user.name, thought_text:thoughtDescription,
-			post_comments: []})
+			var thought = new ToughtPost({post_privacy: req.body.privacy, post_date: date,
+			post_type: req.body.thought, posted_in: req.body.thought_local, posted_by: req.user.name,
+			thought_text: req.body.thoughtDescription,post_comments: []})
 
-			tought.save((err, result)=>{
+			thought.save((err, result)=>{
 				if(!err)
+				{
 					console.log("Acrescentei um pensamento")
+					console.log("Id do post: "+thought._id)
+					User.update({email: req.user.email},{$push: {user_posts: thought._id}},(err, result)=>{
+						if(!err) 
+							console.log('Acrescentei o post: '+ thought._id +" ao user: "+req.user.email)
+		  				else 
+		   					console.log("Erro ao atualizar: "+err)
+					})
+					res.redirect('/homepage')
+				}
 				else
-					console.log("Erro: "+err)
-			});	
+					console.log("Erro ao gravar: "+err)
+			});
 		}
 		if(req.body.foto){
 			var date = new Date()
@@ -145,9 +156,6 @@ module.exports = function(passport){
 					console.log("Erro: "+err)
 			});	
 		}
-
-
-		//res.redirect('/homepage')
 	})
 	
 
