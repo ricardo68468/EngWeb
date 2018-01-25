@@ -60,14 +60,9 @@ var CookingSchema = new AbstractPostSchema(
         cook_name: {type: String, required: true},
         ingredients: {type: [String], required: true},
         preparation: {type: String, required: true},
-<<<<<<< HEAD
         cook_calories: {type: String, required: true},
         cook_photos: [{type: String}],
         cook_video: {type: String}
-=======
-        cook_photos: [PhotoSchema],
-        cook_video: VideoSchema
->>>>>>> 406e137a5f26fc9939bc285ff3ae0625bdc84fb0
     }
 )
 
