@@ -14,7 +14,7 @@ var EventPost = models.Events
 
 
 /** @todo 
- * Adicionar imagem em desporto 
+ * Adicionar imagens e videos nos posts
  * Redirecionar os erros para uma página de erro
 */
 
@@ -136,10 +136,20 @@ module.exports = function(passport){
 		
 			foto.save((err, result)=>{
 				if(!err)
+				{
 					console.log("Acrescentei uma foto")
+					console.log("Id do post: "+foto._id)
+					User.update({email: req.user.email},{$push: {user_posts: foto._id}},(err, result)=>{
+						if(!err) 
+							console.log('Acrescentei o post: '+ foto._id +" ao user: "+req.user.email)
+		  				else 
+		   					console.log("Erro ao atualizar: "+err)
+					})
+					res.redirect('/homepage')
+				}
 				else
-					console.log("Erro: "+err)
-			});	
+					console.log("Erro ao gravar: "+err)
+			});
 		}
 		if(req.body.video){
 			var date = new Date()
@@ -149,23 +159,68 @@ module.exports = function(passport){
 		
 			video.save((err, result)=>{
 				if(!err)
+				{
 					console.log("Acrescentei um video")
+					console.log("Id do post: "+video._id)
+					User.update({email: req.user.email},{$push: {user_posts: video._id}},(err, result)=>{
+						if(!err) 
+							console.log('Acrescentei o post: '+ video._id +" ao user: "+req.user.email)
+		  				else 
+		   					console.log("Erro ao atualizar: "+err)
+					})
+					res.redirect('/homepage')
+				}
 				else
-					console.log("Erro: "+err)
-			});	
+					console.log("Erro ao gravar: "+err)
+			});
 		}
 		if(req.body.recipe){
 			var date = new Date()
 			var recipe = new CookingPost({post_privacy: req.body.privacy, post_date: date,
-			post_type: req.body.recipe, posted_in: req.body.cookLocal, posted_by: req.user.name,
+			post_type: req.body.recipe, posted_in: req.body.cookLocal, cook_name: req.body.recipe_name,
+			ingredients: req.body.ingredients, preparation: req.body.recipeDescription, posted_by: req.user.name,
 			post_comments: []})
 		
-			video.save((err, result)=>{
+			recipe.save((err, result)=>{
 				if(!err)
+				{
 					console.log("Acrescentei uma receita")
+					console.log("Id do post: "+thought._id)
+					User.update({email: req.user.email},{$push: {user_posts: recipe._id}},(err, result)=>{
+						if(!err) 
+							console.log('Acrescentei o post: '+ recipe._id +" ao user: "+req.user.email)
+		  				else 
+		   					console.log("Erro ao atualizar: "+err)
+					})
+					res.redirect('/homepage')
+				}
 				else
-					console.log("Erro: "+err)
-			});	
+					console.log("Erro ao gravar: "+err)
+			});
+		}
+		if(req.body.event){
+			var date = new Date()
+			var event = new EventPost({post_privacy: req.body.privacy, post_date: date,
+			post_type: req.body.event, posted_in: req.body.event_local, posted_by: req.user.name, event_name: req.body.event_name,
+			event_type: req.body.event_type, event_description: req.body.event_desc, event_date: req.body.event_date ,event_duration: req.body.event_duration,
+			event_hour: req.body.event_hour,post_comments: []})
+		
+			event.save((err, result)=>{
+				if(!err)
+				{
+					console.log("Acrescentei um evento")
+					console.log("Id do post: "+event._id)
+					User.update({email: req.user.email},{$push: {user_posts: event._id}},(err, result)=>{
+						if(!err) 
+							console.log('Acrescentei o post: '+ event._id +" ao user: "+req.user.email)
+		  				else 
+		   					console.log("Erro ao atualizar: "+err)
+					})
+					res.redirect('/homepage')
+				}
+				else
+					console.log("Erro ao gravar: "+err)
+			});
 		}
 	})
 

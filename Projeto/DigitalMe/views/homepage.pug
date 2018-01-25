@@ -573,6 +573,7 @@ html
                   .form-group.col-md-6
                     lable.col-form-lable Nome do Evento:
                     input.form-control(type="text" name="event_name" placeholder="Evento")
+                  input(type="text", name="event", id="event", value="event", hidden)
                   .form-group.col-md-6
                     lable.col-form-lable Data(dd/mm/aa):
                     input.form-control(type="date" name="event_date")
@@ -583,7 +584,7 @@ html
                     lable.col-form-lable Localização:
                     input.form-control(type="text" name="event_local" placeholder="Localização")
                   lable.col-form-label Descrição:
-                  textarea#example6(cols="115", rows="2", placeholder="Descrição do Evento")
+                  textarea#example6(cols="115", rows="2", placeholder="Descrição do Evento" name="event_desc")
                   .form-group.col-md-6(style="margin-top:15px")
                     lable.col-form-label Escolher Foto:
                     input.form-group(type="file", name="event_foto")
