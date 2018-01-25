@@ -280,6 +280,17 @@ module.exports = function(passport){
 						req.user.gender = newGender
 						req.user.birth_date = newBirth_date
 						req.user.img = newImg
+						req.user.user_posts = newPosts
+						//inserir queries de update a posts
+						//todos os posts deste utilizador atualizer o posted_by com o novo nome e posted_by_pic com nova fota
+						Post.find({'_id': {$in: newPosts}}).exec((err,doc)=>{
+							if(!err){
+								console.log("Posts do user "+doc)
+								
+							}	
+							else 
+								res.render('error', {error: err})
+						})
 					} 
 					else console.log("Erro: "+err)
 		})
