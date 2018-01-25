@@ -496,7 +496,7 @@ html
               // REGISTO DESPORTIVO
               #desportivo.form-row(hidden='')
                 h3 Publicar Registo Desportivo:
-                form(action="/homepage/post", method="POST")
+                form(action="/homepage/post", method="POST" enctype='multipart/form-data')
                   .form-group.col-md-6
                     label.col-form-label Desporto:
                     br
@@ -515,7 +515,7 @@ html
                   textarea#example5(rows='2', cols='115', name='sport_desc', placeholder="Descrição do Registo Desportivo")
                   .form-group.col-md-6(style='margin-top:10px')
                     label.col-form-label Escolher Foto:
-                    input#foto.form-group(type='file', name='foto')
+                    input.form-group(type='file' name='sportPic' id="sportPic" multiple )
                   .form-group.col-md-6(style='margin-top:10px')
                     label.col-form-label Localização:
                     input#localFoto.form-control(type="text", name='sport_local', placeholder="Localização")
@@ -534,7 +534,7 @@ html
               // RECEITA
               #receita.form-row(hidden='')
                 h3 Publicar Receita:
-                form(action="/homepage/post", method="POST")
+                form(action="/homepage/post", method="POST" enctype='multipart/form-data')
                   .form-group
                     lable.col-form-lable Nome da Receita:
                     input.form-control(type="text", name="recipe_name", placeholder="Receita", style="width:40%")

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models/schema')
 var fs = require('fs')
+const util = require('util')
 var User = models.User
 var Post = models.Post
 var SportPost = models.Sport
@@ -69,11 +70,21 @@ module.exports = function(passport){
 		failureFlash : true  
 	}));
 
-	router.post('/homepage/post', (req, res, next)=>{
+	router.post('/homepage/post',upload.array("sportPic"), (req, res, next)=>{
 		if(req.body.sport){
+			console.log("req.files: "+req.files[0].originalname)
+			var photoNames = {
+				img: []
+			}
+			for(var i = 0; i<req.files.length;i++){
+				photoNames.img[i] = req.files[i].originalname
+			}
+			//console.log(util.inspect(req, false, null))
 			var date = new Date()
 			var sport = new SportPost({post_privacy: req.body.privacy, post_date: date,
-			post_type: req.body.sport, posted_in: req.body.sport_local, posted_by: req.user.name, sport_type:req.body.sport_type, distance: req.body.sport_distance,
+			post_type: req.body.sport, posted_in: req.body.sport_local,
+			
+			sport_photos: photoNames.img, posted_by: req.user.name, sport_type:req.body.sport_type, distance: req.body.sport_distance,
 			calories_burnt: req.body.sport_calories, duration: req.body.sport_duration ,sport_description: req.body.sport_desc,
 			post_comments: []})
 			
