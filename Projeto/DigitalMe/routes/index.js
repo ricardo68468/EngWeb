@@ -74,16 +74,16 @@ module.exports = function(passport){
 
 
 	/* Handle Registration POST */
-	router.post('/homepage/post', (req, res, next)=>{
+	router.post('/homepage/post', upload.array("post"),(req, res, next)=>{
 		if(req.body.sport){
-			upload.array("sportPic")
 			console.log("req.files: "+req.files[0].originalname)
+			// multiple
 			var photoNames = {
 				img: []
 			}
 			
 			for(var i = 0; i<req.files.length;i++){
-				photoNames.img[i] = req.files[i].originalname
+				photoNames.img[i] = "uploads/"+req.files[i].originalname
 			}
 			//console.log(util.inspect(req, false, null))
 			var date = new Date()
@@ -135,15 +135,14 @@ module.exports = function(passport){
 		}
 		if(req.body.foto){
 			console.log("POST PHOTO")
-
-			upload.array("postFoto")
 			console.log("req.files: "+req.files[0].originalname)
+			// multiple
 			var photoNames = {
 				img: []
 			}
 			
 			for(var i = 0; i<req.files.length;i++){
-				photoNames.img[i] = req.files[i].originalname
+				photoNames.img[i] = "uploads/"+req.files[i].originalname
 			}
 			var date = new Date()
 			var foto = new PhotoPost({post_privacy: req.body.privacy, post_date: date,
@@ -169,10 +168,17 @@ module.exports = function(passport){
 		}
 		if(req.body.video){
 
-			upload.single("postVideo")
+			// single
+			var photoNames = {
+				img: []
+			}
+			
+			for(var i = 0; i<req.files.length;i++){
+				photoNames.img[i] = "uploads/"+req.files[i].originalname
+			}
 			var date = new Date()
 			var video = new VideoPost({post_privacy: req.body.privacy, post_date: date,
-			post_type: req.body.video, posted_in: req.body.videoLocal, posted_by: req.user.name, video: req.file.filename,
+			post_type: req.body.video, posted_in: req.body.videoLocal, posted_by: req.user.name, video: "uploads/"+req.files[0].originalname,
 			video_description: req.body.videoDescription, post_comments: []})
 		
 			video.save((err, result)=>{
@@ -194,16 +200,14 @@ module.exports = function(passport){
 		}
 		if(req.body.recipe){
 
-
-			upload.array("postPEnvent")
-			upload.array("postVEnvent")
+			// multiple
 			console.log("req.files: "+req.files[0].originalname)
 			var photoNames = {
 				img: []
 			}
 			
 			for(var i = 0; i<req.files.length;i++){
-				photoNames.img[i] = req.files[i].originalname
+				photoNames.img[i] = "uploads/"+req.files[i].originalname
 			}
 			var date = new Date()
 			var recipe = new CookingPost({post_privacy: req.body.privacy, post_date: date,
@@ -229,23 +233,25 @@ module.exports = function(passport){
 			});
 		}
 		if(req.body.event){
-
-			upload.array("postFoto")
+			// multiple
 			console.log("req.files: "+req.files[0].originalname)
 			var photoNames = {
 				img: []
 			}
 			
 			for(var i = 0; i<req.files.length;i++){
-				photoNames.img[i] = req.files[i].originalname
+				photoNames.img[i] = "uploads/"+req.files[i].originalname
 			}
 			
 			var date = new Date()
-			var event = new EventPost({post_privacy: req.body.privacy, post_date: date,event_photos: photoNames.img,event_video:req.file.filename,
-			post_type: req.body.event, posted_in: req.body.event_local, posted_by: req.user.name, event_name: req.body.event_name,
-			event_type: req.body.event_type, event_description: req.body.event_desc, event_date: req.body.event_date ,event_duration: req.body.event_duration,
-			event_hour: req.body.event_hour,post_comments: []})
-		
+			var event = new EventPost({post_privacy: req.body.privacy, post_date: date,
+				event_photos: photoNames.img,event_video:req.file.filename,
+				post_type: req.body.event, posted_in: req.body.event_local,
+				posted_by: req.user.name, event_name: req.body.event_name,
+				event_type: req.body.event_type, event_description: req.body.event_desc,
+				event_date: req.body.event_date ,event_duration: req.body.event_duration,
+				event_hour: req.body.event_hour,post_comments: []})
+				
 			event.save((err, result)=>{
 				if(!err)
 				{
@@ -347,7 +353,7 @@ module.exports = function(passport){
 		Post.find()
 		.exec((err,doc)=>{
 			if(!err){
-				//console.log("doc "+doc)
+				console.log("doc "+doc)
 				//console.log("req.file.filename: "+req.file.filename)
 				res.render('homepage', {lposts: doc, user:req.user})
 			}

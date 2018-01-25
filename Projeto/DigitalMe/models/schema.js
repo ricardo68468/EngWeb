@@ -8,8 +8,9 @@ function AbstractPostSchema() {
     this.add({
         post_privacy: {type: String, required:true},
         post_date: {type: String, required: true},
-        post_type: {type: String, required: true},
+        post_type: {type: Number, required: true},
         posted_in: {type: String},
+        posted_by_pic: {type: String},
         posted_by: {type: String, required: true},
         post_comments: [
             {
@@ -61,8 +62,7 @@ var CookingSchema = new AbstractPostSchema(
         ingredients: {type: [String], required: true},
         preparation: {type: String, required: true},
         cook_calories: {type: String, required: true},
-        cook_photos: [{type: String}],
-        cook_video: {type: String}
+        cook_photos: [{type: String}]
     }
 )
 
@@ -74,8 +74,7 @@ var EventSchema = new AbstractPostSchema(
         event_date: {type: String, required: true},
         event_hour: {type:String, required: true},
         event_duration: {type: String, required: true},
-        event_photos: [{type: String}],
-        event_video: {type: String}
+        event_photos: [{type: String}]
     }
 )
 
