@@ -1,6 +1,7 @@
 var LocalStrategy   = require('passport-local').Strategy;
 var models = require('../models/schema');
 var bCrypt = require('bcrypt-nodejs');
+var fs = require('fs')
 var User = models.User;
 
 module.exports = function(passport){
@@ -37,13 +38,21 @@ module.exports = function(passport){
                         newUser.email = email
                         newUser.gender = req.body.gender
                         newUser.birth_date = req.body.birth_date
+                        if(req.body.gender=="Male"){
+                            newUser.img ="uploads/male_default.png"
+                        }else if(req.body.gender=="Female"){
+                            newUser.img ="uploads/male_default.png"
+                        }
+                        
+                        newUser.img.contentType = "image/png"
                         // save the user
                         newUser.save(function(err) {
                             if (err){
                                 console.log('Error in Saving user: '+err);  
                                 throw err;  
                             }
-                            console.log('User Registration succesful');    
+                            console.log('User Registration succesful');  
+                            //console.log("req.file.filename:"+req.file)  
                             return done(null, newUser);
                         });
                     }

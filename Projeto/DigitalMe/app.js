@@ -5,13 +5,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-
+var multer = require("multer");
+global.__basedir = __dirname;
 
 var app = express();
 
 //Base de Dados
 var mongoose = require('mongoose')
 mongoose.connect('mongodb://geral:geral@ds015636.mlab.com:15636/digitalme', {useMongoClient: true})
+var conn = mongoose.connection
 mongoose.Promise = global.Promise
 
 // view engine setup
@@ -68,6 +70,10 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+var upload = multer({ dest: 'public/uploads/' })
+
 
 module.exports = app;
 

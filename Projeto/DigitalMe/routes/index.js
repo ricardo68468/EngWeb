@@ -17,6 +17,20 @@ var EventPost = models.Events
  * Redirecionar os erros para uma página de erro
 */
 
+//multer object creation
+var multer  = require('multer')
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+  }
+})
+
+var upload = multer({ storage: storage })
+
+
 var isAuthenticated = function (req, res, next) {
 	// if user is authenticated in the session, call the next() to call the next request handler 
 	// Passport adds this method to request object. A middleware is allowed to add properties to
@@ -26,6 +40,7 @@ var isAuthenticated = function (req, res, next) {
 	// if the user is not authenticated then redirect him to the login page
 	res.redirect('/');
 }
+
 
 module.exports = function(passport){
 
@@ -136,18 +151,33 @@ module.exports = function(passport){
 		
 			video.save((err, result)=>{
 				if(!err)
-					console.log("Acrescentei um video")
+					console.log("Acrescentei uma receita")
 				else
 					console.log("Erro: "+err)
 			});	
 		}
 	})
+
+	/* Handle Comment on some post */
+	router.post('/homepage/post/:idPost/comment', (req, res, next)=>{
+		var comment = {comment_date: req.body.comment_date, comment_body: req.body.comment_body, comment_by: req.user.name}
+		Post.update({_id: req.params.idPost},{$push: {post_comments:comment}},
+			(err,result)=>{
+				if(!err)
+					console.log("Adicionei um comment ao post: "+ req.params.idPost)
+				else
+					console.log('Erro a adicionar comentário: '+ err)
+			})
+		res.redirect('/homepage')
+	})
 	
 
 
 	/* Handle ProfileChange POST */
-	router.post('/homepage/:id/changeprofdata', function(req, res){
+	router.post('/homepage/:id/changeprofdata', upload.single('newProfPic'), function(req, res){
 		/** @todo por a password e a foto **/
+
+		console.log("PROFILE CHANGE")
 		var newName = req.user.name
 		var newEmail = req.user.email
 		var newGender = req.user.gender
@@ -178,24 +208,13 @@ module.exports = function(passport){
 			console.log(" req.body.newBirth_date"+ req.body.newDate)
 			a.img.contentType = 'image/png';
 		}
-		if(req.body.newProfPic){
-			console.log("------------------------- profPic = "+req.body.newProfPic)
-			newImg.type = fs.readFileSync(__dirname+"/"+req.body.newProfPic)
+		if(req.file.filename){
+			console.log("------------------------- profPic = "+req.file.filename)
+			newImg = "uploads/"+req.file.filename
 			newImg.contentType = 'image/png'
 		}
 
 
-		var newUser = {
-			email: newEmail,
-			name: newName,
-			gender: newGender,
-			birth_date: newBirth_date
-		}
-		console.log("newUser: "+newUser.email)
-		console.log("newUser: "+newUser.name)
-		console.log("newUser: "+newUser.gender)
-		console.log("newUser: "+newUser.birth_date)
-		console.log("newUser: "+newUser.img)
 		
 		User.update({email: req.user.email},{$set: {email: newEmail,name: newName,gender: newGender,birth_date: newBirth_date,img:newImg}},
 				(err, result)=>{
@@ -221,7 +240,8 @@ module.exports = function(passport){
 		Post.find()
 		.exec((err,doc)=>{
 			if(!err){
-				console.log("doc "+doc)
+				//console.log("doc "+doc)
+				//console.log("req.file.filename: "+req.file.filename)
 				res.render('homepage', {lposts: doc, user:req.user})
 			}
 				

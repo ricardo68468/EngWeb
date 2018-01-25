@@ -43,7 +43,7 @@ html
       .w3-container
         a.w3-hide-large.w3-right.w3-jumbo.w3-padding.w3-hover-grey(href='#', onclick='w3_close()', title='close menu')
           i.fa.fa-remove
-        img.w3-round(id="fotoUser" src='imagens/fotoRicardo.jpg', style='width:45%;')
+        img.w3-round(id="fotoUser" src=user.img, style='width:45%;')
         br
         br
         h4
@@ -119,6 +119,7 @@ html
             
       - var post = {postPic: 'postPic',postVideos: 'postVideos', postThought: 'postThought', postRecipes: 'postRecipes', postRecipes: 'postRecipes', postSports: 'postSports'}
       each post in lposts
+        if post.postPic
         if post.postPic
           // Template Foto
           .w3-container.w3-white.w3-margin.w3-padding-large
