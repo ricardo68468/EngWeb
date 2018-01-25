@@ -400,7 +400,9 @@ html
                 button#btn_receita.w3-button(type="button", name="btn_receita")
                   i.fa.fa-cutlery.w3-margin-right
                   | Receitas
-            
+                button#btn_evento.w3-button(type="button", name="btn_evento")
+                  i.fa.fa-group.w3-margin-right
+                  | Eventos
               // PENSAMENTO
               #pensamentos.form-row
                 h3 Publicar Pensamento:
@@ -410,69 +412,69 @@ html
                   textarea#example2(rows='4', cols='115', placeholder='Em que está a pensar?', name="thoughtDescription")
                   .form-group.col-md-6(style="margin-top:10px")
                     label.col-form-label Localização:
-                    input#localThought.form-control(type="text", name="tought_local")
+                    input#localThought.form-control(type="text", name="tought_local", placeholder="Localização")
                   .form-group.col-md-6(style="margin-top:10px")
                     label.col-form-label Privacidade:
                     select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
                       option(value='pub') Público
                       option(value='priv') Privado
                   .modal-footer
-                      button.w3-button.w3-white.w3-border(type='submit')
-                        i.fa.fa-check
-                        |  Publicar
-                      button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
-                        i.fa.fa-close.fa-fw
-                        |  Cancelar
+                    button.w3-button.w3-white.w3-border(type='submit')
+                      i.fa.fa-check
+                      |  Publicar
+                    button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
+                      i.fa.fa-close.fa-fw
+                      |  Cancelar
               // FOTO
               #fotos.form-row(hidden='')
                 h3 Publicar Foto:
                 form(action="/postFoto", method="POST")
                   input(type="text", name="foto", id="foto", value="foto", hidden)
                   label.col-form-label Descrição:
-                  textarea#example3(rows='2', cols='115', name="fotoDescription")
+                  textarea#example3(rows='2', cols='115', name="fotoDescription", placeholder="Descrição da foto")
                   .form-group.col-md-6(style='margin-top:10px')
                     label.col-form-label Escolher Foto:
                     input#foto.form-group(type='file', name='foto')
                   .form-group.col-md-6(style='margin-top:10px')
                     label.col-form-label Localização:
-                    input#localFoto.form-control(type="text", name='fotoLocal')
+                    input#localFoto.form-control(type="text", name='fotoLocal', placeholder="Localização")
                   .form-row(style="margin-top: 11%; margin-left: 1%")
                     label.col-form-label Privacidade:
                     select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
-                      option(valeu='pub') Público
-                      option(valeu='priv') Privado
-                    .modal-footer
-                      button.w3-button.w3-white.w3-border(type='submit')
-                        i.fa.fa-check
-                        |  Publicar
-                      button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
-                        i.fa.fa-close.fa-fw
-                        |  Cancelar
+                      option(value='pub') Público
+                      option(value='priv') Privado
+                  .modal-footer
+                    button.w3-button.w3-white.w3-border(type='submit')
+                      i.fa.fa-check
+                      |  Publicar
+                    button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
+                      i.fa.fa-close.fa-fw
+                      |  Cancelar
               // VIDEO
               #videos.form-row(hidden='')
                 h3 Publicar Vídeo:
                 form(action="/postVideo", method="POST")
                   input(type="text", name="video", id="video", value="video", hidden)
                   label.col-form-label Descrição:
-                  textarea#example4(rows='2', cols='115', name="videoDescription")
+                  textarea#example4(rows='2', cols='115', name="videoDescription", placeholder="Descrição do Vídeo")
                   .form-group.col-md-6(style="margin-top:10px")
                     label.col-form-label Escolher Vídeo:
                     input#video.form-group(type='file', name='video')
                   .form-group.col-md-6(style="margin-top:10px")
                     label.col-form-label Localização:
-                    input#localVideo.form-control(type="text", name="videoLocal")
+                    input#localVideo.form-control(type="text", name="videoLocal", placeholder="Localização")
                   .form-row(style="margin-top: 11%; margin-left: 1%")
                     label.col-form-label Privacidade:
                     select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
-                      option(valeu='pub') Público
-                      option(valeu='priv') Privado
-                    .modal-footer
-                      button.w3-button.w3-white.w3-border(type='submit')
-                        i.fa.fa-check
-                        |  Publicar
-                      button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
-                        i.fa.fa-close.fa-fw
-                        |  Cancelar
+                      option(value='pub') Público
+                      option(value='priv') Privado
+                  .modal-footer
+                    button.w3-button.w3-white.w3-border(type='submit')
+                      i.fa.fa-check
+                      |  Publicar
+                    button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
+                      i.fa.fa-close.fa-fw
+                      |  Cancelar
               // REGISTO DESPORTIVO
               #desportivo.form-row(hidden='')
                 h3 Publicar Registo Desportivo:
@@ -490,31 +492,31 @@ html
                     input.form-control(type='number', name='sport_distance', placeholder="0.00", step="0.01", min="0.00")
                   .form-group.col-md-6
                     label.col-form-label Calorias gastas (kcal):
-                    input.form-control(type='number', min='0', name='sport_calories')
+                    input.form-control(type='number', min='0', name='sport_calories', placeholder="0")
                   label.col-form-label Descrição:
-                  textarea#example5(rows='2', cols='115', name='sport_desc')
+                  textarea#example5(rows='2', cols='115', name='sport_desc', placeholder="Descrição do Registo Desportivo")
                   .form-group.col-md-6(style='margin-top:10px')
                     label.col-form-label Escolher Foto:
                     input#foto.form-group(type='file', name='foto')
                   .form-group.col-md-6(style='margin-top:10px')
                     label.col-form-label Localização:
-                    input#localFoto.form-control(type="text", name='sport_local')
+                    input#localFoto.form-control(type="text", name='sport_local', placeholder="Localização")
                   .form-row(style="margin-top: 11%; margin-left: 1%")
                     label.col-form-label Privacidade:
                     select#priv.form-control(style='width: 150px; margin-bottom: 10px', name='privacy')
-                      option(valeu='pub') Público
-                      option(valeu='priv') Privado
-                    .modal-footer
-                      button.w3-button.w3-white.w3-border(type='submit')
-                        i.fa.fa-check
-                        |  Publicar
-                      button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
-                        i.fa.fa-close.fa-fw
-                        |  Cancelar
+                      option(value='pub') Público
+                      option(value='priv') Privado
+                  .modal-footer
+                    button.w3-button.w3-white.w3-border(type='submit')
+                      i.fa.fa-check
+                      |  Publicar
+                    button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
+                      i.fa.fa-close.fa-fw
+                      |  Cancelar
               // RECEITA
               #receita.form-row(hidden='')
                 h3 Publicar Receita:
-                form(action="/postReceita", method="POST")
+                form(action="/homepage/post", method="POST")
                   .form-group
                     lable.col-form-lable Nome da Receita:
                     input.form-control(type="text", name="recipe_name", placeholder="Receita", style="width:40%")
@@ -527,25 +529,80 @@ html
                         input.form-control(type="text", placeholder="Ingrediente", name="ingredient", id="ingredient", style="width: 50%; margin-top: 5px")
                   label.col-form-label Preparação:
                   br
-                  textarea#prep(rows='4', cols='115', placeholder='Modo de Preparação', name="recipeDescription")
+                  textarea#prep.form-control(rows='4', cols='115', placeholder='Modo de Preparação', name="recipeDescription")
                   .form-group.col-md-6(style="margin-top:10px")
                     label.col-form-label(style='margin-top:10px') Escolher Foto:
                     input#foto.form-group(type='file', name='Recipefoto')
                   form-group.col-md-6(style="margin-top:10px")
                     label.col-form-label Localização:
-                    input#localRecipe.form-control(type="text", name='cookLocal')
+                    input#localRecipe.form-control(type="text", name='cookLocal', placeholder="Localização")
                   .form-row(style="margin-top: 13%; margin-left: 1%")
                     label.col-form-label Privacidade:
                     select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
-                      option(valeu='pub') Público
-                      option(valeu='priv') Privado
-                    .modal-footer
+                      option(value='pub') Público
+                      option(value='priv') Privado
+                  .modal-footer
+                    button.w3-button.w3-white.w3-border(type='submit')
+                      i.fa.fa-check
+                      |  Publicar
+                    button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
+                      i.fa.fa-close.fa-fw
+                      |  Cancelar
+              //Eventos
+              #evento.form-row(hidden='')
+                h3 Publicar Evento:
+                form(action="/homepage/post", method="POST")
+                  .form-group.col-md-6
+                    lable.col-form-lable Nome do Evento:
+                    input.form-control(type="text" name="event_name" placeholder="Evento")
+                  .form-group.col-md-6
+                    lable.col-form-lable Data(dd/mm/aa):
+                    input.form-control(type="date" name="event_date")
+                  .form-group.col-md-6
+                    lable.col-form-lable Hora (hh:mm):
+                    input.form-control(type="time" name="event_hour")
+                  .form-group.col-md-6
+                    lable.col-form-lable Localização:
+                    input.form-control(type="text" name="event_local" placeholder="Localização")
+                  lable.col-form-label Descrição:
+                  textarea#example6(cols="115", rows="2", placeholder="Descrição do Evento")
+                  .form-group.col-md-6(style="margin-top:15px")
+                    lable.col-form-label Escolher Foto:
+                    input.form-group(type="file", name="event_foto")
+                  .form-group.col-md-6(style="margin-top:15px")
+                    lable.col-form-label Escolher Vídeo:
+                    input.form-group(type="file", name="event_video")
+                  .form-group.col-md-6
+                    lable.col-form-label Tipo de Evento:
+                    select.form-control(type="margin-bottom: 10px", name="event_type")
+                      option(disabled, selected) Escolha um
+                      option(value='desp') Desportivo
+                      option(value='music') Musical
+                      option(value='anim') Animação
+                      option(value='conv') Convívio
+                      option(value='workshop') Workshop
+                      option(value='reun') Reunião
+                      option(value='trav') Viagem
+                      option(value='acamp') Acampamento
+                      option(value='cinema') Cinema
+                      option(value='teatro') Teatro
+                      option(value='outro') Outro
+                  .form-group.col-md-6
+                    lable.col-form-lable Duração do evento:
+                    input.form-control(type="time" name="event_duration")
+                  .form-row(style="margin-top: 13%; margin-left: %")
+                    label.col-form-label Privacidade:
+                    select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
+                      option(value='pub') Público
+                      option(value='priv') Privado
+                  .modal-footer
                       button.w3-button.w3-white.w3-border(type='submit')
                         i.fa.fa-check
                         |  Publicar
                       button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
                         i.fa.fa-close.fa-fw
                         |  Cancelar
+                      
     // Modal-Dados pessoais
     #DPModal.modal.fade(role='dialog')
       .modal-dialog
