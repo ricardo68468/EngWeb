@@ -145,7 +145,8 @@ module.exports = function(passport){
 				photoNames.img[i] = "uploads/"+req.files[i].originalname
 			}
 			var date = new Date()
-			var foto = new PhotoPost({post_privacy: req.body.privacy, post_date: date,
+			console.log("req.user.img: "+req.user.img)
+			var foto = new PhotoPost({post_privacy: req.body.privacy, post_date: date,posted_by_pic: req.user.img,
 			post_type: req.body.foto, posted_in: req.body.fotoLocal, posted_by: req.user.name, img: photoNames.img,
 			photo_description: req.body.fotoDescription, post_comments: []})
 		
