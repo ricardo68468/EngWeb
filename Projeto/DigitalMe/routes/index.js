@@ -161,11 +161,10 @@ module.exports = function(passport){
 
 
 	/* Handle ProfileChange POST */
-	router.post('/homepage/:id/changeprofdata'/*, upload.single('newProfPic')*/, function(req, res){
+	router.post('/homepage/:id/changeprofdata', upload.single('newProfPic'), function(req, res){
 		/** @todo por a password e a foto **/
 
 		console.log("PROFILE CHANGE")
-
 		var newName = req.user.name
 		var newEmail = req.user.email
 		var newGender = req.user.gender
@@ -196,9 +195,9 @@ module.exports = function(passport){
 			console.log(" req.body.newBirth_date"+ req.body.newDate)
 			a.img.contentType = 'image/png';
 		}
-		if(req.body.newProfPic){
-			console.log("------------------------- profPic = "+req.body.newProfPic)
-			newImg.type = fs.readFileSync(__dirname+"/"+req.body.newProfPic)
+		if(req.file.filename){
+			console.log("------------------------- profPic = "+req.file.filename)
+			newImg = "uploads/"+req.file.filename
 			newImg.contentType = 'image/png'
 		}
 
