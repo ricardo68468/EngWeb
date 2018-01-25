@@ -145,8 +145,7 @@ module.exports = function(passport){
 				photoNames.img[i] = "uploads/"+req.files[i].originalname
 			}
 			var date = new Date()
-			console.log("req.user.img: "+req.user.img)
-			var foto = new PhotoPost({post_privacy: req.body.privacy, post_date: date,posted_by_pic: req.user.img,
+			var foto = new PhotoPost({post_privacy: req.body.privacy, post_date: date,
 			post_type: req.body.foto, posted_in: req.body.fotoLocal, posted_by: req.user.name, img: photoNames.img,
 			photo_description: req.body.fotoDescription, posted_by_pic: req.user.img, post_comments: []})
 		
@@ -341,9 +340,10 @@ module.exports = function(passport){
 						req.user.img = newImg
 						//inserir queries de update a posts
 						//todos os posts deste utilizador atualizer o posted_by com o novo nome e posted_by_pic com nova fota
-						Post.find({'_id': {$in: req.user.user_posts}}).update({$set: {posted_by: newName, posted_by_pic: newImg}},{multi: true}).exec((err,doc)=>{
+						Post.find({'_id': {$in: req.user.user_posts}}).update({$push: {posted_by: newName, posted_by_pic: newImg}},{multi: true}).exec((err,doc)=>{
 							if(!err){
-								console.log("Posts do user "+doc[0])
+								console.log("Posts do user "+doc)
+								//.update({$set: {posted_by: newName, posted_by_pic: newImg}},{multi: true})
 							}	
 							else 
 								console.log("Erro fio da puta"+err)
