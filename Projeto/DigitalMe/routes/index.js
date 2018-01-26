@@ -185,18 +185,11 @@ module.exports = function(passport){
 				break;
 		}
 
-<<<<<<< HEAD
 		res.redirect('/homepage')
 	})
 
 	/* Handle Registration POST */
 	router.post('/homepage/post', upload.array("post"),(req, res, next)=>{
-=======
-	var uploads = multer().array('post')
-	/* Handle profile POSTs */
-	router.post('/homepage/post',uploads,(req, res, next)=>{
-		
->>>>>>> 1eb6da3d14d7df46b553f1f1c402322153836efc
 		if(req.body.sport){
 			// multiple
 			console.log("SPORT POST")
@@ -213,10 +206,6 @@ module.exports = function(passport){
 					photoNames.img[i] = "uploads/"+req.files[i].originalname
 				}
 			}
-<<<<<<< HEAD
-=======
-			console.log("depois do if")
->>>>>>> 1eb6da3d14d7df46b553f1f1c402322153836efc
 			
 			var date = new Date()
 			var sport = new SportPost({post_privacy: req.body.privacy, post_date: date,
