@@ -341,9 +341,10 @@ module.exports = function(passport){
 						req.user.img = newImg
 						//inserir queries de update a posts
 						//todos os posts deste utilizador atualizer o posted_by com o novo nome e posted_by_pic com nova fota
-						Post.find({'_id': {$in: req.user.user_posts}}).update({$set: {posted_by: newName, posted_by_pic: newImg}},{multi: true}).exec((err,doc)=>{
+						Post.find({'_id': {$in: req.user.user_posts}}).update({$each: {posted_by: newName, posted_by_pic: newImg}},{multi: true}).exec((err,doc)=>{
 							if(!err){
-								console.log("Posts do user "+doc[0])
+								console.log("Posts do user "+doc)
+								console.log(util.inspect(doc, false, null))
 							}	
 							else 
 								console.log("Erro fio da puta"+err)
