@@ -89,9 +89,9 @@ $(function(){
       });
 
       $('#btnIngr').click(function(){
-        var text = $('#ingredient').val();
+        var text = $('#ingredients').val();
         if(text.length){
-            $('<li style="margin-top:10px"> <input type="text" name="ingredient" placeholder="Ingrediente" class="form-control" style="width: 50%" id="ingredient"/><button class="w3-button w3-red w3-border">Eliminar</button><li/>', {html: text}).appendTo('ul.list-unstyled')
+            $('<li style="margin-top:10px"> <input type="text" name="ingredients" placeholder="Ingrediente" class="form-control" style="width: 50%" id="ingredients"/><button class="w3-button w3-red w3-border">Eliminar</button><li/>', {html: text}).appendTo('ul.list-unstyled')
         }
     });
 

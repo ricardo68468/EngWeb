@@ -80,16 +80,21 @@ module.exports = function(passport){
 		failureFlash : true  
 	}));
 
-	router.post('/homepage/filter', (req, res, next)=>{
+	/*router.post('/homepage/filter', (req, res, next)=>{
 		switch(req.body.type){
 			case "All":
+				console.log("redirect pra homepage")
 				res.redirect('/homepage')
+				console.log("continua")
 				break;
 			case "Pics":
-				Post.find({post_type:"foto"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
+				Post.find({post_type:"1"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc,next)=>{
 					if(!err){
-						console.log("doc "+doc)
-						res.render('homepage', {lposts: doc, user:req.user})
+						//console.log("doc "+doc)
+						console.log("find pics")
+						console.log(util.inspect(doc, false, null))
+						//res.redirect(req.get('referer'));
+						//res.render('homepage', {lposts: doc, user:req.user})
 					}	
 					else 
 						res.render('error', {error: err})
@@ -97,10 +102,12 @@ module.exports = function(passport){
 				break;
 			case "Thoughts":
 				console.log("Thoughts")
-				Post.find({post_type:"thought"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
+				Post.find({post_type:"0"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
 					if(!err){
-						console.log("doc "+doc)
-						res.render('homepage', {lposts: doc, user:req.user})
+						//console.log("doc "+doc)
+						res.redirect('/homepage/'+req.body.type)
+						
+						//res.render('homepage', {lposts: doc, user:req.user})
 					}	
 					else 
 						res.render('error', {error: err})
@@ -108,9 +115,10 @@ module.exports = function(passport){
 				break;
 			case "Sports":
 				console.log("Sports")
-				Post.find({post_type:"sport"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
+				Post.find({post_type:"3"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
 					if(!err){
-						console.log("doc "+doc)
+						//console.log("doc "+doc)
+						//res.redirect('/homepage/'+req.body.type)
 						res.render('homepage', {lposts: doc, user:req.user})
 					}	
 					else 
@@ -119,10 +127,11 @@ module.exports = function(passport){
 				break;
 			case "Videos":
 				console.log("Videos")
-				Post.find({post_type:"video"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
+				Post.find({post_type:"2"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
 					if(!err){
-						console.log("doc "+doc)
-						res.render('homepage', {lposts: doc, user:req.user})
+						//console.log("doc "+doc)
+						res.redirect('/homepage/'+req.body.type)
+						//res.render('homepage', {lposts: doc, user:req.user})
 					}	
 					else 
 						res.render('error', {error: err})
@@ -130,10 +139,11 @@ module.exports = function(passport){
 				break;
 			case "Recipes":
 				console.log("Recipes")
-				Post.find({post_type:"recipe"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
+				Post.find({post_type:"4"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
 					if(!err){
-						console.log("doc "+doc)
-						res.render('homepage', {lposts: doc, user:req.user})
+						//console.log("doc "+doc)
+						res.redirect('/homepage/'+req.body.type)
+						//res.render('homepage', {lposts: doc, user:req.user})
 					}	
 					else 
 						res.render('error', {error: err})
@@ -141,10 +151,11 @@ module.exports = function(passport){
 				break;
 			case "Events":
 				console.log("Events")
-				Post.find({post_type:"event"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
+				Post.find({post_type:"5"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
 					if(!err){
-						console.log("doc "+doc)
-						res.render('homepage', {lposts: doc, user:req.user})
+						//console.log("doc "+doc)
+						res.redirect('/homepage/'+req.body.type)
+						//res.render('homepage', {lposts: doc, user:req.user})
 					}	
 					else 
 						res.render('error', {error: err})
@@ -154,8 +165,9 @@ module.exports = function(passport){
 				console.log("MyAll")
 				Post.find({email: req.user.email}).sort({post_date: -1}).exec((err,doc)=>{
 					if(!err){
-						console.log("doc "+doc)
-						res.render('homepage', {lposts: doc, user:req.user})
+						//console.log("doc "+doc)
+						res.redirect('/homepage/'+req.body.type)
+						//res.render('homepage', {lposts: doc, user:req.user})
 					}	
 					else 
 						res.render('error', {error: err})
@@ -165,8 +177,9 @@ module.exports = function(passport){
 				console.log("MyPub")
 				Post.find({email: req.user.email}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
 					if(!err){
-						console.log("doc "+doc)
-						res.render('homepage', {lposts: doc, user:req.user})
+						//console.log("doc "+doc)
+						//res.redirect('/homepage/'+req.body.type)
+						//res.render('homepage', {lposts: doc, user:req.user})
 					}	
 					else 
 						res.render('error', {error: err})
@@ -176,19 +189,21 @@ module.exports = function(passport){
 				console.log("MyPriv")
 				Post.find({email: req.user.email}).where({post_privacy:"pric"}).sort({post_date: -1}).exec((err,doc)=>{
 					if(!err){
-						console.log("doc "+doc)
-						res.render('homepage', {lposts: doc, user:req.user})
+						//console.log("doc "+doc)
+						res.redirect('/homepage/'+req.body.type)
+						//res.render('homepage', {lposts: doc, user:req.user})
 					}	
 					else 
 						res.render('error', {error: err})
 				})
 				break;
+
 		}
 
-		res.redirect('/homepage')
-	})
+		//res.redirect('/homepage')
+	})*/
 
-	/* Handle Registration POST */
+	/* Handle submitPost POST */
 	router.post('/homepage/post', upload.array("post"),(req, res, next)=>{
 		if(req.body.sport){
 			// multiple
@@ -341,7 +356,7 @@ module.exports = function(passport){
 				if(!err)
 				{
 					console.log("Acrescentei uma receita")
-					console.log("Id do post: "+thought._id)
+					console.log("Id do post: "+recipe._id)
 					User.update({email: req.user.email},{$push: {user_posts: recipe._id}},(err, result)=>{
 						if(!err) 
 							console.log('Acrescentei o post: '+ recipe._id +" ao user: "+req.user.email)
@@ -397,7 +412,8 @@ module.exports = function(passport){
 
 	/* Handle Comment on some post */
 	router.post('/homepage/post/:idPost/comment', (req, res, next)=>{
-		var comment = {comment_date: req.body.comment_date, comment_body: req.body.comment_body, comment_by: req.user.name}
+		var date = new Date();
+		var comment = {comment_date: date, comment_body: req.body.comment_body, comment_by: req.user.name, comment_by_pic: req.user.img, comment_by_id: req.user._id}
 		Post.update({_id: req.params.idPost},{$push: {post_comments:comment}},
 			(err,result)=>{
 				if(!err)
@@ -411,8 +427,11 @@ module.exports = function(passport){
 
 
 	/* Handle ProfileChange POST */
-	router.post('/homepage/:id/changeprofdata', upload.single('newProfPic'), function(req, res){
-		/** @todo por a password e a foto **/
+	router.post('/homepage/:id/changeprofdata', upload.array('newProfPic',1), function(req, res){
+
+
+		
+
 
 		console.log("PROFILE CHANGE")
 		var newName = req.user.name
@@ -421,6 +440,11 @@ module.exports = function(passport){
 		var newBirth_date = req.user.birth_date
 		var newPassword = req.user.password
 		var newImg = req.user.img
+		// single
+		if(req.files.length){
+			console.log("req.files: "+req.files[0].originalname)
+			newImg = "uploads/"+req.files[0].originalname
+		}
 		if(req.body.newPassword){
 			if(req.body.newPasswordCheck){
 				
@@ -444,11 +468,6 @@ module.exports = function(passport){
 			newBirth_date = req.body.newDate
 			console.log(" req.body.newBirth_date"+ req.body.newDate)
 			a.img.contentType = 'image/png';
-		}
-		if(req.file.filename){
-			console.log("------------------------- profPic = "+req.file.filename)
-			newImg = "uploads/"+req.file.filename
-			newImg.contentType = 'image/png'
 		}
 		
 		/** Update user information */
@@ -501,7 +520,7 @@ module.exports = function(passport){
 		.sort({post_date: -1})
 		.exec((err,doc)=>{
 			if(!err){
-				console.log("doc "+doc)
+				//console.log("doc "+doc)
 				
 				res.render('homepage', {lposts: doc, user:req.user})
 			}
