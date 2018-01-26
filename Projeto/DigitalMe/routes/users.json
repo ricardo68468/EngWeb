@@ -1,0 +1,35 @@
+[{
+    "_id": {
+        "$oid": "5a6a1479c8196d1878dd2f49"
+    },
+    "img": "uploads/fotoSantos.jpg",
+    "birth_date": "1994-10-28",
+    "gender": "Male",
+    "email": "santos@gmail.com",
+    "password": "$2a$10$mD//OX3EOzCZmr3JKVPHj.dmWsAWDbinH.iAap0EtnShXiv5MhS4S",
+    "name": "João Santos",
+    "user_posts": [{
+        "$oid": "5a6b387d4d5e7536ccd3477e"
+    }
+    ],
+    "__v": 0
+},
+{
+    "_id": {
+        "$oid": "5a69af6f9a31fa3ac4ec4945"
+    },
+    "img": "uploads/fotoRicardo.JPG",
+    "birth_date": "",
+    "gender": "Male",
+    "email": "ricardo@gmail.com",
+    "password": "$2a$10$8/35HqW7PBfgJHzZY/rTOusjddX/AwxdvqjiLuuWXhyNFUPPTSfw2",
+    "name": "Ricardo Rodrigues",
+    "user_posts": [{
+        "$oid": "5a6b1bbb6b7cc8296ca183c4"
+    },
+    {
+        "$oid": "5a6a1fe33a4bcd083409ff59"
+
+    }],
+    "__v": 0
+}]

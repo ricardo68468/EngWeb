@@ -14,8 +14,85 @@ $(document).ready(function() {
           
     });
     $("#newPasswordCheck").keyup(validate);
-    $("#newPassword").keyup(validate);
-    
+    $("#newPassword").keyup(validate);    
+
+    $("#filterAll").click(function(){
+        $.ajax({
+            url: 'homepage/filter',
+            type: 'POST',
+            data: {'type':"All"},
+        });  
+    });
+
+    $("#filterPics").click(function(){
+        $.ajax({
+            url: 'homepage/filter',
+            type: 'POST',
+            data: {'type':"Pics"},
+        });  
+    });
+
+    $('#filterThoughts').click(function(){
+        $.ajax({
+            url: 'homepage/filter',
+            type: 'POST',
+            data: {'type':"Thoughts"},
+        });  
+    })
+
+    $("#filterSports").click(function(){
+        $.ajax({
+            url: 'homepage/filter',
+            type: 'POST',
+            data: {'type':"Sports"},
+        });  
+    });
+
+    $("#filterVideos").click(function(){
+        $.ajax({
+            url: 'homepage/filter',
+            type: 'POST',
+            data: {'type':"Videos"},
+        });  
+    });
+
+    $("#filterRecipes").click(function(){
+        $.ajax({
+            url: 'homepage/filter',
+            type: 'POST',
+            data: {'type':"Recipes"},
+        });  
+    });
+
+    $("#filterEvents").click(function(){
+        $.ajax({
+            url: 'homepage/filter',
+            type: 'POST',
+            data: {'type':"Events"},
+        });  
+    });
+
+    $("#MyPostsAll").click(function(){
+        $.ajax({
+            url: 'homepage/filter',
+            type: 'POST',
+            data: {'type':"MyAll"},
+        });  
+    });
+    $("#MyPostsPublic").click(function(){
+        $.ajax({
+            url: 'homepage/filter',
+            type: 'POST',
+            data: {'type':"MyPub"},
+        });  
+    });
+    $("#MyPostsPrivate").click(function(){
+        $.ajax({
+            url: 'homepage/filter',
+            type: 'POST',
+            data: {'type':"MyPriv"},
+        });  
+    });
 });
 function validate() {
     var password1 = $("#newPassword").val();

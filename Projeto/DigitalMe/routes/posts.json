@@ -1,0 +1,56 @@
+[{
+    "_id": {
+        "$oid": "5a6a1fe33a4bcd083409ff59"
+    },
+    "post_privacy": "pub",
+    "post_date": "Thu Jan 25 2018 18:20:19 GMT+0000 (Hora padrão de GMT)",
+    "posted_by_pic": "uploads/fotoRicardo.JPG",
+    "post_type": 1,
+    "posted_in": "Guimarães",
+    "posted_by": "Ricardo Rodrigues",
+    "photo_description": "Alto chapéu",
+    "__t": "Photo",
+    "post_comments": [],
+    "img": [
+        "uploads/CZvvAEVD.jpg",
+        "uploads/girl_hat.jpg"
+    ],
+    "__v": 0
+},
+{
+    "_id": {
+        "$oid": "5a6b1bbb6b7cc8296ca183c4"
+    },
+    "post_privacy": "pub",
+    "post_date": "Fri Jan 26 2018 12:14:51 GMT+0000 (Hora padrão de GMT)",
+    "post_type": 5,
+    "posted_in": "BragaShopping",
+    "posted_by": "Simpson",
+    "event_name": "Star Wars Episode X",
+    "event_type": "Cinema",
+    "event_description": "Filme mesmo Foda",
+    "event_date": "2018-01-26",
+    "event_duration": "02:30",
+    "posted_by_pic": "uploads/ny.jpg",
+    "event_hour": "22:22",
+    "__t": "Event",
+    "post_comments": [],
+    "event_photos": [
+        "uploads/ny.jpg"
+    ],
+    "__v": 0
+},
+{
+    "_id": {
+        "$oid": "5a6b387d4d5e7536ccd3477e"
+    },
+    "post_privacy": "priv",
+    "post_date": "Fri Jan 26 2018 14:17:33 GMT+0000 (Hora padrão de GMT)",
+    "post_type": 0,
+    "posted_by": "Joao Santos",
+    "thought_text": "Altas bolas de metal!",
+    "posted_by_pic": "uploads/ball_cubes_metal_blue_red_reflection_97785_3840x2160.jpg",
+    "__t": "Thought",
+    "post_comments": [],
+    "__v": 0
+}]

@@ -80,11 +80,131 @@ module.exports = function(passport){
 		failureFlash : true  
 	}));
 
+	/*router.post('/homepage/filter', (req, res, next)=>{
+		switch(req.body.type){
+			case "All":
+				console.log("redirect pra homepage")
+				res.redirect('/homepage')
+				console.log("continua")
+				break;
+			case "Pics":
+				Post.find({post_type:"1"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc,next)=>{
+					if(!err){
+						//console.log("doc "+doc)
+						console.log("find pics")
+						console.log(util.inspect(doc, false, null))
+						//res.redirect(req.get('referer'));
+						//res.render('homepage', {lposts: doc, user:req.user})
+					}	
+					else 
+						res.render('error', {error: err})
+				})
+				break;
+			case "Thoughts":
+				console.log("Thoughts")
+				Post.find({post_type:"0"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
+					if(!err){
+						//console.log("doc "+doc)
+						res.redirect('/homepage/'+req.body.type)
+						
+						//res.render('homepage', {lposts: doc, user:req.user})
+					}	
+					else 
+						res.render('error', {error: err})
+				})
+				break;
+			case "Sports":
+				console.log("Sports")
+				Post.find({post_type:"3"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
+					if(!err){
+						//console.log("doc "+doc)
+						//res.redirect('/homepage/'+req.body.type)
+						res.render('homepage', {lposts: doc, user:req.user})
+					}	
+					else 
+						res.render('error', {error: err})
+				})
+				break;
+			case "Videos":
+				console.log("Videos")
+				Post.find({post_type:"2"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
+					if(!err){
+						//console.log("doc "+doc)
+						res.redirect('/homepage/'+req.body.type)
+						//res.render('homepage', {lposts: doc, user:req.user})
+					}	
+					else 
+						res.render('error', {error: err})
+				})
+				break;
+			case "Recipes":
+				console.log("Recipes")
+				Post.find({post_type:"4"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
+					if(!err){
+						//console.log("doc "+doc)
+						res.redirect('/homepage/'+req.body.type)
+						//res.render('homepage', {lposts: doc, user:req.user})
+					}	
+					else 
+						res.render('error', {error: err})
+				})
+				break;
+			case "Events":
+				console.log("Events")
+				Post.find({post_type:"5"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
+					if(!err){
+						//console.log("doc "+doc)
+						res.redirect('/homepage/'+req.body.type)
+						//res.render('homepage', {lposts: doc, user:req.user})
+					}	
+					else 
+						res.render('error', {error: err})
+				})
+				break;
+			case "MyAll":
+				console.log("MyAll")
+				Post.find({email: req.user.email}).sort({post_date: -1}).exec((err,doc)=>{
+					if(!err){
+						//console.log("doc "+doc)
+						res.redirect('/homepage/'+req.body.type)
+						//res.render('homepage', {lposts: doc, user:req.user})
+					}	
+					else 
+						res.render('error', {error: err})
+				})
+				break;
+			case "MyPub":
+				console.log("MyPub")
+				Post.find({email: req.user.email}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
+					if(!err){
+						//console.log("doc "+doc)
+						//res.redirect('/homepage/'+req.body.type)
+						//res.render('homepage', {lposts: doc, user:req.user})
+					}	
+					else 
+						res.render('error', {error: err})
+				})
+				break;
+			case "MyPriv":
+				console.log("MyPriv")
+				Post.find({email: req.user.email}).where({post_privacy:"pric"}).sort({post_date: -1}).exec((err,doc)=>{
+					if(!err){
+						//console.log("doc "+doc)
+						res.redirect('/homepage/'+req.body.type)
+						//res.render('homepage', {lposts: doc, user:req.user})
+					}	
+					else 
+						res.render('error', {error: err})
+				})
+				break;
 
-	var uploads = multer().array('post')
-	/* Handle profile POSTs */
-	router.post('/homepage/post',uploads,(req, res, next)=>{
-		
+		}
+
+		//res.redirect('/homepage')
+	})*/
+
+	/* Handle submitPost POST */
+	router.post('/homepage/post', upload.array("post"),(req, res, next)=>{
 		if(req.body.sport){
 			// multiple
 			console.log("SPORT POST")
@@ -101,7 +221,6 @@ module.exports = function(passport){
 					photoNames.img[i] = "uploads/"+req.files[i].originalname
 				}
 			}
-			console.log("depois do if")
 			
 			var date = new Date()
 			var sport = new SportPost({post_privacy: req.body.privacy, post_date: date,
@@ -307,8 +426,11 @@ module.exports = function(passport){
 
 
 	/* Handle ProfileChange POST */
-	router.post('/homepage/:id/changeprofdata', upload.single('newProfPic'), function(req, res){
-		/** @todo por a password e a foto **/
+	router.post('/homepage/:id/changeprofdata', upload.array('newProfPic',1), function(req, res){
+
+
+		
+
 
 		console.log("PROFILE CHANGE")
 		var newName = req.user.name
@@ -317,6 +439,11 @@ module.exports = function(passport){
 		var newBirth_date = req.user.birth_date
 		var newPassword = req.user.password
 		var newImg = req.user.img
+		// single
+		if(req.files.length){
+			console.log("req.files: "+req.files[0].originalname)
+			newImg = "uploads/"+req.files[0].originalname
+		}
 		if(req.body.newPassword){
 			if(req.body.newPasswordCheck){
 				
@@ -341,12 +468,8 @@ module.exports = function(passport){
 			console.log(" req.body.newBirth_date"+ req.body.newDate)
 			a.img.contentType = 'image/png';
 		}
-		if(req.file.filename){
-			console.log("------------------------- profPic = "+req.file.filename)
-			newImg = "uploads/"+req.file.filename
-			newImg.contentType = 'image/png'
-		}
 		
+		/** Update user information */
 		User.update({email: req.user.email},{$set: {email: newEmail,name: newName,gender: newGender,birth_date: newBirth_date,img:newImg}},
 				(err, result)=>{
 					if(!err){
@@ -356,8 +479,7 @@ module.exports = function(passport){
 						req.user.gender = newGender
 						req.user.birth_date = newBirth_date
 						req.user.img = newImg
-						//inserir queries de update a posts
-						//todos os posts deste utilizador atualizer o posted_by com o novo nome e posted_by_pic com nova fota
+						
 						Post.update({'_id': {$in: req.user.user_posts}},{$set: {posted_by: newName, posted_by_pic: newImg}}, {multi: true})
 						.exec((err,doc)=>{
 							if(!err){
@@ -378,11 +500,12 @@ module.exports = function(passport){
 
 	/* GET Home Page */
 	router.get('/homepage', isAuthenticated, function(req, res){
-		Post.find()
+		Post.find({post_privacy: 'pub'})
+		.sort({post_date: -1})
 		.exec((err,doc)=>{
 			if(!err){
-				console.log("doc "+doc)
-				//console.log("req.file.filename: "+req.file.filename)
+				//console.log("doc "+doc)
+				
 				res.render('homepage', {lposts: doc, user:req.user})
 			}
 				
@@ -398,9 +521,6 @@ module.exports = function(passport){
 
 		//falta apagar a cache
 	});
-
-
-	
 	return router;
 }
 

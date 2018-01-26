@@ -81,39 +81,39 @@ html
             b Perfil
           .w3-section.w3-bottombar.w3-padding-16
             span.w3-margin-right Filtro:
-             button.w3-button.w3-black(id="fiterAll" target="/homepage/all") 
+            button.w3-button.w3-black(id="filterAll") 
               i.fa.fa-group.w3-margin-right
               | Tudo
-            button.w3-button.w3-white.w3-hide-small(id="fiterThoughts" target="/homepage/thought")
+            button.w3-button.w3-white.w3-hide-small(id="filterThoughts")
               i.fa.fa-comment-o.w3-margin-right
               | Pensamentos
-            button.w3-button.w3-white.w3-hide-small(id="fiterPics")
+            button.w3-button.w3-white.w3-hide-small(id="filterPics")
               i.fa.fa-photo.w3-margin-right
               | Fotos
-            button.w3-button.w3-white.w3-hide-small(id="fiterSports")
+            button.w3-button.w3-white.w3-hide-small(id="filterSports")
               i.fa.fa-soccer-ball-o.w3-margin-right
               | Registos Desportivos
-            button.w3-button.w3-white.w3-hide-small(id="fiterVideos")
+            button.w3-button.w3-white.w3-hide-small(id="filterVideos")
               i.fa.fa-caret-square-o-right.w3-margin-right
               | Vídeos
-            button.w3-button.w3-white.w3-hide-small(id="fiterRecipes")
+            button.w3-button.w3-white.w3-hide-small(id="filterRecipes")
               i.fa.fa-cutlery.w3-margin-right
               | Receitas
-            button.w3-button.w3-white.w3-hide-small(id="fiterEvents")
+            button.w3-button.w3-white.w3-hide-small(id="filterEvents")
               i.fa.fa-calendar.w3-margin-right
               | Eventos
             .dropdown
-              button.dropbtn.w3-button.w3-white.w3-hide-small(id="fiterMyPosts")
+              button.dropbtn.w3-button.w3-white.w3-hide-small(id="filterMyPosts")
                 i.fa.fa-user.w3-margin-right
                 | Meus Posts
               .dropdown-content
-                a(href="#")
+                a(href="#" id="MyPostsAll")
                   i.fa.fa-globe.w3-margin-right
                   | Todos
-                a( id="filterPublic") 
+                a(href="#" id="MyPostsPublic") 
                   i.fa.fa-unlock.w3-margin-right
                   | Públicos
-                a(href="#", id="filterPrivate") 
+                a(href="#" id="MyPostsPrivate") 
                   i.fa.fa-lock.w3-margin-right
                   | Privados
       - var n = 0;
