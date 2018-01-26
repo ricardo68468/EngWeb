@@ -236,7 +236,7 @@ module.exports = function(passport){
 				if(!err)
 				{
 					console.log("Acrescentei uma receita")
-					console.log("Id do post: "+thought._id)
+					console.log("Id do post: "+recipe._id)
 					User.update({email: req.user.email},{$push: {user_posts: recipe._id}},(err, result)=>{
 						if(!err) 
 							console.log('Acrescentei o post: '+ recipe._id +" ao user: "+req.user.email)
@@ -292,7 +292,8 @@ module.exports = function(passport){
 
 	/* Handle Comment on some post */
 	router.post('/homepage/post/:idPost/comment', (req, res, next)=>{
-		var comment = {comment_date: req.body.comment_date, comment_body: req.body.comment_body, comment_by: req.user.name}
+		var date = new Date();
+		var comment = {comment_date: date, comment_body: req.body.comment_body, comment_by: req.user.name, comment_by_pic: req.user.img}
 		Post.update({_id: req.params.idPost},{$push: {post_comments:comment}},
 			(err,result)=>{
 				if(!err)

@@ -17,7 +17,7 @@ function AbstractPostSchema() {
                 comment_date: {type: String, required:true},
                 comment_body: {type: String, required:true},
                 comment_by: {type: String, required:true},
-                comment_by_pic: {type: String},
+                comment_by_pic: {type: String}
             }
         ]
     })
@@ -62,7 +62,6 @@ var CookingSchema = new AbstractPostSchema(
         cook_name: {type: String, required: true},
         ingredients: {type: [String], required: true},
         preparation: {type: String, required: true},
-        cook_calories: {type: String, required: true},
         cook_photos: [{type: String}]
     }
 )
