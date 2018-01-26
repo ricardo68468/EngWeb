@@ -257,10 +257,91 @@ html
                           h4
                             | George 
                             span.w3-opacity.w3-medium May 3, 2015, 6:32 PM
+<<<<<<< HEAD
                           p Great blog post! Following
 
           
 
+=======
+                          p Great blog post! Following    
+          // Template Registo desportivo   
+          when 3: .w3-container.w3-white.w3-margin.w3-padding-large
+                    .w3-row.w3-margin-bottom
+                      hr
+                      .w3-col.l1.m3
+                        img(src=post.posted_by_pic style='width:50px; border-radius: 50%;')
+                      .w3-col.l6.m9
+                        h4
+                          = post.posted_by
+                          span.w3-opacity.w3-medium 18 de janeiro de 2017 às 13h24, em Universidade do Minho
+                    .w3-justify
+                      h3 Registo desportivo:
+                      ul
+                        li
+                          b Desporto:
+                          p= post.sport_type
+                        li
+                          b Duração:
+                          p= post.duration
+                        if post.calories_burnt
+                          li
+                            b Calorias gastas:
+                            p= post.calories_burnt +"kcal"
+                      h3 Descrição:
+                      p= post.sport_description
+                      if post.sport_photos.length
+                        .w3-content.w3-display-container(style='max-width:800px')
+                          div.carousel.slide(data-ride="carousel" id="myCarousel")
+
+                            ol.carousel-indicators
+                              - var npics = 0;
+
+                              each i,index in post.sport_photos
+                                if index
+                                  li(data-target="#myCarousel" data-slide-to=npics++)
+                                else
+                                  li.active(data-target="#myCarousel" data-slide-to=npics++)
+                            .carousel-inner
+                              - var npics2 = 0;
+
+                              each i,index in post.sport_photos
+                                if index
+                                  .item
+                                    img(src=post.sport_photos[npics2++])
+                                else
+                                  .item.active
+                                    img(src=post.sport_photos[npics2++])
+                            a.left.carousel-control(href="#myCarousel" data-slide="prev")
+                              span.glyphicon.glyphicon-chevron-left
+                              span.sr-only Anterior
+                            a.right.carousel-control(href="#myCarousel" data-slide="next")
+                              span.glyphicon.glyphicon-chevron-right
+                              span.sr-only Proximo
+                      p.w3-left
+                        button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
+                          b
+                            i.fa.fa-thumbs-up
+                            |  Like
+                        button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal')
+                          b
+                            i.fa.fa-commenting-o
+                            |  Comentar
+                      p.w3-right
+                        button#myBtn.w3-button.w3-black(onclick="myFunction('demo5')")
+                          b Comentários
+                          span.w3-tag.w3-white 1
+                      p.w3-clear
+                      #demo5.w3-row.w3-margin-bottom(style='display:none')
+                        hr
+                        .w3-col.l2.m3
+                          img(src='imagens/fotoSantos.jpg', style='width:90px;')
+                        .w3-col.l10.m9
+                          h4
+                            | George 
+                            span.w3-opacity.w3-medium May 3, 2015, 6:32 PM
+                          p Great blog post! Following
+                          
+>>>>>>> 722dd1e7c3e8bab621fba6214e67d37b382bd2a5
       .w3-black.w3-center.w3-padding-24 Powered by MIETI
       // End page content
     // Modal-Comentários
