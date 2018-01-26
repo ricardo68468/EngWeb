@@ -14,6 +14,7 @@ $(document).ready(function() {
           
     });
     $("#newPasswordCheck").keyup(validate);
+<<<<<<< HEAD
     $("#newPassword").keyup(validate);    
 
     $("#filterAll").click(function(){
@@ -93,6 +94,10 @@ $(document).ready(function() {
             data: {'type':"MyPriv"},
         });  
     });
+=======
+    $("#newPassword").keyup(validate);
+    
+>>>>>>> 1eb6da3d14d7df46b553f1f1c402322153836efc
 });
 function validate() {
     var password1 = $("#newPassword").val();
