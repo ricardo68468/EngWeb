@@ -86,7 +86,7 @@ var UserSchema = new Schema(
         gender: {type:String, required: true},
         birth_date: {type:String},
         img: {type: String},
-        user_posts: [Schema.Types.ObjectId]
+        user_posts: [{type: Schema.Types.ObjectId, ref: 'Post'}]
     }
 )
 
