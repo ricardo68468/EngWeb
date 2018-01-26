@@ -326,8 +326,6 @@ module.exports = function(passport){
 			newImg = "uploads/"+req.file.filename
 			newImg.contentType = 'image/png'
 		}
-
-
 		
 		User.update({email: req.user.email},{$set: {email: newEmail,name: newName,gender: newGender,birth_date: newBirth_date,img:newImg}},
 				(err, result)=>{
@@ -340,13 +338,13 @@ module.exports = function(passport){
 						req.user.img = newImg
 						//inserir queries de update a posts
 						//todos os posts deste utilizador atualizer o posted_by com o novo nome e posted_by_pic com nova fota
-						Post.find({'_id': {$in: req.user.user_posts}}).update({$push: {posted_by: newName, posted_by_pic: newImg}},{multi: true}).exec((err,doc)=>{
+						Post.update({'_id': {$in: req.user.user_posts}},{$set: {posted_by: newName, posted_by_pic: newImg}}, {multi: true})
+						.exec((err,doc)=>{
 							if(!err){
-								console.log("Posts do user "+doc)
-								//.update({$set: {posted_by: newName, posted_by_pic: newImg}},{multi: true})
+								console.log("Atualização dos posts do user "+doc)
 							}	
 							else 
-								console.log("Erro fio da puta"+err)
+								console.log("Erro fio da puta "+err)							
 						})
 					} 
 					else console.log("Erro: "+err)
