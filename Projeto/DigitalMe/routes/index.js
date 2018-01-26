@@ -1,4 +1,3 @@
-
 var express = require('express');
 var router = express.Router();
 var models = require('../models/schema')
@@ -21,12 +20,22 @@ var EventPost = models.Events
 
 //multer object creation
 var multer  = require('multer')
-var storage = multer.diskStorage({
+var storage = multer.diskStorage(
+	{
     destination: function (req, file, cb) {
-        cb(null, 'public/uploads/')
+		if(file.originalname){
+			cb(null, 'public/uploads/')
+		}else{
+			console.log("NO FILES SELECTED")
+		}
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname)
+		if(file.originalname){
+			cb(null, file.originalname)
+		}else{
+			console.log("NO FILES SELECTED")
+		}
+        
   }
 })
 
@@ -72,24 +81,34 @@ module.exports = function(passport){
 	}));
 
 
-
-	/* Handle Registration POST */
-	router.post('/homepage/post', upload.array("post"),(req, res, next)=>{
+	var uploads = multer().array('post')
+	/* Handle profile POSTs */
+	router.post('/homepage/post',uploads,(req, res, next)=>{
+		
 		if(req.body.sport){
-			console.log("req.files: "+req.files[0].originalname)
 			// multiple
+			console.log("SPORT POST")
 			var photoNames = {
 				img: []
 			}
-			
-			for(var i = 0; i<req.files.length;i++){
-				photoNames.img[i] = "uploads/"+req.files[i].originalname
+			console.log("antes do if")
+			console.log(util.inspect(req.files, false, null))
+			if(req.files.length){
+				console.log("ENTROU NO IF")
+				console.log("req.files: "+req.files[0].originalname)
+				
+				for(var i = 0; i<req.files.length;i++){
+					photoNames.img[i] = "uploads/"+req.files[i].originalname
+				}
 			}
-			//console.log(util.inspect(req, false, null))
+			console.log("depois do if")
+			
 			var date = new Date()
 			var sport = new SportPost({post_privacy: req.body.privacy, post_date: date,
-			post_type: req.body.sport, posted_in: req.body.sport_local,sport_photos: photoNames.img, posted_by: req.user.name, sport_type:req.body.sport_type, distance: req.body.sport_distance,
-			calories_burnt: req.body.sport_calories, duration: req.body.sport_duration ,sport_description: req.body.sport_desc, posted_by_pic: req.user.img,
+			post_type: req.body.sport, posted_in: req.body.sport_local,sport_photos: photoNames.img,
+			posted_by: req.user.name, sport_type:req.body.sport_type, distance: req.body.sport_distance,
+			calories_burnt: req.body.sport_calories, duration: req.body.sport_duration ,
+			sport_description: req.body.sport_desc, posted_by_pic: req.user.img,
 			post_comments: []})
 			
 			sport.save((err, result)=>{
@@ -135,15 +154,18 @@ module.exports = function(passport){
 		}
 		if(req.body.foto){
 			console.log("POST PHOTO")
-			console.log("req.files: "+req.files[0].originalname)
+			
 			// multiple
 			var photoNames = {
 				img: []
 			}
-			
-			for(var i = 0; i<req.files.length;i++){
-				photoNames.img[i] = "uploads/"+req.files[i].originalname
+			if(req.files.length){
+				console.log("req.files: "+req.files[0].originalname)
+				for(var i = 0; i<req.files.length;i++){
+					photoNames.img[i] = "uploads/"+req.files[i].originalname
+				}
 			}
+			
 			var date = new Date()
 			var foto = new PhotoPost({post_privacy: req.body.privacy, post_date: date,
 			post_type: req.body.foto, posted_in: req.body.fotoLocal, posted_by: req.user.name, img: photoNames.img,
@@ -169,13 +191,6 @@ module.exports = function(passport){
 		if(req.body.video){
 
 			// single
-			var photoNames = {
-				img: []
-			}
-			
-			for(var i = 0; i<req.files.length;i++){
-				photoNames.img[i] = "uploads/"+req.files[i].originalname
-			}
 			var date = new Date()
 			var video = new VideoPost({post_privacy: req.body.privacy, post_date: date,
 			post_type: req.body.video, posted_in: req.body.videoLocal, posted_by: req.user.name, video: "uploads/"+req.files[0].originalname,
@@ -201,14 +216,16 @@ module.exports = function(passport){
 		if(req.body.recipe){
 
 			// multiple
-			console.log("req.files: "+req.files[0].originalname)
 			var photoNames = {
 				img: []
 			}
-			
-			for(var i = 0; i<req.files.length;i++){
-				photoNames.img[i] = "uploads/"+req.files[i].originalname
+			if(req.files.length){
+				console.log("req.files: "+req.files[0].originalname)
+				for(var i = 0; i<req.files.length;i++){
+					photoNames.img[i] = "uploads/"+req.files[i].originalname
+				}
 			}
+			
 			var date = new Date()
 			var recipe = new CookingPost({post_privacy: req.body.privacy, post_date: date,
 			post_type: req.body.recipe, posted_in: req.body.cookLocal, cook_name: req.body.recipe_name,cook_photos: photoNames.img,
@@ -234,14 +251,16 @@ module.exports = function(passport){
 		}
 		if(req.body.event){
 			// multiple
-			console.log("req.files: "+req.files[0].originalname)
 			var photoNames = {
 				img: []
 			}
-			
-			for(var i = 0; i<req.files.length;i++){
-				photoNames.img[i] = "uploads/"+req.files[i].originalname
+			if(req.files.length){
+				console.log("req.files: "+req.files[0].originalname)
+				for(var i = 0; i<req.files.length;i++){
+					photoNames.img[i] = "uploads/"+req.files[i].originalname
+				}
 			}
+			
 			
 			var date = new Date()
 			var event = new EventPost({post_privacy: req.body.privacy, post_date: date,
