@@ -206,6 +206,7 @@ module.exports = function(passport){
 					photoNames.img[i] = "uploads/"+req.files[i].originalname
 				}
 			}
+			console.log("depois do if")
 			
 			var date = new Date()
 			var sport = new SportPost({post_privacy: req.body.privacy, post_date: date,
@@ -461,10 +462,26 @@ module.exports = function(passport){
 						req.user.birth_date = newBirth_date
 						req.user.img = newImg
 						
-						Post.update({'_id': {$in: req.user.user_posts}},{$set: {posted_by: newName, posted_by_pic: newImg}}, {multi: true})
+						Post.update({'_id': {$in: req.user.user_posts},},{$set: {posted_by: newName, posted_by_pic: newImg }},{multi: true})
 						.exec((err,doc)=>{
 							if(!err){
-								//console.log("Atualização dos posts do user "+doc)
+								console.log("Update aos post do user: "+ req.user._id)
+								Post.find({'post_comments.$.comment_by_id': req.user._id}).exec((err,doc)=>{
+									if(!err){
+										console.log("DEBUG: "+doc)
+									}
+									else{
+										console.log("Fodeu")
+									}
+								})
+								/*Post.update({'post_comments.$.comment_by_id': req.user._id},
+								{$set: {"post_comments.$.comment_by": newName, "post_comments.$.comment_by_pic": newImg}},{multi:true})
+								.exec((err,doc)=>{
+									if(!err)
+										console.log("Tudo bem")
+									else
+										console.log("Tudo mal")
+								})*/
 							}	
 							else 
 								console.log("Erro fio da puta "+err)							
@@ -474,8 +491,7 @@ module.exports = function(passport){
 		})
 				
 		res.redirect('/homepage')
-		
-		
+
 	});
 
 

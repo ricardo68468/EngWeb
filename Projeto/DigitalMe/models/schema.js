@@ -1,3 +1,4 @@
+
 var mongoose = require('mongoose')
 var util = require('util');
 var Schema = mongoose.Schema
@@ -18,6 +19,7 @@ function AbstractPostSchema() {
                 comment_body: {type: String, required:true},
                 comment_by: {type: String, required:true},
                 comment_by_pic: {type: String},
+                comment_by_id: {type: Schema.Types.ObjectId, ref: 'User'}
             }
         ]
     })
