@@ -360,7 +360,7 @@ module.exports = function(passport){
 						Post.update({'_id': {$in: req.user.user_posts}},{$set: {posted_by: newName, posted_by_pic: newImg}}, {multi: true})
 						.exec((err,doc)=>{
 							if(!err){
-								console.log("Atualização dos posts do user "+doc)
+								//console.log("Atualização dos posts do user "+doc)
 							}	
 							else 
 								console.log("Erro fio da puta "+err)							
