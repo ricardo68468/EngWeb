@@ -485,22 +485,14 @@ module.exports = function(passport){
 						.exec((err,doc)=>{
 							if(!err){
 								console.log("Update aos post do user: "+ req.user._id)
-								Post.find({'post_comments.$.comment_by_id': req.user._id}).exec((err,doc)=>{
-									if(!err){
-										console.log("DEBUG: "+doc)
-									}
-									else{
-										console.log("Fodeu")
-									}
-								})
-								/*Post.update({'post_comments.$.comment_by_id': req.user._id},
+								Post.update({'post_comments.$.comment_by_id': req.user._id},
 								{$set: {"post_comments.$.comment_by": newName, "post_comments.$.comment_by_pic": newImg}},{multi:true})
 								.exec((err,doc)=>{
 									if(!err)
 										console.log("Tudo bem")
 									else
 										console.log("Tudo mal")
-								})*/
+								})
 							}	
 							else 
 								console.log("Erro fio da puta "+err)							
