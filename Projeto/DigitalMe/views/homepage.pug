@@ -81,10 +81,10 @@ html
             b Perfil
           .w3-section.w3-bottombar.w3-padding-16
             span.w3-margin-right Filtro:
-            button.w3-button.w3-black(id="fiterAll") 
+             button.w3-button.w3-black(id="fiterAll" target="/homepage/all") 
               i.fa.fa-group.w3-margin-right
               | Tudo
-            button.w3-button.w3-white.w3-hide-small(id="fiterThoughts")
+            button.w3-button.w3-white.w3-hide-small(id="fiterThoughts" target="/homepage/thought")
               i.fa.fa-comment-o.w3-margin-right
               | Pensamentos
             button.w3-button.w3-white.w3-hide-small(id="fiterPics")
@@ -218,7 +218,11 @@ html
                             | George 
                             span.w3-opacity.w3-medium May 3, 2015, 6:32 PM
                           p Great blog post! Following
+<<<<<<< HEAD
+         
+=======
           // TEMPLATE VIDEO
+>>>>>>> dad50d5e60b278bfa4a1533f80ca97579e2b11e1
           when 2: .w3-container.w3-white.w3-margin.w3-padding-large
                     .w3-row.w3-margin-bottom
                       hr
@@ -257,9 +261,15 @@ html
                           h4
                             | George 
                             span.w3-opacity.w3-medium May 3, 2015, 6:32 PM
+<<<<<<< HEAD
+                          p Great blog post! Following
+
+          when 5: .w3-container.w3-white.w3-margin.w3-padding-large
+=======
                           p Great blog post! Following    
           // Template Registo desportivo   
           when 3: .w3-container.w3-white.w3-margin.w3-padding-large
+>>>>>>> dad50d5e60b278bfa4a1533f80ca97579e2b11e1
                     .w3-row.w3-margin-bottom
                       hr
                       .w3-col.l1.m3
@@ -269,6 +279,53 @@ html
                           = post.posted_by
                           span.w3-opacity.w3-medium 18 de janeiro de 2017 às 13h24, em Universidade do Minho
                     .w3-justify
+<<<<<<< HEAD
+                      h2= post.event_name
+                      ul
+                        li 
+                          b Tipo de Evento:  
+                          = post.event_type
+                          br
+                          b Data: 
+                          = post.event_date
+                          br
+                          b Hora: 
+                          = post.event_hour
+                          br
+                          b Duração: 
+                          = post.event_duration
+                          br
+                      h2 Descrição do Evento:
+                      br
+                      p(style="font-size:120%")= post.event_description
+                      .w3-content.w3-display-container(style='max-width:800px')
+                        div.carousel.slide(data-ride="carousel" id="myCarousel")
+                          
+                          ol.carousel-indicators
+                            - var npics = 0;
+                            
+                            each i,index in post.event_photos
+                              if index
+                                li(data-target="#myCarousel" data-slide-to=npics++)
+                              else
+                                li.active(data-target="#myCarousel" data-slide-to=npics++)
+                          .carousel-inner
+                            - var npics2 = 0;
+                            
+                            each i,index in post.event_photos
+                              if index
+                                .item
+                                  img(src=post.event_photos[npics2++])
+                              else
+                                .item.active
+                                  img(src=post.event_photos[npics2++])
+                          a.left.carousel-control(href="#myCarousel" data-slide="prev")
+                            span.glyphicon.glyphicon-chevron-left
+                            span.sr-only Anterior
+                          a.right.carousel-control(href="#myCarousel" data-slide="next")
+                            span.glyphicon.glyphicon-chevron-right
+                            span.sr-only Proximo
+=======
                       h3 Registo desportivo:
                       ul
                         li
@@ -311,6 +368,7 @@ html
                             a.right.carousel-control(href="#myCarousel" data-slide="next")
                               span.glyphicon.glyphicon-chevron-right
                               span.sr-only Proximo
+>>>>>>> dad50d5e60b278bfa4a1533f80ca97579e2b11e1
                       p.w3-left
                         button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
                           b
@@ -321,6 +379,23 @@ html
                             i.fa.fa-commenting-o
                             |  Comentar
                       p.w3-right
+<<<<<<< HEAD
+                        button#myBtn.w3-button.w3-black(onclick="myFunction(demo1)")
+                          b Comentários
+                          span.w3-tag.w3-white 1
+                      p.w3-clear
+                      ul
+                        each i in post.post_comments
+                          li
+                            #demo1.w3-row.w3-margin-bottom(style='display:none')
+                              .w3-col.l2.m3
+                                img(src=post.comment_by_pic, style='width:90px;')
+                              .w3-col.l10.m9
+                                h4= post.comment_by
+                                  span.w3-opacity.w3-medium= post.comment_date
+                                p= post.comment_body
+
+=======
                         button#myBtn.w3-button.w3-black(onclick="myFunction('demo5')")
                           b Comentários
                           span.w3-tag.w3-white 1
@@ -335,6 +410,7 @@ html
                             span.w3-opacity.w3-medium May 3, 2015, 6:32 PM
                           p Great blog post! Following
                           
+>>>>>>> dad50d5e60b278bfa4a1533f80ca97579e2b11e1
       .w3-black.w3-center.w3-padding-24 Powered by MIETI
       // End page content
     // Modal-Comentários
@@ -557,17 +633,17 @@ html
                     lable.col-form-label Tipo de Evento:
                     select.form-control(type="margin-bottom: 10px", name="event_type")
                       option(disabled, selected) Escolha um
-                      option(value='desp') Desportivo
-                      option(value='music') Musical
-                      option(value='anim') Animação
-                      option(value='conv') Convívio
-                      option(value='workshop') Workshop
-                      option(value='reun') Reunião
-                      option(value='trav') Viagem
-                      option(value='acamp') Acampamento
-                      option(value='cinema') Cinema
-                      option(value='teatro') Teatro
-                      option(value='outro') Outro
+                      option(value='Desportivo') Desportivo
+                      option(value='Musical') Musical
+                      option(value='Animação') Animação
+                      option(value='Convívio') Convívio
+                      option(value='Workshop') Workshop
+                      option(value='Reunião') Reunião
+                      option(value='Viagem') Viagem
+                      option(value='Acampamento') Acampamento
+                      option(value='Cinema') Cinema
+                      option(value='Teatro') Teatro
+                      option(value='Outro') Outro
                   .form-group.col-md-6
                     lable.col-form-lable Duração do evento:
                     input.form-control(type="time" name="event_duration")

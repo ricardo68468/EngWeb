@@ -1,70 +1,96 @@
 html
-	head
-		meta(charset="UTF-8")
-		link(rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css")
-		//link(rel="stylesheet" href="/css/style.css")
-		script(src='https://code.jquery.com/jquery-2.1.3.min.js')
-		script
-			include js/testpassword.js
-			
-		
-	body
-		div(class="w3-container w3-blue w3-round")
-			h2 DigitalMe
-		
-		div(class="w3-display-container")
-			div(class="w3-display-container" style="margin-left: 200px")
-				form(class="w3-display-topleft" id="regform" action="/signup" method="POST" ) 
-					h3 Criar uma nova conta
-					fieldset
-						legend Informações Pessoais
-						lable(for="name") Nome: 
-						lable(style="color: red") *
-						input(type="text" name="name" class="w3-input w3-border" required autofocus)
-						br
-						lable(for="username") Email: 
-						lable(style="color: red") *
-						input(type="email" name="email" class="w3-input w3-border" required)
-						br
-						lable(for="password") Password: 
-						lable(style="color: red") *
-						input(type="password" name="password" id="passwordreg1" class="w3-input w3-border", required)
-						br
-						lable(for="instituicao") Confirme a Password: 
-						lable(style="color: red") *
-						input(type="password" name="password2" id="passwordreg2" class="w3-input w3-border" required)
-						p(style="color: red" id="validate-status")
-						
-						br
-						lable(for="data_nasc") Data de nascimento:
-						input(type="date" name="birth_date" id="birth_date" class="w3-input w3-border")
-						br
-						lable Género:
-						lable(style="color: red") *
-						br
-						lable(for="masculino") Masculino
-						input(type="radio" name="gender" value="Male" id="Male" class="w3-radio w3-border" checked required)
-						br
-						lable(for="feminino") Feminino 
-						input(type="radio" name="gender" value="Female" id="Female" class="w3-radio w3-border" required)
-						br
-						lable(for="outro") Outro 
-						input(type="radio" name="gender" value="Other" id="Other" class="w3-radio w3-border" required)
-						br
-						p(style="color: red") * - Preenchimento Obrigatório
-						p(style="color: red" id="pass-not-valid" )
-						button(class="w3-btn w3-blue" id="submit" type='submit') Registar
-						span.clearfix
+  head
+    title Digital Me
+    meta(charset='UTF-8')
+    link(rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css')
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    script(src='https://code.jquery.com/jquery-2.1.3.min.js')
+    script
+      include js/testpassword.js
+    style
+      include css/util.css
+    style
+      include css/main.css
+    //style 
+      include css/fonts/font-awesome-4.7.0/css/font-awesome.min.css
+    //style 
+      include css/fonts/iconic/css/material-design-iconic-font.min.css
 
-			div(class="w3-display-container" width="150%" style="margin-right: 200px")
-				form(class="w3-display-topright" action="/login" method="POST")
-					h3 Login
-					fieldset
-						legend Introduza as suas credênciais
-						lable(for="email") Email: 
-						input(type="email" name="email" id="email" class="w3-input w3-border" required)
-						br
-						lable(for="password") Password: 
-						input(type="password" name="password" id="passwordlog" class="w3-input w3-border" required)
-						br
-						button(type="submit" class="w3-btn w3-blue") Login
+  body
+    .limiter(style="background-image: url('imagens/grey.jpg'); background-repeat: no-repeat;\
+    background-attachment: fixed;")
+      .w3-top
+        .w3-bar.w3-white.w3-padding.w3-card(style='letter-spacing:4px;')
+          a.w3-bar-item.w3-button(href='#home') Digital Me
+          // Right-sided navbar links. Hide them on small screens
+          .w3-right.w3-hide-small
+            a.w3-bar-item.w3-button(href='#login') LogIn
+            a.w3-bar-item.w3-button(href='#registo') Registe-se
+      #login.container-login100(style="margin-top: 20px")
+        .wrap-login100.p-l-55.p-r-55.p-t-65.p-b-54
+          span.login100-form-title.p-b-49
+            | LogIn
+          form.login100-form.validate-form(action="/login" method="POST")
+            .wrap-input100.validate-input.m-b-23(data-validate='Email is required')
+              span.label-input100 Email
+              input#email.input100(type='email', name='email', placeholder='Intoduza o seu email', required='')
+              span.focus-input100()
+            .wrap-input100.validate-input(data-validate='Password is required')
+              span.label-input100 Password
+              input#passwordlog.input100(type='password', name='password', placeholder='Introduza a sua password', required='')
+              span.focus-input100
+            .container-login100-form-btn(style='margin-top: 10px')
+              .wrap-login100-form-btn
+                .login100-form-bgbtn
+                button#btnLogin.login100-form-btn(type='submit')
+                  | Login
+          .txt1.text-center.p-t-54.p-b-20
+            span
+              | Ou Sign Up com:
+          .flex-c-m
+            a.login100-social-item.bg1(href='#')
+              i.fa.fa-facebook
+            a.login100-social-item.bg2(href='#')
+              i.fa.fa-twitter
+            a.login100-social-item.bg3(href='#')
+              i.fa.fa-google
+      // REGISTO
+      #registo.container-login100
+        .wrap-login100.p-l-55.p-r-55.p-t-65.p-b-54
+          span.login100-form-title.p-b-49
+            | Registe-se
+          form#regform.login100-form.validate-form(action="/signup" method="POST")
+            .wrap-input100.validate-input.m-b-23(data-validate='Name is required')
+              span.label-input100 Nome
+              input.input100(type='text', name='name', placeholder='Nome', required)
+              span.focus-input100
+            .wrap-input100.validate-input(data-validate='Email is required')
+              span.label-input100 Email
+              input.input100(type='email', name='email', placeholder='Email', required)
+              span.focus-input100
+            .wrap-input100.validate-input(data-validate='Password is required', style='margin-top:20px')
+              span.label-input100 Password
+              input#passwordreg1.input100(type='password', name='password', placeholder='Password', required)
+              span.focus-input100
+            .wrap-input100.validate-input(data-validate='Password is required', style='margin-top:20px')
+              span.label-input100 Confirme Password
+              input#passwordreg2.input100(type='password', name='password2', placeholder='Confirme Password', required='')
+              span.focus-input100
+              p#validate-status(style="color: red")
+            .wrap-input100.validate-input(data-validate='Bday is not required', style='margin-top:20px')
+              span.label-input100 Data de Nascimento
+              input#birth_date.input100(type='date', name='birth_date')
+              span.focus-input100
+            .wrap-input100.validate-input(data-validate='Gender is required', style='margin-top:20px')
+              span.label-input100 Género
+              select.form-control(name="gender")
+                option(value='Male') Masculino
+                option(value='Female') Feminino
+                option(value='Other') Outro
+            .container-login100-form-btn(style='margin-top: 10px')
+                .wrap-login100-form-btn
+                  .login100-form-bgbtn
+                  button#submit.login100-form-btn(type='submit')
+                    | Registar
+            span.clearfix
+
