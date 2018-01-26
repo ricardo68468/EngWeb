@@ -16,7 +16,8 @@ function AbstractPostSchema() {
             {
                 comment_date: {type: String, required:true},
                 comment_body: {type: String, required:true},
-                comment_by: {type: String, required:true}
+                comment_by: {type: String, required:true},
+                comment_by_pic: {type: String},
             }
         ]
     })

@@ -4,6 +4,7 @@ console.log("script");
 
 $(document).ready(function() {
     $("#passwordreg2").keyup(validate);
+    $("#passwordreg1").keyup(validate);
     $('#regform').on('submit', function(e) { //use on if jQuery 1.7+
         
         var data = $("#regform :input").serializeArray();
@@ -25,11 +26,13 @@ function validate() {
     console.log("password2 "+password2)
    
     if(password1 == password2) {
-        $("#validate-status").text("");        
+        $("#validate-status").text("");  
+        $("#submit").attr("disabled", false)   
     }
     else {
         
         $("#validate-status").text("* - Password don't match");  
+        $("#submit").attr("disabled", true)
     }
 }
 

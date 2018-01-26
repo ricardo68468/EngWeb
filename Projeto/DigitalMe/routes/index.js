@@ -245,7 +245,7 @@ module.exports = function(passport){
 			
 			var date = new Date()
 			var event = new EventPost({post_privacy: req.body.privacy, post_date: date,
-				event_photos: photoNames.img,event_video:req.file.filename,
+				event_photos: photoNames.img,
 				post_type: req.body.event, posted_in: req.body.event_local,
 				posted_by: req.user.name, event_name: req.body.event_name,
 				event_type: req.body.event_type, event_description: req.body.event_desc,
