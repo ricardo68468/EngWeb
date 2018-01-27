@@ -593,24 +593,7 @@ html
                                   |  Sair                 
       .w3-black.w3-center.w3-padding-24 Powered by MIETI
       // End page content
-    // Modal-Comentários
-    #myModal.modal.fade(role='dialog')
-      .modal-dialog
-        // Modal content
-        .modal-content
-          .modal-header
-            button.close(type='button', data-dismiss='modal') ×
-            h4.modal-title Comentário:
-          .modal-body
-            form(action="/homepage/post/"+post._id+"/comment", method="POST")
-              textarea#example1(rows='4', cols='75', autofocus='', name="comment_body")
-              .modal-footer
-                button.w3-button.w3-white.w3-border(type='submit')
-                  i.fa.fa-check
-                  |  Enviar Comentário
-                button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
-                  i.fa.fa-close.fa-fw
-                  |  Sair
+    
     // Modal-Publicar
     #publicarModal.modal.fade(role='dialog')
       .modal-dialog.modal-lg

@@ -6,13 +6,13 @@ $(document).ready(function() {
         var data = $("#changeProfData :input").serializeArray();
         console.log(data); //use the console for debugging, F12 in Chrome, not alerts
         console.log("print "+data[2].value)
-    });*/
+    });*//*
     $('#newProfPic').change( function(event) {
         var tmppath = URL.createObjectURL(event.target.files[0]);
         console.log("tmppath!!!!!!!!!!!!!!!!!!!!!!: "+tmppath)   
         $("#fotoUser").fadeIn("fast").attr('src',tmppath);  
           
-    });
+    });*/
     $("#newPasswordCheck").keyup(validate);
     $("#newPassword").keyup(validate);    
 
