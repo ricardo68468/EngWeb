@@ -77,131 +77,126 @@ module.exports = function(passport){
 	router.post('/signup', passport.authenticate('signup', {
 		successRedirect: '/homepage',
 		failureRedirect: '/signup',
-		failureFlash : true  
+		failureFlash : true
 	}));
 
-	/*router.post('/homepage/filter', (req, res, next)=>{
-		switch(req.body.type){
-			case "All":
-				console.log("redirect pra homepage")
-				res.redirect('/homepage')
-				console.log("continua")
-				break;
-			case "Pics":
-				Post.find({post_type:"1"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc,next)=>{
+	// filter thoughts
+	router.get('/homepage/thoughts', function(req,res){
+		console.log("Thoughts")
+		Post.find({post_type:"0"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
+			if(!err){
+				res.render('homepage', {lposts: doc, user:req.user})
+			}	
+			else 
+				res.render('error', {error: err})
+		})
+	})
+
+	// filter pics
+	router.get('/homepage/pics', function(req,res){
+		Post.find({post_type:"1"}).where({post_privacy:"pub"})
+		.sort({post_date: -1}).exec((err,doc)=>{
+			if(!err){
+				res.render('homepage', {lposts: doc, user:req.user})
+			}	
+			else 
+				res.render('error', {error: err})
+		})
+	})
+	
+	// filter videos
+	router.get('/homepage/videos', function(req,res){
+		console.log("Videos")
+		Post.find({post_type:"2"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
+			if(!err){
+				//console.log("doc "+doc)
+				res.render('homepage', {lposts: doc, user:req.user})
+			}	
+			else 
+				res.render('error', {error: err})
+		})
+	})
+
+	// filter sports
+	router.get('/homepage/sports', function(req,res){
+		console.log("Sports")
+		Post.find({post_type:"3"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
+			if(!err){
+				res.render('homepage', {lposts: doc, user:req.user})
+			}	
+			else 
+				res.render('error', {error: err})
+		})
+	})
+
+	// filter recipes
+	router.get('/homepage/recipes', function(req,res){
+		console.log("Recipes")
+		Post.find({post_type:"4"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
+			if(!err){
+				res.render('homepage', {lposts: doc, user:req.user})
+			}	
+			else 
+				res.render('error', {error: err})
+		})
+	})
+
+	// filter events
+	router.get('/homepage/events', function(req,res){
+		console.log("Events")
+		Post.find({post_type:"5"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
+			if(!err){
+				res.render('homepage', {lposts: doc, user:req.user})
+			}	
+			else 
+				res.render('error', {error: err})
+		})
+	})
+
+	// filter myposts
+	router.post('/homepage/myposts', function(req,res){
+		switch(req.body.privacy){
+			case "priv":
+				// filter mypriv
+				console.log("MyPriv")
+				Post.find().where({post_privacy:"priv",posted_by_id: req.user._id}).sort({post_date: -1}).exec((err,doc)=>{
 					if(!err){
-						//console.log("doc "+doc)
-						console.log("find pics")
-						console.log(util.inspect(doc, false, null))
-						//res.redirect(req.get('referer'));
-						//res.render('homepage', {lposts: doc, user:req.user})
-					}	
-					else 
-						res.render('error', {error: err})
-				})
-				break;
-			case "Thoughts":
-				console.log("Thoughts")
-				Post.find({post_type:"0"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
-					if(!err){
-						//console.log("doc "+doc)
-						res.redirect('/homepage/'+req.body.type)
-						
-						//res.render('homepage', {lposts: doc, user:req.user})
-					}	
-					else 
-						res.render('error', {error: err})
-				})
-				break;
-			case "Sports":
-				console.log("Sports")
-				Post.find({post_type:"3"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
-					if(!err){
-						//console.log("doc "+doc)
-						//res.redirect('/homepage/'+req.body.type)
 						res.render('homepage', {lposts: doc, user:req.user})
 					}	
 					else 
 						res.render('error', {error: err})
 				})
-				break;
-			case "Videos":
-				console.log("Videos")
-				Post.find({post_type:"2"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
-					if(!err){
-						//console.log("doc "+doc)
-						res.redirect('/homepage/'+req.body.type)
-						//res.render('homepage', {lposts: doc, user:req.user})
-					}	
-					else 
-						res.render('error', {error: err})
-				})
-				break;
-			case "Recipes":
-				console.log("Recipes")
-				Post.find({post_type:"4"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
-					if(!err){
-						//console.log("doc "+doc)
-						res.redirect('/homepage/'+req.body.type)
-						//res.render('homepage', {lposts: doc, user:req.user})
-					}	
-					else 
-						res.render('error', {error: err})
-				})
-				break;
-			case "Events":
-				console.log("Events")
-				Post.find({post_type:"5"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
-					if(!err){
-						//console.log("doc "+doc)
-						res.redirect('/homepage/'+req.body.type)
-						//res.render('homepage', {lposts: doc, user:req.user})
-					}	
-					else 
-						res.render('error', {error: err})
-				})
-				break;
-			case "MyAll":
-				console.log("MyAll")
-				Post.find({email: req.user.email}).sort({post_date: -1}).exec((err,doc)=>{
-					if(!err){
-						//console.log("doc "+doc)
-						res.redirect('/homepage/'+req.body.type)
-						//res.render('homepage', {lposts: doc, user:req.user})
-					}	
-					else 
-						res.render('error', {error: err})
-				})
-				break;
-			case "MyPub":
+				break
+			case "pub":
+				// filter mypub
 				console.log("MyPub")
-				Post.find({email: req.user.email}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
+				Post.find().where({post_privacy:"pub",posted_by_id: req.user._id}).sort({post_date: -1}).exec((err,doc)=>{
 					if(!err){
-						//console.log("doc "+doc)
-						//res.redirect('/homepage/'+req.body.type)
-						//res.render('homepage', {lposts: doc, user:req.user})
+						res.render('homepage', {lposts: doc, user:req.user})
 					}	
 					else 
 						res.render('error', {error: err})
 				})
-				break;
-			case "MyPriv":
-				console.log("MyPriv")
-				Post.find({email: req.user.email}).where({post_privacy:"pric"}).sort({post_date: -1}).exec((err,doc)=>{
+				
+				break
+			case "all":
+				console.log("MyAll")
+				Post.find().where({posted_by_id: req.user._id}).sort({post_date: -1}).exec((err,doc)=>{
 					if(!err){
-						//console.log("doc "+doc)
-						res.redirect('/homepage/'+req.body.type)
-						//res.render('homepage', {lposts: doc, user:req.user})
+						res.render('homepage', {lposts: doc, user:req.user})
 					}	
 					else 
 						res.render('error', {error: err})
 				})
-				break;
-
+				break
+			default:
+				console.log("ignore case")
 		}
+	})
 
-		//res.redirect('/homepage')
-	})*/
+	
+
+
 
 	/* Handle submitPost POST */
 	router.post('/homepage/post', upload.array("post"),(req, res, next)=>{
@@ -211,20 +206,15 @@ module.exports = function(passport){
 			var photoNames = {
 				img: []
 			}
-			console.log("antes do if")
-			console.log(util.inspect(req.files, false, null))
 			if(req.files.length){
-				console.log("ENTROU NO IF")
-				console.log("req.files: "+req.files[0].originalname)
 				
 				for(var i = 0; i<req.files.length;i++){
 					photoNames.img[i] = "uploads/"+req.files[i].originalname
 				}
 			}
-			console.log("depois do if")
 			
 			var date = new Date()
-			var sport = new SportPost({post_privacy: req.body.privacy, post_date: date,
+			var sport = new SportPost({post_privacy: req.body.privacy, post_date: date,posted_by_id: req.user._id,
 			post_type: req.body.sport, posted_in: req.body.sport_local,sport_photos: photoNames.img,
 			posted_by: req.user.name, sport_type:req.body.sport_type, distance: req.body.sport_distance,
 			calories_burnt: req.body.sport_calories, duration: req.body.sport_duration ,
@@ -251,7 +241,7 @@ module.exports = function(passport){
 		if(req.body.thought){
 			
 			var date = new Date()
-			var thought = new ToughtPost({post_privacy: req.body.privacy, post_date: date,
+			var thought = new ToughtPost({post_privacy: req.body.privacy, post_date: date,posted_by_id: req.user._id,
 			post_type: req.body.thought, posted_in: req.body.thought_local, posted_by: req.user.name,
 			thought_text: req.body.thoughtDescription, posted_by_pic: req.user.img, post_comments: []})
 
@@ -287,7 +277,7 @@ module.exports = function(passport){
 			}
 			
 			var date = new Date()
-			var foto = new PhotoPost({post_privacy: req.body.privacy, post_date: date,
+			var foto = new PhotoPost({post_privacy: req.body.privacy, post_date: date,posted_by_id: req.user._id,
 			post_type: req.body.foto, posted_in: req.body.fotoLocal, posted_by: req.user.name, img: photoNames.img,
 			photo_description: req.body.fotoDescription, posted_by_pic: req.user.img, post_comments: []})
 		
@@ -312,7 +302,7 @@ module.exports = function(passport){
 
 			// single
 			var date = new Date()
-			var video = new VideoPost({post_privacy: req.body.privacy, post_date: date,
+			var video = new VideoPost({post_privacy: req.body.privacy, post_date: date,posted_by_id: req.user._id,
 			post_type: req.body.video, posted_in: req.body.videoLocal, posted_by: req.user.name, video: "uploads/"+req.files[0].originalname,
 			video_description: req.body.videoDescription, posted_by_pic: req.user.img, post_comments: []})
 		
@@ -347,7 +337,7 @@ module.exports = function(passport){
 			}
 			
 			var date = new Date()
-			var recipe = new CookingPost({post_privacy: req.body.privacy, post_date: date,
+			var recipe = new CookingPost({post_privacy: req.body.privacy, post_date: date,posted_by_id: req.user._id,
 			post_type: req.body.recipe, posted_in: req.body.cookLocal, cook_name: req.body.recipe_name,cook_photos: photoNames.img,
 			ingredients: req.body.ingredients, preparation: req.body.recipeDescription, posted_by: req.user.name, posted_by_pic: req.user.img,
 			post_comments: []})
@@ -384,7 +374,7 @@ module.exports = function(passport){
 			
 			var date = new Date()
 			var event = new EventPost({post_privacy: req.body.privacy, post_date: date,
-				event_photos: photoNames.img,
+				event_photos: photoNames.img,posted_by_id: req.user._id,
 				post_type: req.body.event, posted_in: req.body.event_local,
 				posted_by: req.user.name, event_name: req.body.event_name,
 				event_type: req.body.event_type, event_description: req.body.event_desc,
@@ -423,14 +413,28 @@ module.exports = function(passport){
 			})
 		res.redirect('/homepage')
 	})
+
+	
+	// change privacy
+	router.post("/changeprivacy/:idPost", function(req,res){
+		console.log("MyPriv")
+		Post.update({_id: req.params.idPost},{$set: {post_privacy:req.body.privacy}},
+		(err,result)=>{
+			if(!err){
+				console.log("alterou privacidade: "+ req.params.idPost)
+				res.redirect('/homepage')
+			}
+			else{
+				console.log('Erro ao alterar privacidade: '+ err)
+			}
+		})
+	})
+
 	
 
 
 	/* Handle ProfileChange POST */
 	router.post('/homepage/:id/changeprofdata', upload.array('newProfPic',1), function(req, res){
-
-
-		
 
 
 		console.log("PROFILE CHANGE")

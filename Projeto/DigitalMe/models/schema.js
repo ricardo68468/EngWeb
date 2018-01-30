@@ -13,6 +13,7 @@ function AbstractPostSchema() {
         posted_in: {type: String},
         posted_by_pic: {type: String},
         posted_by: {type: String, required: true},
+        posted_by_id: {type: Schema.Types.ObjectId, ref: 'User'},
         post_comments: [
             {
                 comment_date: {type: String, required:true},

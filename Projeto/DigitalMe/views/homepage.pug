@@ -43,7 +43,7 @@ html
       .w3-container
         a.w3-hide-large.w3-right.w3-jumbo.w3-padding.w3-hover-grey(href='#', onclick='w3_close()', title='close menu')
           i.fa.fa-remove
-        img.w3-round(id="fotoUser" src=user.img, style='width:45%;')
+        img.w3-round(id="fotoUser" src="/"+user.img, style='width:45%;')
         br
         br
         h4
@@ -79,34 +79,48 @@ html
         .w3-container
           h1
             b Perfil
-          .w3-section.w3-bottombar.w3-padding-16
+          .w3-section.w3-bottombar.w3-padding-16.button-container
             span.w3-margin-right Filtro:
-            button.w3-button.w3-black(id="filterAll") 
-              i.fa.fa-group.w3-margin-right
-              | Tudo
-            button.w3-button.w3-white.w3-hide-small(id="filterThoughts")
-              i.fa.fa-comment-o.w3-margin-right
-              | Pensamentos
-            button.w3-button.w3-white.w3-hide-small(id="filterPics")
-              i.fa.fa-photo.w3-margin-right
-              | Fotos
-            button.w3-button.w3-white.w3-hide-small(id="filterSports")
-              i.fa.fa-soccer-ball-o.w3-margin-right
-              | Registos Desportivos
-            button.w3-button.w3-white.w3-hide-small(id="filterVideos")
-              i.fa.fa-caret-square-o-right.w3-margin-right
-              | Vídeos
-            button.w3-button.w3-white.w3-hide-small(id="filterRecipes")
-              i.fa.fa-cutlery.w3-margin-right
-              | Receitas
-            button.w3-button.w3-white.w3-hide-small(id="filterEvents")
-              i.fa.fa-calendar.w3-margin-right
-              | Eventos
+            form(action="/homepage" method="GET")
+              button.w3-button.w3-black(id="filterAll" type="submit") 
+                i.fa.fa-group.w3-margin-right
+                | Tudo
+            form(action="/homepage/thoughts" method="GET")
+              button.w3-button.w3-white.w3-hide-small(id="filterThoughts")
+                i.fa.fa-comment-o.w3-margin-right
+                | Pensamentos
+            form(action="/homepage/pics" method="GET")
+              button.w3-button.w3-white.w3-hide-small(id="filterPics")
+                i.fa.fa-photo.w3-margin-right
+                | Fotos
+            form(action="/homepage/sports" method="GET")
+              button.w3-button.w3-white.w3-hide-small(id="filterSports")
+                i.fa.fa-soccer-ball-o.w3-margin-right
+                | Registos Desportivos
+            form(action="/homepage/videos" method="GET")
+              button.w3-button.w3-white.w3-hide-small(id="filterVideos")
+                i.fa.fa-caret-square-o-right.w3-margin-right
+                | Vídeos
+            form(action="/homepage/recipes" method="GET")
+              button.w3-button.w3-white.w3-hide-small(id="filterRecipes")
+                i.fa.fa-cutlery.w3-margin-right
+                | Receitas
+            form(action="/homepage/events" method="GET")
+              button.w3-button.w3-white.w3-hide-small(id="filterEvents")
+                i.fa.fa-calendar.w3-margin-right
+                | Eventos
             .dropdown
-              button.dropbtn.w3-button.w3-white.w3-hide-small(id="filterMyPosts")
+              form(method="POST" action="/homepage/myposts")
+                select.w3-button.w3-white.w3-border(name="privacy" onchange="this.form.submit()" )
+                  option(value="") Meus Posts
+                  option(value="all") Todos
+                  option(value="pub") Públicos
+                  option(value="priv") Privados
+
+              //button.dropbtn.w3-button.w3-white.w3-hide-small(id="filterMyPosts")
                 i.fa.fa-user.w3-margin-right
                 | Meus Posts
-              .dropdown-content
+              //.dropdown-content
                 a(href="#" id="MyPostsAll")
                   i.fa.fa-globe.w3-margin-right
                   | Todos
@@ -125,7 +139,7 @@ html
                     .w3-row.w3-margin-bottom
                       hr
                       .w3-col.l1.m3
-                        img(src=post.posted_by_pic, style='width:50px; border-radius: 50%;')
+                        img(src="/"+post.posted_by_pic, style='width:50px; border-radius: 50%;')
                       .w3-col.l6.m9
                         h4
                           = post.posted_by+" "
@@ -133,14 +147,16 @@ html
                     .w3-justify
                       p(style="font-size:120%")= post.thought_text
                       p.w3-left
-                        button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
-                          b
-                            i.fa.fa-thumbs-up
-                            |  Like
-                        button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal')
+                        button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal' style="margin-top:10px")
                           b
                             i.fa.fa-commenting-o
                             |  Comentar
+                        .dropdown
+                          form(method="POST" action="/changeprivacy/"+post._id)
+                            select.w3-button.w3-white.w3-border(name="privacy" onchange="this.form.submit()" style="margin-top:10px; margin-left:10px;")
+                              option(value="priv") Privacidade
+                              option(value="priv") Privado
+                              option(value="pub") Público
                       p.w3-right
                         button#myBtn.w3-button.w3-black(onclick="myFunction('"+post._id+"')")
                           b Comentários
@@ -152,7 +168,7 @@ html
                               li
                                 .w3-row.w3-margin-bottom
                                   .w3-col.l2.m3
-                                    img(src=i.comment_by_pic, style='width:90px;')
+                                    img(src="/"+i.comment_by_pic, style='width:90px;')
                                   .w3-col.l10.m9
                                     h4= i.comment_by+" "
                                       span.w3-opacity.w3-medium= i.comment_date
@@ -166,7 +182,7 @@ html
                             h4.modal-title Comentário:
                           .modal-body
                             form(action="/homepage/post/"+post._id+"/comment", method="POST")
-                              textarea#example1(rows='4', cols='75', autofocus='', name="comment_body")
+                              textarea(rows='4', cols='75', autofocus='', name="comment_body")
                               .modal-footer
                                 button.w3-button.w3-white.w3-border(type='submit')
                                   i.fa.fa-check
@@ -179,7 +195,7 @@ html
                     .w3-row.w3-margin-bottom
                       hr
                       .w3-col.l1.m3
-                        img(src=post.posted_by_pic, style='width:50px; border-radius: 50%;')
+                        img(src="/"+post.posted_by_pic, style='width:50px; border-radius: 50%;')
                       .w3-col.l6.m9
                         h4
                           = post.posted_by+" "
@@ -187,41 +203,43 @@ html
                     .w3-justify
                       p(style="font-size:120%")= post.photo_description
                       .w3-content.w3-display-container(style='max-width:800px')
-                        div.carousel.slide(data-ride="carousel" id="myCarousel")
+                        div.carousel.slide(data-ride="carousel" id="myCarousel"+post._id)
                           
                           ol.carousel-indicators
                             - var npics = 0;
                             
                             each i,index in post.img
                               if index
-                                li(data-target="#myCarousel" data-slide-to=npics++)
+                                li(data-target="#myCarousel"+post._id data-slide-to=npics++)
                               else
-                                li.active(data-target="#myCarousel" data-slide-to=npics++)
+                                li.active(data-target="#myCarousel"+post._id data-slide-to=npics++)
                           .carousel-inner
                             - var npics2 = 0;
                             
                             each i,index in post.img
                               if index
                                 .item
-                                  img(src=post.img[npics2++])
+                                  img(src="/"+post.img[npics2++] style="width: 100%; height: auto;")
                               else
                                 .item.active
-                                  img(src=post.img[npics2++])
-                          a.left.carousel-control(href="#myCarousel" data-slide="prev")
+                                  img(src="/"+post.img[npics2++] style="width: 100%; height: auto;")
+                          a.left.carousel-control(href="#myCarousel"+post._id data-slide="prev")
                             span.glyphicon.glyphicon-chevron-left
                             span.sr-only Anterior
-                          a.right.carousel-control(href="#myCarousel" data-slide="next")
+                          a.right.carousel-control(href="#myCarousel"+post._id data-slide="next")
                             span.glyphicon.glyphicon-chevron-right
                             span.sr-only Proximo
                       p.w3-left
-                        button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
-                          b
-                            i.fa.fa-thumbs-up
-                            |  Like
-                        button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal')
-                          b
-                            i.fa.fa-commenting-o
-                            |  Comentar
+                        button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal' style="margin-top:10px")
+                            b
+                              i.fa.fa-commenting-o
+                              |  Comentar
+                        .dropdown
+                          form(method="POST" action="/changeprivacy/"+post._id)
+                            select.w3-button.w3-white.w3-border(name="privacy" onchange="this.form.submit()" style="margin-top:10px; margin-left:10px;")
+                              option(value="priv") Privacidade
+                              option(value="priv") Privado
+                              option(value="pub") Público
                       p.w3-right
                         button#myBtn.w3-button.w3-black(onclick="myFunction('"+post._id+"')")
                           b Comentários
@@ -233,7 +251,7 @@ html
                               li
                                 .w3-row.w3-margin-bottom
                                   .w3-col.l2.m3
-                                    img(src=i.comment_by_pic, style='width:90px;')
+                                    img(src="/"+i.comment_by_pic, style='width:90px;')
                                   .w3-col.l10.m9
                                     h4= i.comment_by+" "
                                       span.w3-opacity.w3-medium= i.comment_date
@@ -247,7 +265,7 @@ html
                             h4.modal-title Comentário:
                           .modal-body
                             form(action="/homepage/post/"+post._id+"/comment", method="POST")
-                              textarea#example1(rows='4', cols='75', autofocus='', name="comment_body")
+                              textarea(rows='4', cols='75', autofocus='', name="comment_body")
                               .modal-footer
                                 button.w3-button.w3-white.w3-border(type='submit')
                                   i.fa.fa-check
@@ -270,17 +288,19 @@ html
                       .w3-container
                         center
                           video(width='700', style='margin-top: 20px', controls='')
-                            source(src=post.video type='video/mp4')
+                            source(src="/"+post.video type='video/mp4')
                             |                 Your browser does not support HTML5 video.
                       p.w3-left
-                        button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
-                          b
-                            i.fa.fa-thumbs-up
-                            |  Like
-                        button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal')
+                        button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal' style="margin-top:10px")
                           b
                             i.fa.fa-commenting-o
                             |  Comentar
+                        .dropdown
+                          form(method="POST" action="/changeprivacy/"+post._id)
+                            select.w3-button.w3-white.w3-border(name="privacy" onchange="this.form.submit()" style="margin-top:10px; margin-left:10px;")
+                              option(value="priv") Privacidade
+                              option(value="priv") Privado
+                              option(value="pub") Público
                       p.w3-right
                         button#myBtn.w3-button.w3-black(onclick="myFunction('"+post._id+"')")
                           b Comentários
@@ -292,7 +312,7 @@ html
                               li
                                 .w3-row.w3-margin-bottom
                                   .w3-col.l2.m3
-                                    img(src=i.comment_by_pic, style='width:90px;')
+                                    img(src="/"+i.comment_by_pic, style='width:90px;')
                                   .w3-col.l10.m9
                                     h4= i.comment_by+" "
                                       span.w3-opacity.w3-medium= i.comment_date
@@ -306,7 +326,7 @@ html
                             h4.modal-title Comentário:
                           .modal-body
                             form(action="/homepage/post/"+post._id+"/comment", method="POST")
-                              textarea#example1(rows='4', cols='75', autofocus='', name="comment_body")
+                              textarea(rows='4', cols='75', autofocus='', name="comment_body")
                               .modal-footer
                                 button.w3-button.w3-white.w3-border(type='submit')
                                   i.fa.fa-check
@@ -319,7 +339,7 @@ html
                     .w3-row.w3-margin-bottom
                       hr
                       .w3-col.l1.m3
-                        img(src=post.posted_by_pic style='width:50px; border-radius: 50%;')
+                        img(src="/"+post.posted_by_pic style='width:50px; border-radius: 50%;')
                       .w3-col.l6.m9
                         h4
                           = post.posted_by+" "
@@ -341,41 +361,43 @@ html
                       p(style="font-size:120%")= post.sport_description
                       if post.sport_photos.length
                         .w3-content.w3-display-container(style='max-width:800px')
-                          div.carousel.slide(data-ride="carousel" id="myCarousel")
+                          div.carousel.slide(data-ride="carousel" id="myCarousel"+post._id)
 
                             ol.carousel-indicators
                               - var npics = 0;
 
                               each i,index in post.sport_photos
                                 if index
-                                  li(data-target="#myCarousel" data-slide-to=npics++)
+                                  li(data-target="#myCarousel"+post._id data-slide-to=npics++)
                                 else
-                                  li.active(data-target="#myCarousel" data-slide-to=npics++)
+                                  li.active(data-target="#myCarousel"+post._id data-slide-to=npics++)
                             .carousel-inner
                               - var npics2 = 0;
 
                               each i,index in post.sport_photos
                                 if index
                                   .item
-                                    img(src=post.sport_photos[npics2++])
+                                    img(src="/"+post.sport_photos[npics2++] style="width: 100%; height: auto;")
                                 else
                                   .item.active
-                                    img(src=post.sport_photos[npics2++])
-                            a.left.carousel-control(href="#myCarousel" data-slide="prev")
+                                    img(src="/"+post.sport_photos[npics2++] style="width: 100%; height: auto;")
+                            a.left.carousel-control(href="#myCarousel"+post._id data-slide="prev")
                               span.glyphicon.glyphicon-chevron-left
                               span.sr-only Anterior
-                            a.right.carousel-control(href="#myCarousel" data-slide="next")
+                            a.right.carousel-control(href="#myCarousel"+post._id data-slide="next")
                               span.glyphicon.glyphicon-chevron-right
                               span.sr-only Proximo
                       p.w3-left
-                        button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
-                          b
-                            i.fa.fa-thumbs-up
-                            |  Like
-                        button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal')
+                        button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal' style="margin-top:10px")
                           b
                             i.fa.fa-commenting-o
                             |  Comentar
+                        .dropdown
+                          form(method="POST" action="/changeprivacy/"+post._id)
+                            select.w3-button.w3-white.w3-border(name="privacy" onchange="this.form.submit()" style="margin-top:10px; margin-left:10px;")
+                              option(value="priv") Privacidade
+                              option(value="priv") Privado
+                              option(value="pub") Público
                       p.w3-right
                         button#myBtn.w3-button.w3-black(onclick="myFunction('"+post._id+"')")
                           b Comentários
@@ -387,7 +409,7 @@ html
                               li
                                 .w3-row.w3-margin-bottom
                                   .w3-col.l2.m3
-                                    img(src=i.comment_by_pic, style='width:90px;')
+                                    img(src="/"+i.comment_by_pic, style='width:90px;')
                                   .w3-col.l10.m9
                                     h4= i.comment_by+" "
                                       span.w3-opacity.w3-medium= i.comment_date
@@ -401,7 +423,7 @@ html
                             h4.modal-title Comentário:
                           .modal-body
                             form(action="/homepage/post/"+post._id+"/comment", method="POST")
-                              textarea#example1(rows='4', cols='75', autofocus='', name="comment_body")
+                              textarea(rows='4', cols='75', autofocus='', name="comment_body")
                               .modal-footer
                                 button.w3-button.w3-white.w3-border(type='submit')
                                   i.fa.fa-check
@@ -414,7 +436,7 @@ html
                     .w3-row.w3-margin-bottom
                       hr
                       .w3-col.l1.m3
-                        img(src=post.posted_by_pic style='width:50px; border-radius: 50%;')
+                        img(src="/"+post.posted_by_pic style='width:50px; border-radius: 50%;')
                       .w3-col.l6.m9
                         h4
                           = post.posted_by+" "
@@ -432,38 +454,41 @@ html
                       h4 Modo de preparação:
                       p(style="font-size:120%")= post.preparation
                       .w3-content.w3-display-container(style='max-width:800px')
-                        div.carousel.slide(data-ride="carousel" id="myCarousel")
+                        div.carousel.slide(data-ride="carousel" id="myCarousel"+post._id)
                           ol.carousel-indicators
                             - var npics = 0;
                             each i,index in post.cook_photos
                               if index
-                                li(data-target="#myCarousel" data-slide-to=npics++)
+                                li(data-target="#myCarousel"+post._id data-slide-to=npics++)
                               else
-                                li.active(data-target="#myCarousel" data-slide-to=npics++)
+                                li.active(data-target="#myCarousel"+post._id data-slide-to=npics++)
                           .carousel-inner
                             - var npics2 = 0;
                             each i,index in post.cook_photos
                               if index
                                 .item
-                                  img(src=post.cook_photos[npics2++])
+                                  img(src="/"+post.cook_photos[npics2++] style="width: 100%; height: auto;")
                               else
                                 .item.active
-                                  img(src=post.cook_photos[npics2++])
-                          a.left.carousel-control(href="#myCarousel" data-slide="prev")
+                                  img(src="/"+post.cook_photos[npics2++] style="width: 100%; height: auto;")
+                          a.left.carousel-control(href="#myCarousel"+post._id data-slide="prev")
                             span.glyphicon.glyphicon-chevron-left
                             span.sr-only Anterior
-                          a.right.carousel-control(href="#myCarousel" data-slide="next")
+                          a.right.carousel-control(href="#myCarousel"+post._id data-slide="next")
                             span.glyphicon.glyphicon-chevron-right
                             span.sr-only Proximo
                       p.w3-left
-                        button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
-                          b
-                            i.fa.fa-thumbs-up
-                            |  Like
-                        button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal')
+                        
+                        button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal' style="margin-top:10px")
                           b
                             i.fa.fa-commenting-o
                             |  Comentar
+                        .dropdown
+                          form(method="POST" action="/changeprivacy/"+post._id)
+                            select.w3-button.w3-white.w3-border(name="privacy" onchange="this.form.submit()" style="margin-top:10px; margin-left:10px;")
+                              option(value="priv") Privacidade
+                              option(value="priv") Privado
+                              option(value="pub") Público
                       p.w3-right
                         button#myBtn.w3-button.w3-black(onclick="myFunction('"+post._id+"')")
                           b Comentários
@@ -475,7 +500,7 @@ html
                               li
                                 .w3-row.w3-margin-bottom
                                   .w3-col.l2.m3
-                                    img(src=i.comment_by_pic, style='width:90px;')
+                                    img(src="/"+i.comment_by_pic, style='width:90px;')
                                   .w3-col.l10.m9
                                     h4= i.comment_by+" "
                                       span.w3-opacity.w3-medium= i.comment_date
@@ -489,7 +514,7 @@ html
                             h4.modal-title Comentário:
                           .modal-body
                             form(action="/homepage/post/"+post._id+"/comment", method="POST")
-                              textarea#example1(rows='4', cols='75', autofocus='', name="comment_body")
+                              textarea(rows='4', cols='75', autofocus='', name="comment_body")
                               .modal-footer
                                 button.w3-button.w3-white.w3-border(type='submit')
                                   i.fa.fa-check
@@ -497,12 +522,11 @@ html
                                 button.w3-button.w3-white.w3-border(type='button', data-dismiss='modal')
                                   i.fa.fa-close.fa-fw
                                   |  Sair 
-
           when 5: .w3-container.w3-white.w3-margin.w3-padding-large
                     .w3-row.w3-margin-bottom
                       hr
                       .w3-col.l1.m3
-                        img(src=post.posted_by_pic style='width:50px; border-radius: 50%;')
+                        img(src="/"+post.posted_by_pic style='width:50px; border-radius: 50%;')
                       .w3-col.l6.m9
                         h4
                           = post.posted_by+" "
@@ -526,38 +550,40 @@ html
                       h4 Descrição do Evento:
                       p(style="font-size:120%")= post.event_description
                       .w3-content.w3-display-container(style='max-width:800px')
-                        div.carousel.slide(data-ride="carousel" id="myCarousel")
+                        div.carousel.slide(data-ride="carousel" id="myCarousel"+post._id)
                           ol.carousel-indicators
                             - var npics = 0;
                             each i,index in post.event_photos
                               if index
-                                li(data-target="#myCarousel" data-slide-to=npics++)
+                                li(data-target="#myCarousel"+post._id data-slide-to=npics++)
                               else
-                                li.active(data-target="#myCarousel" data-slide-to=npics++)
+                                li.active(data-target="#myCarousel"+post._id data-slide-to=npics++)
                           .carousel-inner
                             - var npics2 = 0;
                             each i,index in post.event_photos
                               if index
                                 .item
-                                  img(src=post.event_photos[npics2++])
+                                  img(src="/"+post.event_photos[npics2++] style="width: 100%; height: auto;")
                               else
                                 .item.active
-                                  img(src=post.event_photos[npics2++])
-                          a.left.carousel-control(href="#myCarousel" data-slide="prev")
+                                  img(src="/"+post.event_photos[npics2++] style="width: 100%; height: auto;")
+                          a.left.carousel-control(href="#myCarousel"+post._id data-slide="prev")
                             span.glyphicon.glyphicon-chevron-left
                             span.sr-only Anterior
-                          a.right.carousel-control(href="#myCarousel" data-slide="next")
+                          a.right.carousel-control(href="#myCarousel"+post._id data-slide="next")
                             span.glyphicon.glyphicon-chevron-right
                             span.sr-only Proximo
                       p.w3-left
-                        button.w3-button.w3-white.w3-border(onclick='likeFunction(this)')
-                          b
-                            i.fa.fa-thumbs-up
-                            |  Like
-                        button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal')
+                        button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal' style="margin-top:10px")
                           b
                             i.fa.fa-commenting-o
                             |  Comentar
+                        .dropdown
+                          form(method="POST" action="/changeprivacy/"+post._id)
+                            select.w3-button.w3-white.w3-border(name="privacy" onchange="this.form.submit()" style="margin-top:10px; margin-left:10px;")
+                              option(value="priv") Privacidade
+                              option(value="priv") Privado
+                              option(value="pub") Público
                       p.w3-right
                         button#myBtn.w3-button.w3-black(onclick="myFunction('"+post._id+"')")
                           b Comentários
@@ -569,7 +595,7 @@ html
                               li
                                 .w3-row.w3-margin-bottom
                                   .w3-col.l2.m3
-                                    img(src=i.comment_by_pic, style='width:90px;')
+                                    img(src="/"+i.comment_by_pic, style='width:90px;')
                                   .w3-col.l10.m9
                                     h4= i.comment_by+" "
                                       span.w3-opacity.w3-medium= i.comment_date
@@ -583,7 +609,7 @@ html
                             h4.modal-title Comentário:
                           .modal-body
                             form(action="/homepage/post/"+post._id+"/comment", method="POST")
-                              textarea#example1(rows='4', cols='75', autofocus='', name="comment_body")
+                              textarea(rows='4', cols='75', autofocus='', name="comment_body")
                               .modal-footer
                                 button.w3-button.w3-white.w3-border(type='submit')
                                   i.fa.fa-check
@@ -635,9 +661,9 @@ html
                     input#localThought.form-control(type="text", name="tought_local", placeholder="Localização")
                   .form-group.col-md-6(style="margin-top:10px")
                     label.col-form-label Privacidade:
-                    select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
-                      option(value='pub') Público
+                    select.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
                       option(value='priv') Privado
+                      option(value='pub') Público
                   .modal-footer
                     button.w3-button.w3-white.w3-border(type='submit')
                       i.fa.fa-check
@@ -654,15 +680,15 @@ html
                   textarea#example3(rows='2', cols='115', name="fotoDescription", placeholder="Descrição da foto")
                   .form-group.col-md-6(style='margin-top:10px')
                     label.col-form-label Escolher Foto:
-                    input.form-group(type='file', name='post' id="post" multiple)
+                    input.form-group(type='file', name='post' multiple)
                   .form-group.col-md-6(style='margin-top:10px')
                     label.col-form-label Localização:
-                    input#localFoto.form-control(type="text", name='fotoLocal', placeholder="Localização")
+                    input.form-control(type="text", name='fotoLocal', placeholder="Localização")
                   .form-row(style="margin-top: 11%; margin-left: 1%")
                     label.col-form-label Privacidade:
-                    select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
-                      option(value='pub') Público
+                    select.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
                       option(value='priv') Privado
+                      option(value='pub') Público
                   .modal-footer
                     button.w3-button.w3-white.w3-border(type='submit')
                       i.fa.fa-check
@@ -679,15 +705,15 @@ html
                   textarea#example4(rows='2', cols='115', name="videoDescription", placeholder="Descrição do Vídeo")
                   .form-group.col-md-6(style="margin-top:10px")
                     label.col-form-label Escolher Vídeo:
-                    input.form-group(type='file', name='post' id="post" multiple)
+                    input.form-group(type='file', name='post' multiple)
                   .form-group.col-md-6(style="margin-top:10px")
                     label.col-form-label Localização:
                     input.form-control(type="text", name="videoLocal" id="videoLocal" placeholder="Localização")
                   .form-row(style="margin-top: 11%; margin-left: 1%")
                     label.col-form-label Privacidade:
-                    select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
-                      option(value='pub') Público
+                    select.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
                       option(value='priv') Privado
+                      option(value='pub') Público
                   .modal-footer
                     button.w3-button.w3-white.w3-border(type='submit')
                       i.fa.fa-check
@@ -717,15 +743,15 @@ html
                   textarea#example5(rows='2', cols='115', name='sport_desc', placeholder="Descrição do Registo Desportivo")
                   .form-group.col-md-6(style='margin-top:10px')
                     label.col-form-label Escolher Foto:
-                    input.form-group(type='file' name='post' id="post" value="" multiple )
+                    input.form-group(type='file' name='post' value="" multiple )
                   .form-group.col-md-6(style='margin-top:10px')
                     label.col-form-label Localização:
-                    input#localFoto.form-control(type="text", name='sport_local', placeholder="Localização")
+                    input.form-control(type="text", name='sport_local', placeholder="Localização")
                   .form-row(style="margin-top: 11%; margin-left: 1%")
                     label.col-form-label Privacidade:
-                    select#priv.form-control(style='width: 150px; margin-bottom: 10px', name='privacy')
-                      option(value='pub') Público
+                    select.form-control(style='width: 150px; margin-bottom: 10px', name='privacy')
                       option(value='priv') Privado
+                      option(value='pub') Público
                   .modal-footer
                     button.w3-button.w3-white.w3-border(type='submit')
                       i.fa.fa-check
@@ -752,15 +778,15 @@ html
                   textarea#prep.form-control(rows='4', cols='115', placeholder='Modo de Preparação', name="recipeDescription")
                   .form-group.col-md-6(style="margin-top:10px")
                     label.col-form-label(style='margin-top:10px') Escolher Foto:
-                    input.form-group(type='file', name='post' id="post" multiple)
+                    input.form-group(type='file', name='post' multiple)
                   form-group.col-md-6(style="margin-top:10px")
                     label.col-form-label Localização:
                     input#localRecipe.form-control(type="text", name='cookLocal', placeholder="Localização")
                   .form-row(style="margin-top: 13%; margin-left: 1%")
                     label.col-form-label Privacidade:
-                    select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
-                      option(value='pub') Público
+                    select.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
                       option(value='priv') Privado
+                      option(value='pub') Público
                   .modal-footer
                     button.w3-button.w3-white.w3-border(type='submit')
                       i.fa.fa-check
@@ -789,7 +815,7 @@ html
                   textarea#example6(cols="115", rows="2", placeholder="Descrição do Evento" name="event_desc")
                   .form-group.col-md-6(style="margin-top:15px")
                     lable.col-form-label Escolher Foto:
-                    input.form-group(type="file", name="post" id="post" multiple)
+                    input.form-group(type="file", name="post" multiple)
                   .form-group.col-md-6(style="margin-top:15px")
                   .form-group.col-md-6
                     lable.col-form-label Tipo de Evento:
@@ -811,9 +837,9 @@ html
                     input.form-control(type="time" name="event_duration")
                   .form-row(style="margin-top: 13%; margin-left: %")
                     label.col-form-label Privacidade:
-                    select#priv.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
-                      option(value='pub') Público
+                    select.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
                       option(value='priv') Privado
+                      option(value='pub') Público
                   .modal-footer
                       button.w3-button.w3-white.w3-border(type='submit')
                         i.fa.fa-check

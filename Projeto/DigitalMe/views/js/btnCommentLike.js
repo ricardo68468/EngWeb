@@ -4,7 +4,6 @@
 document.getElementById("myBtn").click();
 function myFunction(id) {
     var x = document.getElementById(id);
-    alert("x:"+x)
     if (x.className.indexOf("w3-show") == -1) {
         x.className += " w3-show";
     } else { 
