@@ -81,7 +81,7 @@ module.exports = function(passport){
 	}));
 
 	// filter thoughts
-	router.get('/homepage/thoughts', function(req,res){
+	router.get('/homepage/thoughts', isAuthenticated, function(req,res){
 		console.log("Thoughts")
 		Post.find({post_type:"0"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
 			if(!err){
@@ -93,7 +93,7 @@ module.exports = function(passport){
 	})
 
 	// filter pics
-	router.get('/homepage/pics', function(req,res){
+	router.get('/homepage/pics', isAuthenticated, function(req,res){
 		Post.find({post_type:"1"}).where({post_privacy:"pub"})
 		.sort({post_date: -1}).exec((err,doc)=>{
 			if(!err){
@@ -105,7 +105,7 @@ module.exports = function(passport){
 	})
 	
 	// filter videos
-	router.get('/homepage/videos', function(req,res){
+	router.get('/homepage/videos', isAuthenticated, function(req,res){
 		console.log("Videos")
 		Post.find({post_type:"2"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
 			if(!err){
@@ -118,7 +118,7 @@ module.exports = function(passport){
 	})
 
 	// filter sports
-	router.get('/homepage/sports', function(req,res){
+	router.get('/homepage/sports', isAuthenticated, function(req,res){
 		console.log("Sports")
 		Post.find({post_type:"3"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
 			if(!err){
@@ -130,7 +130,7 @@ module.exports = function(passport){
 	})
 
 	// filter recipes
-	router.get('/homepage/recipes', function(req,res){
+	router.get('/homepage/recipes', isAuthenticated, function(req,res){
 		console.log("Recipes")
 		Post.find({post_type:"4"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
 			if(!err){
@@ -142,7 +142,7 @@ module.exports = function(passport){
 	})
 
 	// filter events
-	router.get('/homepage/events', function(req,res){
+	router.get('/homepage/events', isAuthenticated, function(req,res){
 		console.log("Events")
 		Post.find({post_type:"5"}).where({post_privacy:"pub"}).sort({post_date: -1}).exec((err,doc)=>{
 			if(!err){
@@ -154,7 +154,7 @@ module.exports = function(passport){
 	})
 
 	// filter myposts
-	router.post('/homepage/myposts', function(req,res){
+	router.post('/homepage/myposts', isAuthenticated, function(req,res){
 		switch(req.body.privacy){
 			case "priv":
 				// filter mypriv
@@ -199,7 +199,7 @@ module.exports = function(passport){
 
 
 	/* Handle submitPost POST */
-	router.post('/homepage/post', upload.array("post"),(req, res, next)=>{
+	router.post('/homepage/post', isAuthenticated, upload.array("post"),(req, res, next)=>{
 		if(req.body.sport){
 			// multiple
 			console.log("SPORT POST")
@@ -401,7 +401,7 @@ module.exports = function(passport){
 	})
 
 	/* Handle Comment on some post */
-	router.post('/homepage/post/:idPost/comment', (req, res, next)=>{
+	router.post('/homepage/post/:idPost/comment', isAuthenticated, (req, res, next)=>{
 		var date = new Date();
 		var comment = {comment_date: date, comment_body: req.body.comment_body, comment_by: req.user.name, comment_by_pic: req.user.img, comment_by_id: req.user._id}
 		Post.update({_id: req.params.idPost},{$push: {post_comments:comment}},
@@ -416,7 +416,7 @@ module.exports = function(passport){
 
 	
 	// change privacy
-	router.post("/changeprivacy/:idPost", function(req,res){
+	router.post("/changeprivacy/:idPost", isAuthenticated, function(req,res){
 		console.log("MyPriv")
 		Post.update({_id: req.params.idPost},{$set: {post_privacy:req.body.privacy}},
 		(err,result)=>{
@@ -430,11 +430,25 @@ module.exports = function(passport){
 		})
 	})
 
+	// delete post
+	router.post("/deletepost/:idPost", isAuthenticated, function(req,res){
+		console.log("MyPriv")
+		Post.remove({_id: req.params.idPost},(err)=>{
+			if(!err){
+				console.log("post removed:"+ req.params.idPost)
+				res.redirect('/homepage')
+			}
+			else{
+				console.log('Erro ao remover: '+ err)
+			}
+		})
+	})
+
 	
 
 
 	/* Handle ProfileChange POST */
-	router.post('/homepage/:id/changeprofdata', upload.array('newProfPic',1), function(req, res){
+	router.post('/homepage/:id/changeprofdata', isAuthenticated, upload.array('newProfPic',1), function(req, res){
 
 
 		console.log("PROFILE CHANGE")
@@ -529,7 +543,7 @@ module.exports = function(passport){
 	});
 
 	/* Handle Logout */
-	router.get('/signout', function(req, res, err) {
+	router.get('/signout', isAuthenticated, function(req, res, err) {
 		req.logOut()
 		res.redirect('/')
 

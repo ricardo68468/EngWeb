@@ -33,7 +33,7 @@ html
     // Navbar (sit on top)
     .w3-top
       .w3-bar.w3-white.w3-padding.w3-card(style='letter-spacing:4px;')
-        a.w3-bar-item.w3-button(href='#homepage') Digital Me
+        a.w3-bar-item.w3-button(href='/homepage') Digital Me
         // Right-sided navbar links. Hide them on small screens
         .w3-right.w3-hide-small
           a.w3-bar-item.w3-button(href="/signout" id="") LogOut
@@ -133,6 +133,7 @@ html
       - var n = 0;
       - var testpost = {postPic: 'foto',postVideos: 'sport', postThought: 'thought', postVideo: 'video', postRecipes: 'recipe', postEvent: 'event'}
       each post in lposts
+        - var testpriv = {id1:""+user._id,id2:""+post.posted_by_id}
         case post.post_type
           // TEMPLATE PENSAMENTO
           when 0: .w3-container.w3-white.w3-margin.w3-padding-large
@@ -143,20 +144,29 @@ html
                       .w3-col.l6.m9
                         h4
                           = post.posted_by+" "
-                          span.w3-opacity.w3-medium 18 de janeiro de 2017 às 13h24, em Universidade do Minho
+                          span.w3-opacity.w3-medium= post.post_date
+                          if post.posted_in
+                            span.w3-opacity.w3-medium= ", em "+post.posted_in
                     .w3-justify
                       p(style="font-size:120%")= post.thought_text
                       p.w3-left
-                        button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal' style="margin-top:10px")
-                          b
-                            i.fa.fa-commenting-o
-                            |  Comentar
-                        .dropdown
-                          form(method="POST" action="/changeprivacy/"+post._id)
-                            select.w3-button.w3-white.w3-border(name="privacy" onchange="this.form.submit()" style="margin-top:10px; margin-left:10px;")
-                              option(value="priv") Privacidade
-                              option(value="priv") Privado
-                              option(value="pub") Público
+                        .w3-section.w3-bottombar.w3-padding-16.button-container
+                          button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal' style="margin-top:10px")
+                            b
+                              i.fa.fa-commenting-o
+                              |  Comentar
+                          if testpriv.id1==testpriv.id2
+                            .dropdown
+                              form(method="POST" action="/changeprivacy/"+post._id)
+                                select.w3-button.w3-white.w3-border(name="privacy" onchange="this.form.submit()" style="margin-top:10px; margin-left:10px;")
+                                  option(value="priv") Privacidade
+                                  option(value="priv") Privado
+                                  option(value="pub") Público
+                            form(action="/deletepost/"+post._id method="POST")
+                              button.w3-button.w3-white.w3-border(type='submit' style="margin-top:10px; margin-left:10px;")
+                                b
+                                  i.fa.fa-commenting-o
+                                  |  Remover Post
                       p.w3-right
                         button#myBtn.w3-button.w3-black(onclick="myFunction('"+post._id+"')")
                           b Comentários
@@ -230,16 +240,23 @@ html
                             span.glyphicon.glyphicon-chevron-right
                             span.sr-only Proximo
                       p.w3-left
-                        button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal' style="margin-top:10px")
-                            b
-                              i.fa.fa-commenting-o
-                              |  Comentar
-                        .dropdown
-                          form(method="POST" action="/changeprivacy/"+post._id)
-                            select.w3-button.w3-white.w3-border(name="privacy" onchange="this.form.submit()" style="margin-top:10px; margin-left:10px;")
-                              option(value="priv") Privacidade
-                              option(value="priv") Privado
-                              option(value="pub") Público
+                        .w3-section.w3-bottombar.w3-padding-16.button-container
+                          button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal' style="margin-top:10px")
+                              b
+                                i.fa.fa-commenting-o
+                                |  Comentar
+                          if testpriv.id1==testpriv.id2
+                            .dropdown
+                              form(method="POST" action="/changeprivacy/"+post._id)
+                                select.w3-button.w3-white.w3-border(name="privacy" onchange="this.form.submit()" style="margin-top:10px; margin-left:10px;")
+                                  option(value="priv") Privacidade
+                                  option(value="priv") Privado
+                                  option(value="pub") Público
+                            form(action="/deletepost/"+post._id method="POST")
+                              button.w3-button.w3-white.w3-border(type='submit' style="margin-top:10px; margin-left:10px;")
+                                b
+                                  i.fa.fa-commenting-o
+                                  |  Remover Post
                       p.w3-right
                         button#myBtn.w3-button.w3-black(onclick="myFunction('"+post._id+"')")
                           b Comentários
@@ -291,16 +308,23 @@ html
                             source(src="/"+post.video type='video/mp4')
                             |                 Your browser does not support HTML5 video.
                       p.w3-left
-                        button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal' style="margin-top:10px")
-                          b
-                            i.fa.fa-commenting-o
-                            |  Comentar
-                        .dropdown
-                          form(method="POST" action="/changeprivacy/"+post._id)
-                            select.w3-button.w3-white.w3-border(name="privacy" onchange="this.form.submit()" style="margin-top:10px; margin-left:10px;")
-                              option(value="priv") Privacidade
-                              option(value="priv") Privado
-                              option(value="pub") Público
+                        .w3-section.w3-bottombar.w3-padding-16.button-container
+                          button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal' style="margin-top:10px")
+                              b
+                                i.fa.fa-commenting-o
+                                |  Comentar
+                          if testpriv.id1==testpriv.id2
+                            .dropdown
+                              form(method="POST" action="/changeprivacy/"+post._id)
+                                select.w3-button.w3-white.w3-border(name="privacy" onchange="this.form.submit()" style="margin-top:10px; margin-left:10px;")
+                                  option(value="priv") Privacidade
+                                  option(value="priv") Privado
+                                  option(value="pub") Público
+                            form(action="/deletepost/"+post._id method="POST")
+                              button.w3-button.w3-white.w3-border(type='submit' style="margin-top:10px; margin-left:10px;")
+                                b
+                                  i.fa.fa-commenting-o
+                                  |  Remover Post
                       p.w3-right
                         button#myBtn.w3-button.w3-black(onclick="myFunction('"+post._id+"')")
                           b Comentários
@@ -388,16 +412,23 @@ html
                               span.glyphicon.glyphicon-chevron-right
                               span.sr-only Proximo
                       p.w3-left
-                        button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal' style="margin-top:10px")
-                          b
-                            i.fa.fa-commenting-o
-                            |  Comentar
-                        .dropdown
-                          form(method="POST" action="/changeprivacy/"+post._id)
-                            select.w3-button.w3-white.w3-border(name="privacy" onchange="this.form.submit()" style="margin-top:10px; margin-left:10px;")
-                              option(value="priv") Privacidade
-                              option(value="priv") Privado
-                              option(value="pub") Público
+                        .w3-section.w3-bottombar.w3-padding-16.button-container
+                          button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal' style="margin-top:10px")
+                              b
+                                i.fa.fa-commenting-o
+                                |  Comentar
+                          if testpriv.id1==testpriv.id2
+                            .dropdown
+                              form(method="POST" action="/changeprivacy/"+post._id)
+                                select.w3-button.w3-white.w3-border(name="privacy" onchange="this.form.submit()" style="margin-top:10px; margin-left:10px;")
+                                  option(value="priv") Privacidade
+                                  option(value="priv") Privado
+                                  option(value="pub") Público
+                            form(action="/deletepost/"+post._id method="POST")
+                              button.w3-button.w3-white.w3-border(type='submit' style="margin-top:10px; margin-left:10px;")
+                                b
+                                  i.fa.fa-commenting-o
+                                  |  Remover Post
                       p.w3-right
                         button#myBtn.w3-button.w3-black(onclick="myFunction('"+post._id+"')")
                           b Comentários
@@ -478,17 +509,23 @@ html
                             span.glyphicon.glyphicon-chevron-right
                             span.sr-only Proximo
                       p.w3-left
-                        
-                        button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal' style="margin-top:10px")
-                          b
-                            i.fa.fa-commenting-o
-                            |  Comentar
-                        .dropdown
-                          form(method="POST" action="/changeprivacy/"+post._id)
-                            select.w3-button.w3-white.w3-border(name="privacy" onchange="this.form.submit()" style="margin-top:10px; margin-left:10px;")
-                              option(value="priv") Privacidade
-                              option(value="priv") Privado
-                              option(value="pub") Público
+                        .w3-section.w3-bottombar.w3-padding-16.button-container
+                          button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal' style="margin-top:10px")
+                              b
+                                i.fa.fa-commenting-o
+                                |  Comentar
+                          if testpriv.id1==testpriv.id2
+                            .dropdown
+                              form(method="POST" action="/changeprivacy/"+post._id)
+                                select.w3-button.w3-white.w3-border(name="privacy" onchange="this.form.submit()" style="margin-top:10px; margin-left:10px;")
+                                  option(value="priv") Privacidade
+                                  option(value="priv") Privado
+                                  option(value="pub") Público
+                            form(action="/deletepost/"+post._id method="POST")
+                              button.w3-button.w3-white.w3-border(type='submit' style="margin-top:10px; margin-left:10px;")
+                                b
+                                  i.fa.fa-commenting-o
+                                  |  Remover Post
                       p.w3-right
                         button#myBtn.w3-button.w3-black(onclick="myFunction('"+post._id+"')")
                           b Comentários
@@ -574,16 +611,23 @@ html
                             span.glyphicon.glyphicon-chevron-right
                             span.sr-only Proximo
                       p.w3-left
-                        button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal' style="margin-top:10px")
-                          b
-                            i.fa.fa-commenting-o
-                            |  Comentar
-                        .dropdown
-                          form(method="POST" action="/changeprivacy/"+post._id)
-                            select.w3-button.w3-white.w3-border(name="privacy" onchange="this.form.submit()" style="margin-top:10px; margin-left:10px;")
-                              option(value="priv") Privacidade
-                              option(value="priv") Privado
-                              option(value="pub") Público
+                        .w3-section.w3-bottombar.w3-padding-16.button-container
+                          button.w3-button.w3-white.w3-border(type='button', data-toggle='modal', data-target='#myModal' style="margin-top:10px")
+                              b
+                                i.fa.fa-commenting-o
+                                |  Comentar
+                          if testpriv.id1==testpriv.id2
+                            .dropdown
+                              form(method="POST" action="/changeprivacy/"+post._id)
+                                select.w3-button.w3-white.w3-border(name="privacy" onchange="this.form.submit()" style="margin-top:10px; margin-left:10px;")
+                                  option(value="priv") Privacidade
+                                  option(value="priv") Privado
+                                  option(value="pub") Público
+                            form(action="/deletepost/"+post._id method="POST")
+                              button.w3-button.w3-white.w3-border(type='submit' style="margin-top:10px; margin-left:10px;")
+                                b
+                                  i.fa.fa-commenting-o
+                                  |  Remover Post
                       p.w3-right
                         button#myBtn.w3-button.w3-black(onclick="myFunction('"+post._id+"')")
                           b Comentários
@@ -658,7 +702,7 @@ html
                   textarea#example2(rows='4', cols='115', placeholder='Em que está a pensar?', name="thoughtDescription")
                   .form-group.col-md-6(style="margin-top:10px")
                     label.col-form-label Localização:
-                    input#localThought.form-control(type="text", name="tought_local", placeholder="Localização")
+                    input#localThought.form-control(type="text", name="thought_local", placeholder="Localização")
                   .form-group.col-md-6(style="margin-top:10px")
                     label.col-form-label Privacidade:
                     select.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
