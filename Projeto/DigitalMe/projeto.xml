@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pr SYSTEM "file:/C:/Users/RicardoPC/Documents/PR.dtd">
+<pr>
+    <meta>
+        <keyname>DigitalMe</keyname>
+        <title>Projeto Final de EngWeb</title>
+        <subtitle></subtitle>
+        <bdate>12-12-2017</bdate>
+        <edate>31-01-2018</edate>
+        <supervisor>
+            <name>José Carlos Ramalho</name>
+            <email>jcr@di.uminho.pt</email>
+            <url></url>
+        </supervisor>
+    </meta>
+    <workteam id="ricardo68468">
+        <member>
+            <name>Ricardo Batista Rodrigues</name>
+            <id>a68468</id>
+            <email>a68468@alunos.uminho.pt</email>
+        </member>
+        <member>
+            <name>Rui Filipe Coelho da Silve</name>
+            <id>a68466</id>
+            <email>a68466@alunos.uminho.pt</email>
+        </member>
+        <member>
+            <name>João H. Santos</name>
+            <id>a68461</id>
+            <email>a68461@alunos.uminho.pt</email>
+        </member>
+    </workteam>
+    <abstract>
+        <p>
+            Este projeto consistiu na elaboração de um diário digital. Esta aplicação suporta múltiplos utilizadores.
+            Cada utilizador pode publicar vários tipos de conteudos, como por exemplo, registos desportivos, fotos, receitas, entre outros.
+            Estas publicações podem ser privadas ou públicas conforme a vontade do utilizador, por defeito estas são privadas.
+            Os utilizadores desta plataforma têm acesso a todas as suas publicações e a todos os conteúdos públicos.
+        </p>
+        <p>
+            Esta aplicação foi desenvolvida recorrendo à <it>framework</it> <b>Express</b>, sendo que foi utilizado <b>JavaScript</b> e para o seu 
+            <it>frontend</it> foi utilizado o motor de templates <b>PUG</b>.
+            Relativamente à base de dados foi usado <b>MongoDB</b>, sendo esta aplicação orientada a documentos.
+        </p>
+        <p>
+            Para a elaboração deste projeto foram utilizadas técnicas e soluções abordadas nas aulas.
+            Além disso foi necessário recorrer a mecanismos não abordados nas aulas com intuito de cumprir todos os requisitos.
+            Com isto não só praticamos o que foi lecionado nas aulas, como aprendemos novas e diferentes soluções. 
+        </p>
+        
+    </abstract>
+    <deliverables>
+        <deliverable url="views/index.pug">index.pug</deliverable>
+        <deliverable url="app.js">app.js</deliverable>
+        <deliverable url="pr.xsl">pr.XSL</deliverable>
+    </deliverables>
+</pr>
