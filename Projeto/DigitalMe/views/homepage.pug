@@ -60,7 +60,7 @@ html
         a.w3-bar-item.w3-button.w3-padding(onclick='w3_close()', data-toggle='modal', data-target='#publicarModal')
           i.fa.fa-paper-plane-o.fa-fw.w3-margin-right
           | Publicar
-      .w3-panel.w3-large
+      //.w3-panel.w3-large
         i.fa.fa-facebook-official.w3-hover-opacity
         i.fa.fa-instagram.w3-hover-opacity
         i.fa.fa-snapchat.w3-hover-opacity
@@ -879,9 +879,9 @@ html
                   .form-group.col-md-6
                     lable.col-form-lable Duração do evento:
                     input.form-control(type="time" name="event_duration")
-                  .form-row(style="margin-top: 13%; margin-left: %")
+                  .form-group.col-md-6
                     label.col-form-label Privacidade:
-                    select.form-control(style='width: 150px; margin-bottom: 10px', name="privacy")
+                    select.form-control(style='width: 150px', name="privacy")
                       option(value='priv') Privado
                       option(value='pub') Público
                   .modal-footer
@@ -900,7 +900,7 @@ html
           form(id="changeProfData" action="/homepage/"+user._id+"/changeprofdata" method="POST" enctype='multipart/form-data')
             .modal-header
               button.close(type='button', data-dismiss='modal') ×
-              h4.modal-title Consultar/Atualizar dados pessoais:
+              h4.modal-title Atualizar dados pessoais:
 
               .modal-body
                 .form-row
